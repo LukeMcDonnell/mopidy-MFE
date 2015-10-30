@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="mopidyFE" class="no-js lt-ie9 lt-ie8 lt-ie7" ng-controller="AppCtrl"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="mopidyFE" class="no-js lt-ie9 lt-ie8" ng-controller="AppCtrl"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="mopidyFE" class="no-js lt-ie9" ng-controller="AppCtrl"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="mopidyFE" class="no-js" ng-controller="AppCtrl"> <!--<![endif]-->
+
+<head ng-app="mopidyFE" >
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MFE- Mopidy FrontEnd</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="component.css" />
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+		
+</head>
+
+<body ng-cloak >
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+		<a onclick="toggleMenu()" href="#/search"><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
+		<a onclick="toggleMenu()" href="#/browse"><i class="fa fa-folder-open"></i> &nbsp;&nbsp;&nbsp;Browse</a>
+		<a onclick="toggleMenu()" href="#/playlists"> <i class="fa fa-list-ol"></i> &nbsp;&nbsp;&nbsp;Playlists</a>
+		<a onclick="toggleMenu()" href="#/nowplaying"> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
+		<a onclick="toggleMenu()" href="#/settings"> <i class="fa fa-cog"></i> &nbsp;&nbsp;&nbsp;Settings</a>
+	</nav>	
+		
+	<div>
+		
+	  <div ng-view > </div>
+	
+		<!-- HEADER -->
+		<div class="header">
+			<table align="center" width="100%" height="100%">
+				<tr>
+					<td width=5 >  </td>
+					<td valign="middle" width=30 > <a href="javascript:void(0);" onclick="toggleMenu();"><i class="fa fa-bars"></i></a> </td>
+					<td valign="middle" align="left" ng-if="pageTitle != 'Search'"> <h1> {{ pageTitle }} </h1> </td>
+					<td valign="middle" align="left" ng-if="pageTitle === 'Search'"> 
+						<form onsubmit="getSearch()" id="searchForm"> 
+					  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">
+					  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times" style="font-size: 30px;"></i></a>				  	
+					  	<script>	
+								getSearch = function(){
+									var term = document.getElementById("searchTerm").value;
+									if(term){
+										document.getElementById("searchTerm").blur()
+										location.href='#/search/' + term;
+									};
+								};
+								clearSearch = function(){
+									document.getElementById("searchTerm").value = '';
+									document.getElementById("searchTerm").focus()
+								}
+								focusSearch = function(){
+									document.getElementById("searchTerm").focus()									
+								}
+								
+							</script>	
+					  	
+						</form>	
+					</td>
+					<td></td>
+				</tr>
+			</table>	
+			
+		</div>
+		
+	
+		<!-- FOOTER -->
+		<div class="footer" ng-show="showFooter && (currentState === 'paused' || currentState === 'playing')">
+			<div>
+				
+				<div class="footer_left">
+					<img ng-src="{{currentTrackImageUrl}}" width=50 height=50>
+				</div>
+				
+				<a href="#/nowplaying">
+				<div class="footer_center">
+					<h1>{{ currentTrack | shorten:'':0 }}</h1>
+					<h3>{{ currentArtists[0].name }}</h3>
+					<!-- {{ currentTrackPosition }} / {{ currentTrackLengthString }} -->
+				</div>						
+				</a>
+							
+				<div class="footer_right">  
+					<a href="" ng-click="play()"><i class="fa fa-play" ng-if="currentState === 'paused' || currentState === 'stopped'"></i></a>
+					<a href="" ng-click="play()"><i class="fa fa-pause" ng-if="currentState === 'playing'"></i></a>	
+		  	</div>
+		  	
+		  </div>
+		  
+		</div>
+
+		<div id="menumask" class="menumask" onclick="toggleMenu()"></div>
+
+	</div>
+
+		
+	<!-- Includes --> 
+	<script src="vendor/angular.min.js"></script>
+  <script src="vendor/angular-route.min.js"></script>
+
+	<script type="text/javascript" src="vendor/mopidy.min.js"></script>
+	<script type="text/javascript" src="vendor/lastfm.api.js"></script>
+	<script type="text/javascript" src="vendor/lastfm.api.md5.js"></script>
+	<script type="text/javascript" src="vendor/lastfm.api.cache.js"></script>
+	<script type="text/javascript" src="vendor/underscore-min.js"></script>
+
+  <script src="app.js"></script>
+  <script src="views/nowplaying/nowplaying.js"></script>
+  <script src="views/settings/settings.js"></script>
+  <script src="views/browse/browse.js"></script>
+  <script src="views/playlists/playlists.js"></script>
+  <script src="views/search/search.js"></script>
+  <script src="views/artist/artist.js"></script>
+  <script src="views/album/album.js"></script>
+  <script src="services/cacheService.js"></script>
+  <script src="services/mopidyService.js"></script>
+  <script src="services/lastfmService.js"></script>
+  <script src="services/util.js"></script>
+  <script src="js/classie.js"></script>
+  
+	<script>
+		var menuMask = document.getElementById( 'menumask' );
+		var maskState= false;
+		var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+			body = document.body;
+
+		toggleMenu = function() {
+			if (maskState){
+				menuMask.style.display = 'none';
+				maskState = false;
+			} else {
+				menuMask.style.display = 'block';
+				maskState = true;
+			}
+			//classie.toggle( this, 'active' );
+			classie.toggle( menuLeft, 'cbp-spmenu-open' );
+		};
+	</script>
+  
+  
+  
+</body>
+</html>

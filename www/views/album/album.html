@@ -1,0 +1,37 @@
+<div class="main">
+	<div style="height: 60px"></div>
+	<div class="backImg" align="center" ng-if="showBG" style="background-image:url('{{albumImage}}')"></div>
+	
+	<div ng-if="!pageReady">
+		<br><br><br>
+		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	</div> 
+	
+	<div class="artist" ng-if="pageReady">
+	
+		<div class="lfmInfo">
+			<table width=100% height=180>
+				<tr>
+					<td width=180> <img ng-src="{{ albumImage }}" width=180 height=180> </td>
+					<td valign="top"> <h2><h2>ALBUM BY : {{ album.artists[0].name | uppercase }} {{ album.date }}</h2></h2> </td>
+				</tr>				
+			</table>	
+		</div>
+			
+		<div ng-repeat="track in tracks">			
+			<a href="" ng-click="playPlTrack( track )">
+				<div class="box" ng-if="track.uri != currentUri || currentUri === null">
+					<h1>{{ track.name | shorten:'':0 }}</h1>
+					<p>{{ track.track_no }}: {{ track.length | formatTime}}</p>
+				</div>
+				<div class="box2" ng-if="track.uri === currentUri">
+					<h1>{{ track.name | shorten:'':0 }}</h1>
+					<p>{{ track.track_no }}: {{ track.length | formatTime}}</p>
+				</div>
+			</a>
+		</div>
+		
+	</div>
+	
+	<br><br><br>
+</div>

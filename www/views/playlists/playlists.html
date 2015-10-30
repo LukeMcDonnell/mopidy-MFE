@@ -1,0 +1,28 @@
+<div class="main">
+	<div style="height: 60px"></div>
+	
+	<div ng-if="!pageReady">
+		<br><br><br>
+		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	</div>
+	
+	<div ng-if="pageReady">
+	
+		<div class="box3" style="text-align: right;">
+			<br>
+			<i class="fa fa-filter"></i>
+			<input type="search" ng-model="q" placeholder="filter" aria-label="filter" />
+		</div>
+		<div ng-repeat="plItems in playlists | filter:{name:q} as results">				
+			<a href="#/playlists/{{ plItems.uri | urlEncode }}">
+				<div class="box">
+					<h1>{{ plItems.name | split:'(by':0 | shorten:'':0 }}</h1>
+					<h3>{{ plItems.uri | split:':':0 }} (by{{plItems.name | split:'(by':1 }}</h3>
+				</div>
+			</a>
+				
+		</div>
+		
+	</div>
+	<br><br><br>
+</div>

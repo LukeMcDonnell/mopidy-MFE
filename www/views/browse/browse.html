@@ -1,0 +1,52 @@
+<div class="main">
+	<div style="height: 60px"></div>
+	
+	<div ng-if="!pageReady">
+		<br><br><br>
+		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	</div>
+	
+	<div ng-if="pageReady">
+				
+		<div class="box3" style="text-align: right;">
+			<br>
+			<i class="fa fa-filter"></i>
+			<input type="search" ng-model="q" placeholder="filter" aria-label="filter" />
+		</div>
+		
+		<div ng-repeat="libItem in libList | filter:{name:q} as results">
+			
+			<div ng-if="libItem.type != 'track' && libItem.uri">		
+			<a href="" ng-click="getUrl(libItem.type, libItem.uri, libItem.name)">
+				<div class="box">
+					<h1>{{ libItem.name | shorten:'':0 }}</h1>
+					<h3>{{ libItem.type }}</h3>
+				</div>
+			</a>
+			</div>
+			
+			<div ng-if="libItem.type === 'track' && libItem.uri != currentUri">				
+			<a href="" ng-click="playPlTrack( libItem )">
+				<div class="box">
+					<h1>{{ libItem.name | shorten:'':0 }}</h1>
+					<h3>{{ libItem.type }}</h3>
+				</div>
+			</a>
+			</div>
+			
+			<div ng-if="libItem.type === 'track' && libItem.uri === currentUri">				
+			<a href="" ng-click="playPlTrack( libItem )">
+				<div class="box2">
+					<h1>{{ libItem.name | shorten:'':0 }}</h1>
+					<h3>{{ libItem.type }}</h3>
+				</div>
+			</a>
+			</div>
+			
+				
+		</div>
+	
+		<br><br><br>
+		
+	</div>
+</div>

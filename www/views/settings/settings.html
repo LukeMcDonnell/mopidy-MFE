@@ -1,0 +1,33 @@
+<div class="main">
+	<div style="height: 60px"></div>
+	<div class="box3">
+		<h1>Connection Settings</h1>
+	</div>
+	<form ng-submit="saveSettings()">
+		<div class="box">
+			<h3>IP or HOSTNAME:</h3>
+			<input type="text" name="ip" value="ip" class="settingsBox" ng-model="ip">
+		</div>
+		
+		<div class="box">
+			<h3>PORT:</h3>
+			<input type="text" value="port" class="settingsBox" ng-model="port">
+		</div>
+		<div class="box">
+			<h3></h3>
+			 <input type="submit" id="submit" value="Submit and Test connection" class="settingsButton" />
+			</div>
+	</form>
+	<br>
+	
+	<div class="box3">
+		<h1>Cache Settings</h1>
+	</div>
+	<div class="box">
+		<h3></h3>
+		<input type="button" value="Clear Cache" class="settingsButton" ng-click="clearCache()">
+	</div>
+		
+	<br><br><br>
+	
+</div>

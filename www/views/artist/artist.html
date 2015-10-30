@@ -1,0 +1,77 @@
+<div class="main">
+	<div style="height: 60px"></div>
+	<div class="backImg" align="center" ng-if="showBG" style="background-image:url('{{artistImage}}')"></div>
+	
+	<div ng-if="!pageReady">
+		<br><br><br>
+		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	</div>
+	
+	<div class="artist" ng-if="pageReady">
+		<div class="lfmInfo">
+			<table width=100% height=180>
+				<tr>
+					<td width=180> <img ng-src="{{ artistImage }}" width=180 height=180> </td>
+					<td> <h2>{{ artistSummary | split:'&#60;a href':0 }}</h2> </td>
+				</tr>				
+			</table>	
+		</div>			
+		<div class="box3">
+			<h1>ALBUMS</h1>
+		</div>
+		<div ng-repeat="album in albums | filter:{type: 'album'}">
+			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
+			<div class="box">
+				<table><tr height=50>
+					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
+					<td align="left" width="100%"> 
+							<h1>{{ album.album.name | shorten:'':0 }}</h1>
+							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
+					</td>
+				</tr></table>
+			</div>
+		</a>	
+		</div>
+		
+		<div class="box3">
+			<h1>SINGLES</h1>
+		</div>
+		<div ng-repeat="album in albums | filter:{type: 'single'}">
+			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
+			<div class="box">
+				<table><tr height=50>
+					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
+					<td align="left" width="100%"> 
+							<h1>{{ album.album.name | shorten:'':0 }}</h1>
+							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
+					</td>
+				</tr></table>
+			</div>
+		</a>	
+		</div>
+		
+		<div class="box3">
+			<h1>APPEARS ON</h1>
+		</div>
+		<div ng-repeat="album in albums | filter:{type: 'appearson'}">
+			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
+			<div class="box">
+				<table><tr height=50>
+					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
+					<td align="left" width="100%"> 
+							<h1>{{ album.album.name | shorten:'':0 }}</h1>
+							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
+					</td>
+				</tr></table>
+			</div>
+		</a>	
+		</div>
+		
+		
+		
+		
+		
+		
+	</div>
+	<br><br><br>
+</div>

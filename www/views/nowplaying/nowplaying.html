@@ -1,0 +1,88 @@
+<div class="main">
+		<div style="height: 60px"></div>
+		<div class="backImg" align="center" ng-if="!showQueue && showBG" style="background-image:url('{{currentTrackImageUrl}}')"></div>		
+		
+		<div class="nowPlayingTop">
+			<table align="center" width="100%">
+				<tr>
+					<td width=30px align="left"></td>	
+					<td valign="middle"><p>{{ currentAlbum.name }}</p></td>
+					<td width=30px align="right" valign="middle"><a href="#/nowplaying/queue" ><i class="fa fa-list-ul" style="font-size: 20px;"></i></a></td>
+				</tr>
+			</table>
+		</div>
+	
+	<!--	<div ng-if="pageWidth < 800"> -->
+									
+				<div class="albumImg">	
+					<img ng-src="{{currentTrackImageUrl}}" >
+				</div>
+			
+			
+						
+			<div class="playControls">
+				<h1>{{ currentTrack }}</h1>
+				<p>{{ currentArtists[0].name }}</p>
+				<p>{{ currentTrackPosition }} / {{ currentTrackLengthString }}</p>
+				<table width=100% align="center">
+					<tr>
+						<td width=10></td>
+						<td align="left"><a href="" ng-click="previous()"><i class="fa fa-step-backward"></i></a></td>
+						<td>
+							<p ng-if="currentState != 'playing'"><a href="" ng-click="play()"><i class="fa fa-play" style="font-size: 50px;"></i></a></p>
+							<p ng-if="currentState === 'playing'"><a href="" ng-click="play()"><i class="fa fa-pause" style="font-size: 50px;"></i></a></p>				
+						</td>
+						<td align="right"><a href="" ng-click="next()"><i class="fa fa-step-forward"></i></a></td>
+						<td width=10></td>
+						</tr>
+				</table>			
+			</div>
+		<!-- </div>
+		
+		<div ng-if="pageWidth > 800">
+				
+						
+			
+		</div> -->
+		
+		
+		<div class="queueControl" ng-show="showQueue">
+			<table align="center" width="95%">
+				<tr height=40>
+					<th width=33% align="left"><a href="" ng-click=""></a></th>	
+					<th width=33%><h1> PLAY QUEUE </h1></th>
+					<th width=33% align="right"><a href="#/nowplaying/"><i class="fa fa-times" style="font-size: 30px;"></i></a></th>
+				</tr>
+			</table>
+			
+			<div ng-repeat="tracks in trackList">				
+				
+				<a href="" ng-click="playTlTrack( tracks.tlid )">
+					<div class="box" ng-if="tracks.tlid != currentTlid">
+						<table><tr height=50>
+							<td width=50><img ng-src="{{tracks.lfmImage}}" width=50 height=50></td>
+							<td align="left" width="100%">
+								<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
+								<h3>{{ tracks.track.artists[0].name }}</h3>
+							</td>
+						</tr></table>
+					</div>
+				
+					<div class="box2" ng-if="tracks.tlid === currentTlid">
+						<table><tr height=50>
+							<td width=50><img ng-src="{{tracks.lfmImage}}" width=50 height=50></td>
+							<td align="left" width="100%">
+								<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
+								<h3>{{ tracks.track.artists[0].name }}</h3>
+							</td>
+						</tr></table>						
+					</div>
+				</a>
+					
+			</div>	
+			
+		</div>
+		
+		
+		
+</div>

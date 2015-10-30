@@ -1,0 +1,333 @@
+/* app css stylesheet */
+
+.menumask {
+	display: 		none;
+	opacity:    0.5; 
+  background: #000; 
+  width:      100%;
+  height:     100%; 
+  z-index:    999;
+  top:        0; 
+  left:       0; 
+  position:   fixed; 
+}
+
+.searchBox {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	font-size: 17px;
+	background: transparent;
+	padding:4px 4px 4px 4px;
+	margin: 0px;
+	border:0px;
+	border-bottom: 1px solid #555555;
+	width:230px;
+	height:18px;
+	color: #ffffff
+}
+.searchButton {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	background: transparent;
+	border: 0px solid #555555;
+	color: #FFFFFF;
+}
+
+.lfmInfo {
+	width: 95%;
+	margin:auto;
+}
+
+.lfmInfo h2 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #ffffff;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 200;
+	line-height: 11px;	
+}
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 0px;
+	margin: 0px;
+} 
+body div {
+	padding: 0px;
+	margin: 0px;
+}
+
+
+.main {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+	margin: 0px;
+}
+.main h1 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #FFFFFF;
+	font-size: 17px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 8px;
+}
+.main h3 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #999999;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 200;
+	line-height: 6px;
+}
+.main p {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #ffffff;
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 200;
+	line-height: 6px;
+}
+.main a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.playControls {
+  position: fixed;
+	left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150px;
+  padding: 0px;
+  margin: 0px;
+}
+.playControls table{
+	font-size: 30px;
+	text-decoration: none;
+	letter-spacing: 0px;
+	max-width:700px;
+	line-height: 0px;
+	padding: 0px
+}
+.nowPlayingTop table{
+	max-width: 700px;
+}
+
+.nowPlayingTop {
+	height: 45px;
+	width: 100%;
+}
+.albumImg {
+	position:fixed;
+	left: 0;
+  right: 0;
+  top: 100px;
+  bottom:150px 
+}
+.albumImg img{
+  height: 100%;
+  max-Height: 100%
+}
+/*
+.backImg {
+//	visibility: hidden;
+	filter: blur(500px);
+  -webkit-filter: blur(2px);
+  -webkit-transform: translate3d(0, 0, 0);
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
+ 
+	height: 100%;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+	z-index: -1;
+
+}
+.backImg img {	
+	height:100%
+	width: 100%
+}
+*/
+
+.backImg {
+	visibility: none;
+	
+	position: fixed;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 5%;
+	height: 5%;
+
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	
+	-webkit-filter: blur(5px);
+	-webkit-transform-origin: top left;
+  -webkit-transform: scale(20)
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
+
+	filter: blur(10px);
+	transform-origin: top left;
+	transform: scale(20);
+	
+}
+
+
+.queueControl{
+	background: #000000;
+	opacity: 0.9;
+	position: absolute;
+	width: 100%;
+	min-height: 90%;
+	top: 50px;
+	padding: 0px;
+	margin: 0px;
+}
+.box {
+	border-bottom-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+  color: #FFFFFF;
+  width: 95%;
+  margin:auto;
+  height: 50px;
+  padding: 3px;
+  text-align:left;
+  text-decoration: none;
+}
+
+.box2{
+	border-bottom-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+  width: 95%;
+  margin:auto;
+  height: 50px;
+  padding: 3px;
+  text-align:left;
+  text-decoration: none;
+}
+.box2 h1{
+	color: #00CC00;
+}
+
+.box3{
+	border-bottom-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+  width: 95%;
+  margin:auto;
+  height: 50px;
+  padding: 7px;
+  text-align:left;
+  text-decoration: none;
+}
+.box3 h1{
+	color: #777777;
+	line-height: 40px;
+}
+
+/* HEADERS AND FOOTERS */
+
+.header {
+	background: #222222;
+	position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50px;
+}
+
+.header h1 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #ffffff;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 0px;
+}
+
+.header a{
+	color: #ffffff;
+	font-size: 25px;
+	text-decoration: none;
+}
+
+.footer {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#515151+0,0e0e0e+100 */
+	background: #515151; /* Old browsers */
+	background: -moz-linear-gradient(top, #515151 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#515151), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #515151 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #515151 0%,#0e0e0e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #515151 0%,#0e0e0e 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #515151 0%,#0e0e0e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#515151', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+  color: #ffffff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;   
+}
+.footer h1 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #FFFFFF;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 10px;
+}
+.footer h3 {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #888888;
+	font-size: 11px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 200;
+	line-height: 0px;
+}
+
+.footer_right {
+  position: absolute;
+  color: #FFFFFF;
+  right: 0px;
+  width: 60px;
+  padding: 8px;
+  text-align:right;
+  text-decoration: none;
+}
+
+.footer_right a{
+  color: #FFFFFF;
+  font-size:30px;
+  font-weight: 100;
+  line-height: 0px;
+}
+
+.footer_left {
+  position: absolute;
+  left: 0px;
+  width: 50px;
+  padding: 0px;
+}
+
+.footer_center {
+  position: absolute;
+  width: 100%;
+  top:0px;
+  padding: 0px;
+  text-align: center;
+}
+
