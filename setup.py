@@ -12,7 +12,7 @@ def get_version(filename):
 
 
 setup(
-    name='Mopidy-MFE',
+    name='mopidy_mfe',
     version=get_version('mopidy_mfe/__init__.py'),
     url='https://github.com/LukeMcDonnell/mopidy-MFE',
     license='MIT License',
