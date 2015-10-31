@@ -20,11 +20,7 @@ angular.module('mopidyFE.search', ['ngRoute'])
 	
 	var searchTerm = $routeParams.id;
 	$scope.searchTerm = searchTerm;
-	
-	$scope.addTrack = function(track){
-		mopidyservice.addTrack(track);
-	}	
-	
+		
 	if(searchTerm != null && searchTerm){
 		$scope.viewResults = "loading";
 		$scope.artists = [];

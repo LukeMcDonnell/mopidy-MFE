@@ -13,7 +13,7 @@ angular.module('mopidyFE', [
   'mopidyFE.util',
   'mopidyFE.artist',
   'mopidyFE.album',
-  'mopidyFE.settings',
+  'mopidyFE.settings'
   
 ])
 
@@ -230,10 +230,6 @@ angular.module('mopidyFE', [
     mopidyservice.next();
   };
 
-	$scope.playTlTrack = function(track){
-		mopidyservice.playTlTrack( track );
-	};
-
   $scope.$on('mopidyFE:slidervaluechanging', function(event, value) {
     isSeeking = true;
   });
@@ -250,6 +246,19 @@ angular.module('mopidyFE', [
     }
   }
 	
+	// global playlist methods
+	$rootScope.playTlTrack = function(track){
+		mopidyservice.playTlTrack( track );
+	};
+	
+	$rootScope.addReplacePlay = function(track, uris){
+		mopidyservice.addReplacePlay(track, uris);
+	};
+	
+	$rootScope.appendTrack = function(track){
+		mopidyservice.addTrack(track);
+	}
+	// more to come.
 	
 	
 	

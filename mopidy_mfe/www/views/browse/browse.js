@@ -21,7 +21,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 	$scope.pageReady = false;
 	
 	var currentDir = { name: null, uri: null };
-	var libTlList = []
+	$scope.libTlList = []
 	
 	if ($routeParams.uri){
 		currentDir = { name: util.urlDecode($routeParams.name), uri: util.urlDecode($routeParams.uri) };
@@ -36,17 +36,13 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 	  if (data[0].type === 'track' || data[data.length-1].type === 'track'){
 			for (var i in data){
 				if (data[i].type === 'track'){
-					libTlList.push(data[i].uri)
+					$scope.libTlList.push(data[i].uri)
 				}
 			}
 		}		
 		
 		$scope.pageReady=true;
 	});
-	
-	$scope.playPlTrack = function(track){
-		mopidyservice.addReplacePlay(track, libTlList);
-	}	
 	
 	$scope.getUrl = function(type, uri, name){
 		uri = util.urlEncode(uri);
@@ -61,5 +57,6 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 			$location.path('/browse/'+uri+'/');
 		}
 	}
+		
 	
 });

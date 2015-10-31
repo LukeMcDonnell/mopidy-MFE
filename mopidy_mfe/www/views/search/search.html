@@ -51,7 +51,7 @@
 			<h1>TRACKS</h1>
 		</div>
 		<div ng-repeat="track in tracks">
-			<a href="" ng-click="addTrack( track.uri )">
+			<a href="" ng-click="appendTrack( track.uri )">
 			<div class="box">
 				<h1>{{ track.name | shorten:'':0 }}</h1>
 				<h3>({{ track.uri | split:':':0 | uppercase  }}) {{ track.artists[0].name }} - {{ track.album.name  | shorten:'':0 }}</h3>

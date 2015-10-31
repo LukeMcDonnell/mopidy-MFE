@@ -60,8 +60,4 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	  	
 	}
 	
-	$scope.playPlTrack = function(track){
-		mopidyservice.addReplacePlay(track, $scope.playlistUris);
-	}
-	
 });

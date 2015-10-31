@@ -8,7 +8,7 @@
 	
 	<div ng-if="pageReady">
 		<div ng-repeat="plItems in playlist.tracks">
-			<a href="" ng-click="playPlTrack( plItems )">
+			<a href="" ng-click="addReplacePlay( plItems, playlistUris )">
 				<div class="box" ng-if="plItems.uri != currentUri || currentUri === null">
 					<table><tr height=50>
 						<td width=50><img ng-src="{{plItems.lfmImage}}" width=50 height=50></td>

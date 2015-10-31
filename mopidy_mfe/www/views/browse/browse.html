@@ -26,7 +26,7 @@
 			</div>
 			
 			<div ng-if="libItem.type === 'track' && libItem.uri != currentUri">				
-			<a href="" ng-click="playPlTrack( libItem )">
+			<a href="" ng-click="addReplacePlay( libItem, libTlList )">
 				<div class="box">
 					<h1>{{ libItem.name | shorten:'':0 }}</h1>
 					<h3>{{ libItem.type }}</h3>
@@ -35,7 +35,7 @@
 			</div>
 			
 			<div ng-if="libItem.type === 'track' && libItem.uri === currentUri">				
-			<a href="" ng-click="playPlTrack( libItem )">
+			<a href="" ng-click="addReplacePlay( libItem, libTlList )">
 				<div class="box2">
 					<h1>{{ libItem.name | shorten:'':0 }}</h1>
 					<h3>{{ libItem.type }}</h3>

@@ -19,7 +19,7 @@
 		</div>
 			
 		<div ng-repeat="track in tracks">			
-			<a href="" ng-click="playPlTrack( track )">
+			<a href="" ng-click="addReplacePlay( track, playlistUris )">
 				<div class="box" ng-if="track.uri != currentUri || currentUri === null">
 					<h1>{{ track.name | shorten:'':0 }}</h1>
 					<p>{{ track.track_no }}: {{ track.length | formatTime}}</p>

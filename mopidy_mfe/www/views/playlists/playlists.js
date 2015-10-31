@@ -23,11 +23,7 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 	$scope.pageReady = false;
 	
 	var plId = util.urlDecode($routeParams.id);
-	
-	$scope.playPlTrack = function(track){
-		mopidyservice.addReplacePlay(track, $scope.playlistUris);
-	}	
-		
+			
 	if(!$routeParams.id){ 
 	  $scope.playlists = [];
 		
