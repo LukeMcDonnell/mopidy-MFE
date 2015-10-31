@@ -11,8 +11,19 @@
   left:       0; 
   position:   fixed; 
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+input:focus {
+   outline: none;
+}
 
-.searchBox {
+.searchBox, .searchBox active, .searchBox  hover {
+	-webkit-appearance: none;
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	font-size: 17px;
 	background: transparent;
