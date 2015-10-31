@@ -12,7 +12,9 @@ Install by running::
 
     sudo pip install Mopidy-MFE
 
+Upgrade by running::
 
+    sudo pip install Mopidy-MFE --upgrade
 
 Project resources
 =================
@@ -25,7 +27,7 @@ Project resources
 Changelog
 =========
 
-v0.1.0 (2015-10-31)
+v0.1.2 (2015-10-31)
 -------------------
 
 - Initial release.
