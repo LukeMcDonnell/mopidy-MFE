@@ -4,9 +4,9 @@ import os
 
 from mopidy import config, ext
 
-__version__ = '0.1.0'
+__version__ = '0.1.2'
 
-class MopedExtension(ext.Extension):
+class MFEExtension(ext.Extension):
     dist_name = 'Mopidy-MFE'
     ext_name = 'mfe'
     version = __version__
