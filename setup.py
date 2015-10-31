@@ -29,7 +29,7 @@ setup(
     ],
     entry_points={
         'mopidy.ext': [
-            'mfe = mopidy_mfe:Extension',
+            'mfe = mopidy_mfe:MFEExtension',
         ],
     },
     classifiers=[
