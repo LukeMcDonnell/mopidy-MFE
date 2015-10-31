@@ -51,16 +51,13 @@ angular.module('mopidyFE', [
 }])
 
 .controller('AppCtrl', function AppController ($rootScope, $scope, $location, $window, mopidyservice, lastfmservice, util) {
-	$rootScope.showBG = true;
-	
-	mopidyservice.start();
-
+	$rootScope.showBG = false;
 	var checkPositionTimer;
   var isSeeking = false;
-  var isUpdating = false;
   var defaultTrackImageUrl = 'assets/vinyl-icon.png';
 
   resetCurrentTrack();
+	mopidyservice.start();
 
 	$scope.$on('mopidy:state:offline', function() {
     clearInterval(checkPositionTimer);
