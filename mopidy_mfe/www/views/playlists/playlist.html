@@ -8,26 +8,28 @@
 	
 	<div ng-if="pageReady">
 		<div ng-repeat="plItems in playlist.tracks">
-			<a href="" ng-click="addReplacePlay( plItems, playlistUris )">
-				<div class="box" ng-if="plItems.uri != currentUri || currentUri === null">
-					<table><tr height=50>
-						<td width=50><img ng-src="{{plItems.lfmImage}}" width=50 height=50></td>
-						<td align="left" width="100%"> 
-								<h1>{{ plItems.name | shorten:'':0 }}</h1>
-								<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
-						</td>
-					</tr></table>
-				</div>
-				<div class="box2" ng-if="plItems.uri === currentUri">
-					<table><tr height=50>
-						<td width=50><img ng-src="{{plItems.lfmImage}}" width=50 height=50></td>
-						<td align="left" width="100%"> 
-								<h1>{{ plItems.name | shorten:'':0 }}</h1>
-								<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
-						</td>
-					</tr></table>
-				</div>
-			</a>
+			
+			<div class="box">
+				<a href="" onclick="contextMenu(plItems);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="" ng-click="addReplacePlay( plItems, playlistUris )">
+					<div class="boxLeft"> 
+						<img ng-src="{{plItems.lfmImage}}" width=50 height=50 />
+					</div>			
+					<div class="boxCenter" ng-if="plItems.uri != currentUri || currentUri === null"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ plItems.name | shorten:'':0 }}</h1>
+						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
+					</div></div></div>
+					<div class="boxCenter2" ng-if="plItems.uri === currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ plItems.name | shorten:'':0 }}</h1>
+						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
+					</div></div></div>
+				</a>
+			</div>				
+
 		</div>
 		
 	</div>

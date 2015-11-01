@@ -13,13 +13,22 @@
 			<i class="fa fa-filter"></i>
 			<input type="search" ng-model="q" placeholder="filter" aria-label="filter" />
 		</div>
-		<div ng-repeat="plItems in playlists | filter:{name:q} as results">				
-			<a href="#/playlists/{{ plItems.uri | urlEncode }}">
-				<div class="box">
-					<h1>{{ plItems.name | split:'(by':0 | shorten:'':0 }}</h1>
-					<h3>{{ plItems.uri | split:':':0 }} (by{{plItems.name | split:'(by':1 }}</h3>
-				</div>
-			</a>
+		
+		<div ng-repeat="plItems in playlists | filter:{name:q} as results">
+			
+			<div class="box">
+				<a href="" onclick="contextMenu(plItems);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/playlists/{{ plItems.uri | urlEncode }}">					
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ plItems.name | split:'(by':0 | shorten:'':0 }}</h1>
+						<h3>{{ plItems.uri | split:':':0 }} (by{{plItems.name | split:'(by':1 }}</h3>
+					</div></div></div>
+				</a>
+			</div>
 				
 		</div>
 		

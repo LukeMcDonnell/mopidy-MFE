@@ -20,51 +20,66 @@
 			<h1>ALBUMS</h1>
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'album'}">
-			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
 			<div class="box">
-				<table><tr height=50>
-					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
-					<td align="left" width="100%"> 
-							<h1>{{ album.album.name | shorten:'':0 }}</h1>
-							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
-					</td>
-				</tr></table>
+				<a href="" onclick="contextMenu(album);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
+					<div class="boxLeft"> 
+						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+					</div>
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ album.album.name | shorten:'':0 }}</h1>
+						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+					</div></div></div>
+				</a>
 			</div>
-		</a>	
 		</div>
 		
 		<div class="box3">
 			<h1>SINGLES</h1>
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'single'}">
-			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
 			<div class="box">
-				<table><tr height=50>
-					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
-					<td align="left" width="100%"> 
-							<h1>{{ album.album.name | shorten:'':0 }}</h1>
-							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
-					</td>
-				</tr></table>
+				<a href="" onclick="contextMenu(album);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
+					<div class="boxLeft"> 
+						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+					</div>
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ album.album.name | shorten:'':0 }}</h1>
+						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+					</div></div></div>
+				</a>
 			</div>
-		</a>	
 		</div>
 		
 		<div class="box3">
 			<h1>APPEARS ON</h1>
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'appearson'}">
-			<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">
 			<div class="box">
-				<table><tr height=50>
-					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
-					<td align="left" width="100%"> 
-							<h1>{{ album.album.name | shorten:'':0 }}</h1>
-							<p>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</p>
-					</td>
-				</tr></table>
+				<a href="" onclick="contextMenu(album);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
+					<div class="boxLeft"> 
+						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+					</div>
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ album.album.name | shorten:'':0 }}</h1>
+						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+					</div></div></div>
+				</a>
 			</div>
-		</a>	
 		</div>
 		
 		

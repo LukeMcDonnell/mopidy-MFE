@@ -16,33 +16,32 @@
 		
 		<div ng-repeat="libItem in libList | filter:{name:q} as results">
 			
-			<div ng-if="libItem.type != 'track' && libItem.uri">		
-			<a href="" ng-click="getUrl(libItem.type, libItem.uri, libItem.name)">
-				<div class="box">
-					<h1>{{ libItem.name | shorten:'':0 }}</h1>
-					<h3>{{ libItem.type }}</h3>
-				</div>
-			</a>
+			<div class="box" ng-if="libItem.type != 'track'">
+				<a href="" ng-click="getUrl(libItem.type, libItem.uri, libItem.name)">				
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ libItem.name | shorten:'':0 }}</h1>
+						<h3>{{ libItem.type }}</h3>
+					</div></div></div>
+				</a>
 			</div>
 			
-			<div ng-if="libItem.type === 'track' && libItem.uri != currentUri">				
-			<a href="" ng-click="addReplacePlay( libItem, libTlList )">
-				<div class="box">
-					<h1>{{ libItem.name | shorten:'':0 }}</h1>
-					<h3>{{ libItem.type }}</h3>
-				</div>
-			</a>
-			</div>
-			
-			<div ng-if="libItem.type === 'track' && libItem.uri === currentUri">				
-			<a href="" ng-click="addReplacePlay( libItem, libTlList )">
-				<div class="box2">
-					<h1>{{ libItem.name | shorten:'':0 }}</h1>
-					<h3>{{ libItem.type }}</h3>
-				</div>
-			</a>
-			</div>
-			
+			<div class="box" ng-if="libItem.type === 'track'">
+				<a href="" onclick="contextMenu(libItem);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="" ng-click="addReplacePlay( libItem, libTlList )">				
+					<div class="boxCenter" ng-if="libItem.uri != currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ libItem.name | shorten:'':0 }}</h1>
+						<h3>{{ libItem.type }}</h3>
+					</div></div></div>
+					<div class="boxCenter2" ng-if="libItem.uri === currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ libItem.name | shorten:'':0 }}</h1>
+						<h3>{{ libItem.type }}</h3>
+					</div></div></div>
+				</a>
+			</div>							
 				
 		</div>
 	

@@ -1,4 +1,90 @@
-/* app css stylesheet */
+/*
+//
+//   BOXES.
+//
+*/
+
+.box {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	overflow:hidden;
+  height:56px;
+  width: 95%;
+  margin: auto;
+	border-bottom-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+}
+
+.boxLeft {
+	height:50px;
+	width:56px;
+	float:left;
+	padding-top: 3px;
+	text-align: left;
+}
+
+.boxRight {
+	height:56px;
+ 	width:50px;
+  float:right;
+  line-height: 66px;
+  color: #666666;
+  z-index: 2000;
+}
+
+.boxCenter {
+	width: 100%;
+	height: 100%;
+	text-align: left;
+}
+.boxCenter2 {
+	width: 100%;
+	height: 100%;
+	text-align: left;
+	color: green;
+}
+.boxCenter2 h1 {
+	color: green !important;
+}
+.box h1 {
+	color: #FFFFFF;
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 0px;
+}
+.box h3 {
+	color: #999999;
+	font-size: 12px;
+	font-weight: 200;
+	line-height: 5px;
+}
+
+
+/*
+//
+//   HEADING BOXES.
+//
+*/
+.box3{
+	width: 95%;
+  margin-left:auto;
+  margin-right:auto;
+  height: 56px;
+	border-bottom-style: dotted;
+	border-color: #999999;
+	border-width: 1px;
+	text-align:left;
+	
+}
+.box3 h1{
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	font-size: 17px;
+	font-weight: 400;
+	color: #777777;
+	line-height: 85px;
+}
+
+
 
 .menumask {
 	display: 		none;
@@ -22,7 +108,7 @@ input:focus {
    outline: none;
 }
 
-.searchBox, .searchBox active, .searchBox  hover {
+.searchBox, .searchBox active, .searchBox hover {
 	-webkit-appearance: none;
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	font-size: 17px;
@@ -68,6 +154,10 @@ body div {
 	margin: 0px;
 }
 
+body a {
+    text-decoration: none;
+}
+
 
 .main {
   text-align: center;
@@ -75,37 +165,6 @@ body div {
   height: 100%;
   padding: 0px;
 	margin: 0px;
-}
-.main h1 {
-	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-	color: #FFFFFF;
-	font-size: 17px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 400;
-	line-height: 8px;
-}
-.main h3 {
-	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-	color: #999999;
-	font-size: 11px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 200;
-	line-height: 6px;
-}
-.main p {
-	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-	color: #ffffff;
-	font-size: 13px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 200;
-	line-height: 6px;
-}
-.main a{
-	color: #FFFFFF;
-	text-decoration: none;
 }
 
 .playControls {
@@ -192,7 +251,6 @@ body div {
 	
 }
 
-
 .queueControl{
 	background: #000000;
 	opacity: 0.9;
@@ -202,49 +260,6 @@ body div {
 	top: 50px;
 	padding: 0px;
 	margin: 0px;
-}
-.box {
-	border-bottom-style: dotted;
-	border-color: #999999;
-	border-width: 1px;
-  color: #FFFFFF;
-  width: 95%;
-  margin:auto;
-  height: 50px;
-  padding: 3px;
-  text-align:left;
-  text-decoration: none;
-}
-
-.box2{
-	border-bottom-style: dotted;
-	border-color: #999999;
-	border-width: 1px;
-  width: 95%;
-  margin:auto;
-  height: 50px;
-  padding: 3px;
-  text-align:left;
-  text-decoration: none;
-}
-.box2 h1{
-	color: #00CC00;
-}
-
-.box3{
-	border-bottom-style: dotted;
-	border-color: #999999;
-	border-width: 1px;
-  width: 95%;
-  margin:auto;
-  height: 50px;
-  padding: 7px;
-  text-align:left;
-  text-decoration: none;
-}
-.box3 h1{
-	color: #777777;
-	line-height: 40px;
 }
 
 /* HEADERS AND FOOTERS */

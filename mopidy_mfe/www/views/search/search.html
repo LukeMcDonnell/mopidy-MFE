@@ -12,37 +12,51 @@
 	<div ng-if="viewResults === 'ready'" class="searchResults">
 		<div class="box3">
 			<h1>ARTISTS</h1>
-		</div>
+		</div>	
 		<div ng-repeat="artist in artists">
-			<a href="#/artist/{{ artist.name | urlEncode }}/{{ artist.uri | urlEncode }}">
+			
 			<div class="box">
-				<table><tr height=50>
-					<td width=50 valign="middle" ><img ng-src="{{artist.lfmImage}}" width=50 height=50></td>
-					<td align="left" width="100%" valign="middle"> 
-							<h1>{{ artist.name }}</h1>
-					</td>
-				</tr></table>				
-			</div>	
-		</a>
+				<a href="" onclick="contextMenu(artist);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/artist/{{ artist.name | urlEncode }}/{{ artist.uri | urlEncode }}">						
+					<div class="boxLeft"> 
+						<img ng-src="{{artist.lfmImage}}" width=50 height=50 />
+					</div>
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1> {{artist.name}}	</h1>
+					</div></div></div>
+				</a>
+			</div>
+				
 		</div>
 
 		<br><br>
 		
 		<div class="box3">
 			<h1>ALBUMS</h1>
-		</div>
+		</div>		
 		<div ng-repeat="album in albums">
-			<a href="#/album/{{ album.name | urlEncode }}/{{ album.uri | urlEncode }}">
+			
 			<div class="box">
-				<table><tr height=50>
-					<td width=50><img ng-src="{{album.lfmImage}}" width=50 height=50></td>
-					<td align="left" width="100%"> 
-							<h1>{{ album.name | shorten:'':0 }}</h1>
-							<h3>{{ album.artists[0].name }}&nbsp;&nbsp;({{album.date}})</h3>
-					</td>
-				</tr></table>
-			</div>	
-			</a>
+				<a href="" onclick="contextMenu(album);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/album/{{ album.name | urlEncode }}/{{ album.uri | urlEncode }}">						
+					<div class="boxLeft"> 
+						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+					</div>
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ album.name | shorten:'':0 }}</h1>
+						<h3>{{ album.artists[0].name }}&nbsp;&nbsp;({{album.date}})</h3>
+					</div></div></div>
+				</a>
+			</div>		
+				
 		</div>
 		
 		<br><br>
@@ -51,31 +65,46 @@
 			<h1>TRACKS</h1>
 		</div>
 		<div ng-repeat="track in tracks">
-			<a href="" ng-click="appendTrack( track.uri )">
+			
 			<div class="box">
-				<h1>{{ track.name | shorten:'':0 }}</h1>
-				<h3>({{ track.uri | split:':':0 | uppercase  }}) {{ track.artists[0].name }} - {{ track.album.name  | shorten:'':0 }}</h3>
-			</div>	
-		</a>
-		</div>
-		<br><br><br>
-	</div>
+				<a href="" onclick="contextMenu(track);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="" ng-click="appendTrack( track.uri )">					
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ track.name | shorten:'':0 }}</h1>
+						<h3>({{ track.uri | split:':':0 | uppercase  }}) {{ track.artists[0].name }} - {{ track.album.name  | shorten:'':0 }}</h3>
+					</div></div></div>
+				</a>
+			</div>		
 
+		</div>
+		
+		<br><br><br>
+	
+	</div>
 	
 	<div ng-if="viewResults === 'history'">
 		<div class="box3">
 			<h1>RECENT SEARCHES</h1>
 		</div>
 		<div ng-repeat="history in searchHistory">
-			<a href="#/search/{{ history.query }}">
+			
 			<div class="box">
-				<table><tr height=50>
-					<td align="left" width="100%" valign="middle"> 
-							<h1>{{ history.query }}</h1>
-					</td>
-				</tr></table>				
-			</div>	
-		</a>
+				<a href="" onclick="removeHistory(history);">
+					<div class="boxRight">
+						<i class="fa fa-ellipsis-v fa-2x"></i>
+					</div>
+				</a>
+				<a href="#/search/{{ history.query }}">				
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ history.query }}</h1>
+					</div></div></div>
+				</a>
+			</div>
+				
 		</div>
 	</div>
 	
