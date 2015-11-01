@@ -57,28 +57,27 @@
 			
 			<div ng-repeat="tracks in trackList">				
 				
-				<a href="" ng-click="playTlTrack( tracks.tlid )">
-					<div class="box" ng-if="tracks.tlid != currentTlid">
-						<table><tr height=50>
-							<td width=50><img ng-src="{{tracks.lfmImage}}" width=50 height=50></td>
-							<td align="left" width="100%">
-								<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
-								<h3>{{ tracks.track.artists[0].name }}</h3>
-							</td>
-						</tr></table>
-					</div>
+				<div class="box">
+					<a href="" onclick="contextMenu(tracks);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
+					<a href="" ng-click="playTlTrack( tracks.tlid )">
+						<div class="boxLeft"> 
+							<img ng-src="{{tracks.lfmImage}}" width=50 height=50 />
+						</div>			
+						<div class="boxCenter" ng-if="tracks.tlid != currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
+							<h3>{{ tracks.track.artists[0].name }}</h3>
+						</div></div></div>
+						<div class="boxCenter2" ng-if="tracks.tlid === currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
+							<h3>{{ tracks.track.artists[0].name }}</h3>
+						</div></div></div>
+					</a>
+				</div>				
 				
-					<div class="box2" ng-if="tracks.tlid === currentTlid">
-						<table><tr height=50>
-							<td width=50><img ng-src="{{tracks.lfmImage}}" width=50 height=50></td>
-							<td align="left" width="100%">
-								<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
-								<h3>{{ tracks.track.artists[0].name }}</h3>
-							</td>
-						</tr></table>						
-					</div>
-				</a>
-					
 			</div>	
 			
 		</div>
