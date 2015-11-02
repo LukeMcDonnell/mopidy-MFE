@@ -1,7 +1,7 @@
+<div class="backImg"> <img id="bg" ng-src="{{albumImage}}" /></div>
+
 <div class="main">
 	<div style="height: 60px"></div>
-	<div class="backImg" align="center" ng-if="showBG" style="background-image:url('{{albumImage}}')"></div>
-	
 	<div ng-if="!pageReady">
 		<br><br><br>
 		<i class="fa fa-spinner fa-2x fa-pulse"></i>
@@ -20,7 +20,7 @@
 			
 		<div ng-repeat="track in tracks">
 			<div class="box">
-				<a href="" onclick="contextMenu(track);">
+				<a href="" ng-click="contextMenu(track);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -42,8 +42,3 @@
 	
 	<br><br><br>
 </div>
-
-<!--
-<div class="boxCenter" ng-if="track.uri != currentUri || currentUri === null">
-<div class="boxCenter2" ng-if="track.uri === currentUri">
--->

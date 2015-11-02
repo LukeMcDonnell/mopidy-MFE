@@ -51,7 +51,7 @@ angular.module('mopidyFE', [
 }])
 
 .controller('AppCtrl', function AppController ($rootScope, $scope, $location, $window, mopidyservice, lastfmservice, util, cacheservice) {
-	$rootScope.showBG = false;
+	$rootScope.showBG = true;
 	var checkPositionTimer;
   var isSeeking = false;
   var defaultTrackImageUrl = 'assets/vinyl-icon.png';
@@ -245,8 +245,15 @@ angular.module('mopidyFE', [
       mopidyservice.seek(Math.round(milliSeconds));      
     }
   }
-	
+  
+  $rootScope.contextMenu = function(context){
+  	console.log("CONTEXT:")
+  	console.log(context);
+  }
+  
+	//
 	// global playlist methods
+	//
 	$rootScope.playTlTrack = function(track){
 		mopidyservice.playTlTrack( track );
 	};

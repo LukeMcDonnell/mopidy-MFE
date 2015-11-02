@@ -16,7 +16,7 @@
 		<div ng-repeat="artist in artists">
 			
 			<div class="box">
-				<a href="" onclick="contextMenu(artist);">
+				<a href="" ng-click="contextMenu(artist);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -41,7 +41,7 @@
 		<div ng-repeat="album in albums">
 			
 			<div class="box">
-				<a href="" onclick="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -67,7 +67,7 @@
 		<div ng-repeat="track in tracks">
 			
 			<div class="box">
-				<a href="" onclick="contextMenu(track);">
+				<a href="" ng-click="contextMenu(track);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -90,10 +90,9 @@
 		<div class="box3">
 			<h1>RECENT SEARCHES</h1>
 		</div>
-		<div ng-repeat="history in searchHistory">
-			
+		<div ng-repeat="history in searchHistory">	
 			<div class="box">
-				<a href="" onclick="removeHistory(history);">
+				<a href="" ng-click="removeHistory(history);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -104,7 +103,6 @@
 					</div></div></div>
 				</a>
 			</div>
-				
 		</div>
 	</div>
 	

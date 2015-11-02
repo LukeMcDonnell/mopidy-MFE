@@ -1,7 +1,7 @@
+<div class="backImg"> <img id="bg" ng-src="{{artistImage}}" /></div>
 <div class="main">
 	<div style="height: 60px"></div>
-	<div class="backImg" align="center" ng-if="showBG" style="background-image:url('{{artistImage}}')"></div>
-	
+		
 	<div ng-if="!pageReady">
 		<br><br><br>
 		<i class="fa fa-spinner fa-2x fa-pulse"></i>
@@ -21,7 +21,7 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'album'}">
 			<div class="box">
-				<a href="" onclick="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -43,7 +43,7 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'single'}">
 			<div class="box">
-				<a href="" onclick="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
@@ -65,7 +65,7 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'appearson'}">
 			<div class="box">
-				<a href="" onclick="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>

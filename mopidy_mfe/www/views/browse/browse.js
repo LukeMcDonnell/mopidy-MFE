@@ -44,6 +44,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 		}		
 		
 		if ($scope.showHome){
+			$rootScope.pageTitle = "My Music";
 			for (var i in $scope.libList){
 				var folder = $scope.libList[i].name
 				if (folder === "Local media"){
@@ -69,14 +70,14 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 					if (recent[i].__model__ === "Album"){
 						var obj = {
 							line1: recent[i].name,
-							line2: "Album By: " + recent[i].artists[0].name,
+							line2: "Album (by " + recent[i].artists[0].name +")",
 							uri: "#/album/"+recent[i].name+"/"+recent[i].uri,
 							timestamp: recent[i].timestamp
 						}
 					} else if (recent[i].__model__ === "Playlist"){
 						var obj = {
-							line1: recent[i].name,
-							line2: "Playlist",
+							line1: recent[i].name.split('(by')[0],
+							line2: "Playlist (by " + recent[i].name.split('(by')[1],
 							uri: "#/playlists/"+recent[i].uri,
 							timestamp: recent[i].timestamp
 							

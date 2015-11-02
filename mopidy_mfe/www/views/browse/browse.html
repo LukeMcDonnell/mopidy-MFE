@@ -7,11 +7,7 @@
 	</div>
 	
 	<div ng-if="pageReady && showHome">
-		
-		<div class="box3">
-			<h1>MY MUSIC</h1>
-		</div>
-		
+				
 		<div class="box">
 			<a href="#/playlists">						
 				<div class="boxLeftIcon"> 
@@ -39,7 +35,7 @@
 		</div>
 	
 		<div class="box3">
-			<h1>RECENTLY PLAYED:</h1>
+			<h1>RECENTLY PLAYED</h1>
 		</div>
 		<div ng-repeat="recent in recentList">
 
@@ -79,7 +75,7 @@
 			</div>
 			
 			<div class="box" ng-if="libItem.type === 'track'">
-				<a href="" onclick="contextMenu(libItem);">
+				<a href="" ng-click="contextMenu(libItem);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>

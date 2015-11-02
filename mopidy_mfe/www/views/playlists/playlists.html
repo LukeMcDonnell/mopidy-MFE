@@ -17,7 +17,7 @@
 		<div ng-repeat="plItems in playlists | filter:{name:q} as results">
 			
 			<div class="box">
-				<a href="" onclick="contextMenu(plItems);">
+				<a href="" ng-click="contextMenu(plItems);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
