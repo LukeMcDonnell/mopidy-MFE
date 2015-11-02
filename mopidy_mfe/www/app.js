@@ -50,7 +50,7 @@ angular.module('mopidyFE', [
   $routeProvider.otherwise({redirectTo: '/nowplaying'});
 }])
 
-.controller('AppCtrl', function AppController ($rootScope, $scope, $location, $window, mopidyservice, lastfmservice, util) {
+.controller('AppCtrl', function AppController ($rootScope, $scope, $location, $window, mopidyservice, lastfmservice, util, cacheservice) {
 	$rootScope.showBG = false;
 	var checkPositionTimer;
   var isSeeking = false;
@@ -251,8 +251,12 @@ angular.module('mopidyFE', [
 		mopidyservice.playTlTrack( track );
 	};
 	
-	$rootScope.addReplacePlay = function(track, uris){
+	$rootScope.addReplacePlay = function(track, uris, recent){
 		mopidyservice.addReplacePlay(track, uris);
+		if (recent){
+			cacheservice.addRecent(recent);
+			//console.log(recent)
+		}
 	};
 	
 	$rootScope.appendTrack = function(track){

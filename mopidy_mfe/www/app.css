@@ -13,6 +13,7 @@
 	border-bottom-style: dotted;
 	border-color: #999999;
 	border-width: 1px;
+	text-align: left;
 }
 
 .boxLeft {
@@ -22,19 +23,26 @@
 	padding-top: 3px;
 	text-align: left;
 }
+.boxLeftIcon {
+	height:50px;
+	width:56px;
+	float:left;
+	text-align: center;
+	line-height: 65px;
+	color: #ffffff;
+}
 
 .boxRight {
 	height:56px;
- 	width:50px;
+ 	width:30px;
   float:right;
-  line-height: 66px;
+  line-height: 68px;
   color: #666666;
-  z-index: 2000;
 }
 
 .boxCenter {
 	width: 100%;
-	height: 100%;
+	height: 100%
 	text-align: left;
 }
 .boxCenter2 {
@@ -49,14 +57,14 @@
 .box h1 {
 	color: #FFFFFF;
 	font-size: 17px;
-	font-weight: 400;
-	line-height: 0px;
+	font-weight: 100;
+	line-height: 3px;
 }
 .box h3 {
 	color: #999999;
 	font-size: 12px;
-	font-weight: 200;
-	line-height: 5px;
+	font-weight: 100;
+	line-height: 0px;
 }
 
 

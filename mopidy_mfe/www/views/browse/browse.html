@@ -6,7 +6,60 @@
 		<i class="fa fa-spinner fa-2x fa-pulse"></i>
 	</div>
 	
-	<div ng-if="pageReady">
+	<div ng-if="pageReady && showHome">
+		
+		<div class="box3">
+			<h1>MY MUSIC</h1>
+		</div>
+		
+		<div class="box">
+			<a href="#/playlists">						
+				<div class="boxLeftIcon"> 
+					<i class="fa fa-star-o fa-2x" ></i>
+				</div>
+				<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle; ">
+					<h1> Playlists </h1>
+				</div></div></div>
+			</a>
+		</div>	
+		
+		<div ng-repeat="libItem in libList">
+			
+			<div class="box" ng-if="libItem.type != 'track'">
+				<a href="" ng-click="getUrl(libItem.type, libItem.uri, libItem.name)">
+					<div class="boxLeftIcon"> 
+						<i class="{{ libItem.icon }}"></i>
+					</div>				
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ libItem.name | shorten:'':0 }}</h1>
+					</div></div></div>
+				</a>
+			</div>
+
+		</div>
+	
+		<div class="box3">
+			<h1>RECENTLY PLAYED:</h1>
+		</div>
+		<div ng-repeat="recent in recentList">
+
+			<div class="box" ng-if="libItem.type != 'track'">
+				<a href="{{ recent.uri }}">				
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ recent.line1 | shorten:'':0 }}</h1>
+						<h3>{{ recent.line2 }}</h3>
+					</div></div></div>
+				</a>
+			</div>
+
+		</div>
+		<br><br><br>
+		
+	</div>
+	
+	
+	
+	<div ng-if="pageReady && !showHome">
 				
 		<div class="box3" style="text-align: right;">
 			<br>

@@ -25,7 +25,7 @@
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
 				</a>
-				<a href="" ng-click="addReplacePlay( track, playlistUris )">				
+				<a href="" ng-click="addReplacePlay( track, playlistUris, album )">				
 					<div class="boxCenter" ng-if="track.uri != currentUri || currentUri === null"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ track.name | shorten:'':0 }}</h1>
 						<h3>Track {{ track.track_no }}: {{ track.length | formatTime}}</h3>

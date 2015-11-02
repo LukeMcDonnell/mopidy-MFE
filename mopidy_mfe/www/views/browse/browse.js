@@ -19,12 +19,14 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 	$rootScope.pageTitle = "Browse";
 	$rootScope.showFooter = true;
 	$scope.pageReady = false;
+	$scope.showHome = true;
 	
 	var currentDir = { name: null, uri: null };
 	$scope.libTlList = []
 	
 	if ($routeParams.uri){
 		currentDir = { name: util.urlDecode($routeParams.name), uri: util.urlDecode($routeParams.uri) };
+		$scope.showHome = false;
 	} 
 		
 	mopidyservice.getLibraryItems(currentDir.uri).then(function(data) {
@@ -40,6 +42,52 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 				}
 			}
 		}		
+		
+		if ($scope.showHome){
+			for (var i in $scope.libList){
+				var folder = $scope.libList[i].name
+				if (folder === "Local media"){
+						$scope.libList[i].icon = "fa fa-home fa-2x";
+				} else if (folder === "Spotify"){
+						var spot = i;
+				} else if (folder === "Spotify Browse"){
+						$scope.libList[i].icon = "fa fa-spotify fa-2x";
+				} else if (folder === "TuneIn"){
+						$scope.libList[i].icon = "fa fa-rss fa-2x"
+				}
+			}
+			if (spot){ $scope.libList.splice(spot,1); }
+			$scope.recentList = []
+			var recent = _.chain(cacheservice.getRecent())
+					.sortBy('timestamp')
+					.value()
+				
+			recent.reverse();
+			$scope.tempp = recent
+			if (recent){
+				for (var i in recent){
+					if (recent[i].__model__ === "Album"){
+						var obj = {
+							line1: recent[i].name,
+							line2: "Album By: " + recent[i].artists[0].name,
+							uri: "#/album/"+recent[i].name+"/"+recent[i].uri,
+							timestamp: recent[i].timestamp
+						}
+					} else if (recent[i].__model__ === "Playlist"){
+						var obj = {
+							line1: recent[i].name,
+							line2: "Playlist",
+							uri: "#/playlists/"+recent[i].uri,
+							timestamp: recent[i].timestamp
+							
+						}
+					}
+					if(obj){
+						$scope.recentList.push(obj);
+					}					
+				}
+			}
+		} 	
 		
 		$scope.pageReady=true;
 	});
@@ -57,6 +105,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 			$location.path('/browse/'+uri+'/');
 		}
 	}
-		
+	
+	
+	
 	
 });

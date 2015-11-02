@@ -3,6 +3,7 @@ angular.module('mopidyFE.cache', [])
   var sCacheMax = 20 	// max number or entries for each cache
 	var iCacheMax = 100 //
 	var bCacheMax = 100 //
+	var recentMax = 20
 	
   ls=window.localStorage
 	//ls.clear(); //for testing
@@ -18,11 +19,14 @@ angular.module('mopidyFE.cache', [])
 		// cache indexes
 		ls.sCacheIndex=JSON.stringify([]);
 		ls.bCacheIndex=JSON.stringify([]);
-		ls.iCacheIndex=JSON.stringify([]); 
+		ls.iCacheIndex=JSON.stringify([]);
+		// recent
+		ls.recent = JSON.stringify([]);
 		$location.path('/settings');
 
 	}
-	
+
+	var recent = JSON.parse(ls.recent);	
 	var sCacheIndex = JSON.parse(ls.sCacheIndex);
 	var bCacheIndex = JSON.parse(ls.bCacheIndex);
 	var iCacheIndex = JSON.parse(ls.iCacheIndex);
@@ -54,6 +58,43 @@ angular.module('mopidyFE.cache', [])
   }  
 	
 	return {
+		addRecent: function(k){
+			var item = JSON.parse(JSON.stringify(k));
+			item.tracks = [];
+			// check if already there
+			var f=false;
+			for (var i in recent){
+				if (recent[i].uri === item.uri){
+					recent[i].timestamp = new Date().getTime(); // found it, update timestamp and return;
+					f=true;
+					break;
+				}
+			}
+			if (!f){
+				// add to arr and check length
+				item.timestamp = new Date().getTime();
+				var l = recent.push(item);
+				
+				if(l >= recentMax){
+					var minDate = new Date().getTime()
+					var d = 0;
+	  			for (var j in recent){
+	  				if (recent[j].timestamp < minDate){
+	  					minDate = recent[j].timestamp;
+	  					d = j;
+	  				}
+	  			}
+	  			recent.splice(d,1);
+	  		}
+			}
+			// write to ls
+			ls.recent = JSON.stringify(recent);
+		},
+		
+		getRecent: function(){
+			return JSON.parse(ls.recent);
+		},
+		
 		getSettings: function(){
 			var settings={ip: ls.ip,
 				port: ls.port
