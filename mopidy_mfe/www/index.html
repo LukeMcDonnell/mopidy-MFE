@@ -97,7 +97,34 @@
 		</div>
 
 		<div id="menumask" class="menumask" onclick="toggleMenu()"></div>
-
+		
+		<div class="contextMenu" ng-if="showContext">
+				<a href="" ng-click="closeContextMenu()">
+					<div class="contextMask"></div>
+				</a>
+				<div class="contextOuter">
+					<div class="contextInner">					
+						<div class="box">						
+								<div class="boxLeft"> 
+									<img ng-src="{{contextData.image}}" width=50 height=50 />
+								</div>
+								<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+									<h1> {{contextData.header | shorten }}	</h1>
+									<h3> {{contextData.header2}} </h3>
+								</div></div></div>
+						</div>		
+						<div ng-show="contextReady">
+							<div ng-repeat="button in contextData.buttons">
+								<a href="" ng-click="contextLink(button.type, button.data, button.arg)">
+									<div class="box2">
+										<h1>{{ button.text | shorten }}</h1>
+									</div>
+								</a>  
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
 
 		

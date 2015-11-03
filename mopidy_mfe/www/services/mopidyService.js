@@ -212,9 +212,29 @@ angular.module('mopidyFE.mopidy', [])
       	
     	},
     	
-    	addTrack: function(track){
+    	appendTrack: function(track){
     		var self=this;
-    		self.mopidy.tracklist.add({ uri: track })
+    		self.mopidy.tracklist.add({ uris: track })
+    	},
+    	
+    	addTrackNext: function(track, pos){
+    		var self=this;
+    		self.mopidy.tracklist.index()
+    			.then(function(pos){
+ 			  		self.mopidy.tracklist.add({uris: track, at_position: pos+1})
+ 			  	})
+ 			  	
+    	},
+    	playTrackNext: function(track){
+    		var self=this;
+    		self.mopidy.tracklist.index()
+    			.then(function(pos){
+ 			  		self.mopidy.tracklist.add({uris: track, at_position: pos+1})
+ 			  			.then(function(){
+ 			  				self.next();
+ 			  			})
+ 			  	})
+ 			  		
     	},
     	
       playTrack: function(track, surroundingTracks) {

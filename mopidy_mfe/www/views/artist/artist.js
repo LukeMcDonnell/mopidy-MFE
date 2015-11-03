@@ -65,10 +65,10 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 	      $scope.albums = allAlbums;
 				for (var i in $scope.albums) {
 					// Get album image
-					$scope.albums[i].lfmImage = 'assets/vinyl-icon.png';
+					$scope.albums[i].album.lfmImage = 'assets/vinyl-icon.png';
 	        lastfmservice.getAlbumImage($scope.albums[i].album, 'large', i, function(err, albumImageUrl, i) {
 	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-	            $scope.albums[i].lfmImage = albumImageUrl;
+	            $scope.albums[i].album.lfmImage = albumImageUrl;
 	            $scope.$apply();
 	          }
 	        })
@@ -96,10 +96,10 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 					$scope.albums[i].album.artists = [{name: artistName}];
 					//console.log(data[i]);
 					// Get album image
-					$scope.albums[i].lfmImage = 'assets/vinyl-icon.png';
+					$scope.albums[i].album.lfmImage = 'assets/vinyl-icon.png';
 	        lastfmservice.getAlbumImage(data[i], 'medium', i, function(err, albumImageUrl, i) {
 	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-	            $scope.albums[i].lfmImage = albumImageUrl;
+	            $scope.albums[i].album.lfmImage = albumImageUrl;
 	            $scope.$apply();
 	          }
 	        })

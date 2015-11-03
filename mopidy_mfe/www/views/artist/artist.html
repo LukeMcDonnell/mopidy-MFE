@@ -21,14 +21,14 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'album'}">
 			<div class="box">
-				<a href="" ng-click="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album.album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
 				</a>
 				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
 					<div class="boxLeft"> 
-						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ album.album.name | shorten:'':0 }}</h1>
@@ -43,14 +43,14 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'single'}">
 			<div class="box">
-				<a href="" ng-click="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album.album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
 				</a>
 				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
 					<div class="boxLeft"> 
-						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ album.album.name | shorten:'':0 }}</h1>
@@ -65,14 +65,14 @@
 		</div>
 		<div ng-repeat="album in albums | filter:{type: 'appearson'}">
 			<div class="box">
-				<a href="" ng-click="contextMenu(album);">
+				<a href="" ng-click="contextMenu(album.album);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
 				</a>
 				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
 					<div class="boxLeft"> 
-						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
+						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ album.album.name | shorten:'':0 }}</h1>

@@ -65,6 +65,7 @@ angular.module('mopidyFE.cache', [])
 		addRecent: function(k){
 			var item = JSON.parse(JSON.stringify(k));
 			item.tracks = [];
+			item.albumData = [];
 			// check if already there
 			var f=false;
 			for (var i in recent){

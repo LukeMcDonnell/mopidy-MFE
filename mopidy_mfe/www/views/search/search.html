@@ -64,7 +64,7 @@
 		<div class="box3">
 			<h1>TRACKS</h1>
 		</div>
-		<div ng-repeat="track in tracks">
+		<div ng-repeat="track in tracks track by track.uri">
 			
 			<div class="box">
 				<a href="" ng-click="contextMenu(track);">
