@@ -51,6 +51,8 @@ angular.module('mopidyFE.cache', [])
   	ls.ip = ip;
   	ls.port = port;
   	
+  	ls.recent = JSON.stringify([]);
+  	
   	// cache indexes
 		ls.sCacheIndex=JSON.stringify([]);
 		ls.bCacheIndex=JSON.stringify([]);

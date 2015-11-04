@@ -321,13 +321,13 @@ angular.module('mopidyFE', [
   	} else if (type === "playTrack"){
   		switch (arg){
   			case "ANP":
-  				$rootScope.playTrackNext(data.uri);
+  				$rootScope.playTrackNext([data.uri]);
   				break
   			case "APPEND":
-  				$rootScope.appendTrack(data.uri);
+  				$rootScope.appendTrack([data.uri]);
   				break;
   			case "NEXT":
-  				$rootScope.addTrackNext(data.uri);
+  				$rootScope.addTrackNext([data.uri]);
   				break;
   			default:
   				break;
@@ -359,6 +359,7 @@ angular.module('mopidyFE', [
 	};
 	
 	$rootScope.addReplacePlay = function(track, uris, recent){
+		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.addReplacePlay(track, uris);
 		if (recent){
 			cacheservice.addRecent(recent);
@@ -366,18 +367,21 @@ angular.module('mopidyFE', [
 	};
 	
 	$rootScope.appendTrack = function(track, recent){
+		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.appendTrack(track);
 		if (recent){
 			cacheservice.addRecent(recent);
 		}
 	}
 	$rootScope.addTrackNext = function(track, recent){
+		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.addTrackNext(track);
 		if (recent){
 			cacheservice.addRecent(recent);
 		}
 	}
-	$rootScope.playTrackNext = function(track){ 
+	$rootScope.playTrackNext = function(track){
+		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.playTrackNext(track);
 	}
 	// more to come.

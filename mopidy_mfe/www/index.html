@@ -16,7 +16,8 @@
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="component.css" />
   <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
-		
+	<script src="vendor/angular.min.js"></script>
+  <script src="vendor/angular-route.min.js"></script>
 </head>
 
 <body ng-cloak >
@@ -122,6 +123,10 @@
 								</a>  
 							</div>
 						</div>
+						<div ng-show="!contextReady">
+							<br><br>
+							<i class="fa fa-spinner fa-2x fa-pulse"></i>	
+						</div>
 					</div>
 				</div>
 		</div>
@@ -129,9 +134,6 @@
 
 		
 	<!-- Includes --> 
-	<script src="vendor/angular.min.js"></script>
-  <script src="vendor/angular-route.min.js"></script>
-
 	<script type="text/javascript" src="vendor/mopidy.min.js"></script>
 	<script type="text/javascript" src="vendor/lastfm.api.js"></script>
 	<script type="text/javascript" src="vendor/lastfm.api.md5.js"></script>

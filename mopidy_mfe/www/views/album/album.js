@@ -26,35 +26,35 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	  mopidyservice.getItem(uri).then(function(data) {	    
 	    if (data.length > 0){
 		    cacheservice.cacheItem(uri, data);
-	
+				
 				//re-sort data if local
 				if (uri.split(":")[0] === 'local'){
 					data = data.sort(function(a, b){return a.track_no-b.track_no});
-				}
-	      
-	      $scope.tracks = data
+				}	 
+				$scope.tracks = data    
 	      $scope.albumImage = 'assets/vinyl-icon.png';
-	      
 	      // Extract album and artist(s) from first track.
-	      var firstTrack = $scope.tracks[0];
-	      $scope.album = firstTrack.album;
-	      	
+	      var firstTrack = data[0];
+	      $scope.album = firstTrack.album;	
 	     	// get last FM Image.
 	     	lastfmservice.getAlbumImage($scope.album, 'large', 0, function(err, albumImageUrl, i) {
           if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
             $scope.albumImage = albumImageUrl;
+            for (var i in $scope.tracks){
+			     		$scope.tracks[i].lfmImage = $scope.albumImage;
+			     		$scope.tracks[i].album.lfmImage = $scope.albumImage;
+			  		}
             $scope.$apply();
           }
         });
-        
         // prepare tracklist
         $scope.playlistUris = []
 	     	for (var i in data){
 	  			$scope.playlistUris.push(data[i].uri);
 	  		}
+        
 	  		// done.
 	     	$scope.pageReady=true;
-	     	 
 	    }
 	  }, console.error.bind(console));
 	  	

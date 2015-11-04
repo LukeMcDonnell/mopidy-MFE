@@ -41,7 +41,10 @@
 		<div ng-repeat="recent in recentList">
 
 			<div class="box" ng-if="libItem.type != 'track'">
-				<a href="{{ recent.uri }}">				
+				<a href="{{ recent.uri }}">
+					<div class="boxLeft"> 
+						<img ng-src="{{recent.lfmImage}}" width=50 height=50 />
+					</div>	
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ recent.line1 | shorten:'':0 }}</h1>
 						<h3>{{ recent.line2 }}</h3>

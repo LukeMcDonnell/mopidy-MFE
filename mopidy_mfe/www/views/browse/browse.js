@@ -62,9 +62,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 			var recent = _.chain(cacheservice.getRecent())
 					.sortBy('timestamp')
 					.value()
-				
 			recent.reverse();
-			$scope.tempp = recent
 			if (recent){
 				for (var i in recent){
 					if (recent[i].__model__ === "Album"){
@@ -72,15 +70,16 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 							line1: recent[i].name,
 							line2: "Album (by " + recent[i].artists[0].name +")",
 							uri: "#/album/"+recent[i].name+"/"+recent[i].uri,
-							timestamp: recent[i].timestamp
+							timestamp: recent[i].timestamp,
+							lfmImage: recent[i].lfmImage
 						}
 					} else if (recent[i].__model__ === "Playlist"){
 						var obj = {
 							line1: recent[i].name.split('(by')[0],
 							line2: "Playlist (by " + recent[i].name.split('(by')[1],
 							uri: "#/playlists/"+recent[i].uri,
-							timestamp: recent[i].timestamp
-							
+							timestamp: recent[i].timestamp,
+							lfmImage: recent[i].lfmImage
 						}
 					}
 					if(obj){
