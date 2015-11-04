@@ -26,9 +26,9 @@ angular.module('mopidyFE.cache', [])
 
 	}
 	
-	if (!ls.recent){
+//	if (!ls.recent){
 		ls.recent = JSON.stringify([]);
-	}
+	//}
 
 	var recent = JSON.parse(ls.recent);	
 	var sCacheIndex = JSON.parse(ls.sCacheIndex);

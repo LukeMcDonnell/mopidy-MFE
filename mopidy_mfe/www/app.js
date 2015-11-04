@@ -304,14 +304,27 @@ angular.module('mopidyFE', [
 				$scope.contextReady	= true;
 				
   		} else if (context.__model__ === "Ref" && context.type === "playlist"){
-  			$scope.contextData.header = context.name;
+  			mopidyservice.getPlaylist(context.uri).then(function(data) {
+			  	context.tlUris = [];		  	
+			  	for (var i in data.tracks){
+		  			context.tlUris.push(data.tracks[i].uri);
+		  		}
+		  		context.data=data;
+		  		$scope.contextReady	= true;
+	  			
+		  	})
+  			$scope.contextData.header = context.name.split('(by')[0];
   			$scope.contextData.header2 = "Playlist";
-  			$scope.contextReady	= true;
+  			$scope.contextData.buttons = []
+  			$scope.contextData.buttons.push({text: "Add, Replace and Play", type: "playTl", 		arg:"ARPP", 			data: context});
+  			$scope.contextData.buttons.push({text: "Add to Queue: End", 		type: "playTl", 		arg:"APPEND", 	data: context });
+  			$scope.contextData.buttons.push({text: "Add to Queue: Next", 		type: "playTl", 		arg:"NEXT", 		data: context});
   			
 			}
 			$scope.contextData.buttons.push({text: "Close", type: "close", data: null});
   	// show menu
   	$scope.showContext = true;
+  	console.log(context);
   }
   
   $rootScope.contextLink = function (type, data, arg){
@@ -336,6 +349,9 @@ angular.module('mopidyFE', [
   		switch (arg){
   			case "ARP":
   				$rootScope.addReplacePlay(data.tracks[0], data.tlUris, data);
+  				break
+  			case "ARPP":
+  				$rootScope.addReplacePlay(data.data.tracks[0], data.tlUris, data.data);
   				break
   			case "APPEND":
   				$rootScope.appendTrack(data.tlUris, data);
