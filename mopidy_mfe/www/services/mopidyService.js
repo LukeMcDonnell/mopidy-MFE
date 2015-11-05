@@ -60,7 +60,6 @@ angular.module('mopidyFE.mopidy', [])
         $rootScope.$broadcast('mopidyFE:mopidystarting');
         
         this.mopidy = new Mopidy({
-//        	webSocketUrl: 'ws://192.168.1.90:6680/mopidy/ws/',
         	webSocketUrl: 'ws://'+ window.localStorage.ip +':'+ window.localStorage.port +'/mopidy/ws/',
           callingConvention: 'by-position-or-by-name'
         });

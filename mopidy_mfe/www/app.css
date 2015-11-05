@@ -281,6 +281,36 @@ body a {
 // NOW PLAYING AND QUEUE
 //
 */
+.nowPlaying {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+	margin: 0px;
+}
+.nowPlaying h1 {
+	color: #FFFFFF;
+	font-size: 17px;
+	font-weight: 100;
+	line-height: 3px;
+}
+.nowPlaying h3 {
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 100;
+	line-height: 0px;
+}
+.nowPlaying p {
+	color: #999999;
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 0px;
+}
+.nowPlaying a {
+		color: #ffffff;
+}
+
 .playControls {
   position: fixed;
 	left: 0;
@@ -314,7 +344,7 @@ body a {
   bottom:150px 
 }
 .albumImg img{
-  height: 100%;
+  height: 300px;
   max-Height: 100%
 }
 

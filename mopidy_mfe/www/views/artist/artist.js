@@ -40,7 +40,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 		if (uri.split(":")[0] != 'local'){
 			mopidyservice.getItem(uri).then(function(data) {
 				cacheservice.cacheItem(uri, data);
-				   
 				var n = []
 				var a = 0;
 				var allAlbums = []
@@ -90,7 +89,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 		} else { // hate it hate it hate it.
 			mopidyservice.getLibraryItems(uri).then(function(data) {
 				cacheservice.cacheBrowse(uri, data);
-				
 				for (var i in data){
 					$scope.albums.push({album: data[i], type: "album"});
 					$scope.albums[i].album.artists = [{name: artistName}];

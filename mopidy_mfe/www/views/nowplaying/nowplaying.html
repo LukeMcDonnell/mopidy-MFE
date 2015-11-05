@@ -1,6 +1,6 @@
 <div class="backImg" ng-if="!showQueue"><img id="bg" ng-src="{{currentTrackImageUrl}}" /></div>
 
-<div class="main">
+<div class="nowPlaying">
 		<div style="height: 60px"></div>		
 		
 		<div class="nowPlayingTop">
@@ -12,40 +12,39 @@
 				</tr>
 			</table>
 		</div>
-	
-	<!--	<div ng-if="pageWidth < 800"> -->
-									
-				<div class="albumImg">	
-					<img ng-src="{{currentTrackImageUrl}}" >
-				</div>
-			
-			
+							
+		<div class="albumImg">
+			<table align="center" width="100%" height="100%">
+				<tr>
+					<td valign=middle><img ng-src="{{currentTrackImageUrl}}" /> </td>
+				</tr>
+			</table> 
+		</div>
 						
-			<div class="playControls">
-				<h1>{{ currentTrack }}</h1>
-				<p>{{ currentArtists[0].name }}</p>
-				<p>{{ currentTrackPosition }} / {{ currentTrackLengthString }}</p>
-				<table width=100% align="center">
-					<tr>
-						<td width=10></td>
-						<td align="left"><a href="" ng-click="previous()"><i class="fa fa-step-backward"></i></a></td>
-						<td>
-							<p ng-if="currentState != 'playing'"><a href="" ng-click="play()"><i class="fa fa-play" style="font-size: 50px;"></i></a></p>
-							<p ng-if="currentState === 'playing'"><a href="" ng-click="play()"><i class="fa fa-pause" style="font-size: 50px;"></i></a></p>				
-						</td>
-						<td align="right"><a href="" ng-click="next()"><i class="fa fa-step-forward"></i></a></td>
-						<td width=10></td>
-						</tr>
-				</table>			
-			</div>
-		<!-- </div>
-		
-		<div ng-if="pageWidth > 800">
-				
-						
-			
-		</div> -->
-		
+		<div class="playControls">
+			<h1>{{ currentTrack }}</h1>
+			<p>{{ currentArtists[0].name }}</p>
+			<p>{{ currentTrackPosition }} / {{ currentTrackLengthString }}</p>
+			<table width=100% align="center">
+				<tr>
+					<td width=10></td>
+					<td align="left"><a href="" ng-click="previous()"><i class="fa fa-step-backward"></i></a></td>
+					<td>
+						<p ng-if="currentState != 'playing'"><a href="" ng-click="play()"><i class="fa fa-play" style="font-size: 50px;"></i></a></p>
+						<p ng-if="currentState === 'playing'"><a href="" ng-click="play()"><i class="fa fa-pause" style="font-size: 50px;"></i></a></p>				
+					</td>
+					<td align="right"><a href="" ng-click="next()"><i class="fa fa-step-forward"></i></a></td>
+					<td width=10></td>
+					</tr>
+			</table>			
+		</div>
+
+
+
+
+
+
+		<!-- PLAY QUEUE -->
 		
 		<div class="queueControl" ng-show="showQueue">
 			<table align="center" width="95%">
