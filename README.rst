@@ -30,7 +30,7 @@ v0.2.0 (2015-11-05)
 - Added "My Music" section
 - Recently Played items in "My Music"
 - Fixed many layout and design errors
-- Now Playing/Artists/Albums all show dynamic backgrounds based on content.
+- Now Playing/Artists/Albums pages all show dynamic backgrounds based on content.
 - Added context menus to provide further queueing options
 - Various bug fixes/optimizations
 
