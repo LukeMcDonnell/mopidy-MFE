@@ -25,6 +25,12 @@ Project resources
 
 Changelog
 =========
+v0.2.1 (2015-11-06)
+-------------------
+- Added "Favourites" functionality
+- Fixed bug preventing "Recently Played" items persisting between sessions.
+
+
 v0.2.0 (2015-11-05)
 -------------------
 - Added "My Music" section
