@@ -6,8 +6,19 @@
 		<i class="fa fa-spinner fa-2x fa-pulse"></i>
 	</div>
 	
-	<div ng-if="pageReady && showHome">
-				
+	<div ng-if="pageReady && showPage === 'home'">
+		
+		<div class="box">
+			<a href="#/browse/favourites">						
+				<div class="boxLeftIcon"> 
+					<i class="fa fa-heart-o fa-2x" ></i>
+				</div>
+				<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle; ">
+					<h1> Favourites </h1>
+				</div></div></div>
+			</a>
+		</div>	
+		
 		<div class="box">
 			<a href="#/playlists">						
 				<div class="boxLeftIcon"> 
@@ -57,9 +68,7 @@
 		
 	</div>
 	
-	
-	
-	<div ng-if="pageReady && !showHome">
+	<div ng-if="pageReady && showPage === 'list'">
 				
 		<div class="box3" style="text-align: right;">
 			<br>
@@ -101,4 +110,28 @@
 		<br><br><br>
 		
 	</div>
+	
+	<div ng-if="pageReady && showPage === 'favs'">
+	
+		<div ng-repeat="fav in favList">
+
+			<div class="box" ng-if="libItem.type != 'track'">
+				<a href="{{ fav.uri }}">
+					<div class="boxLeft"> 
+						<img ng-src="{{fav.lfmImage}}" width=50 height=50 />
+					</div>	
+					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+						<h1>{{ fav.line1 | shorten:'':0 }}</h1>
+						<h3>{{ fav.line2 }}</h3>
+					</div></div></div>
+				</a>
+			</div>
+
+		</div>
+		<br><br><br>
+
+	</div>
+	
+	
+	
 </div>

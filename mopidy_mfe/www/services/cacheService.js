@@ -1,9 +1,10 @@
 angular.module('mopidyFE.cache', [])
 .factory('cacheservice', function($q, $location) {
-  var sCacheMax = 20 	// max number or entries for each cache
-	var iCacheMax = 100 //
-	var bCacheMax = 100 //
-	var recentMax = 20
+  var sCacheMax = 20; // max number or entries for each cache
+	var iCacheMax = 100; 
+	var bCacheMax = 100; 
+	var recentMax = 20;
+	var favsMax = 200;
 	
   ls=window.localStorage
 	//ls.clear(); //for testing
@@ -22,14 +23,19 @@ angular.module('mopidyFE.cache', [])
 		ls.iCacheIndex=JSON.stringify([]);
 		// recent
 		ls.recent = JSON.stringify([]);
+		ls.favs = JSON.stringify([]);
 		$location.path('/settings');
 
 	}
 	
-//	if (!ls.recent){
+	if (!ls.recent){
 		ls.recent = JSON.stringify([]);
-	//}
+	}
+	if (!ls.favs){
+		ls.favs = JSON.stringify([]);
+	}
 
+	var favs = JSON.parse(ls.favs);
 	var recent = JSON.parse(ls.recent);	
 	var sCacheIndex = JSON.parse(ls.sCacheIndex);
 	var bCacheIndex = JSON.parse(ls.bCacheIndex);
@@ -52,6 +58,7 @@ angular.module('mopidyFE.cache', [])
   	ls.port = port;
   	
   	ls.recent = JSON.stringify([]);
+  	ls.favs = JSON.stringify([]);
   	
   	// cache indexes
 		ls.sCacheIndex=JSON.stringify([]);
@@ -64,6 +71,9 @@ angular.module('mopidyFE.cache', [])
   }  
 	
 	return {
+		// 
+		// RECENT
+		//
 		addRecent: function(k){
 			var item = JSON.parse(JSON.stringify(k));
 			item.tracks = [];
@@ -99,9 +109,55 @@ angular.module('mopidyFE.cache', [])
 		},
 		
 		getRecent: function(){
-			return JSON.parse(ls.recent);
+			return recent;
 		},
 		
+		//
+		// FAVOURITES
+		//
+		addFav: function(k){
+			console.log(k);
+			var item = JSON.parse(JSON.stringify(k));
+			item.tracks = [];
+			item.albumData = [];
+			// check if already there
+			var f=false;
+			for (var i in favs){
+				if (favs[i].uri === item.uri){
+					favs[i].timestamp = new Date().getTime(); // found it, update timestamp and return;
+					f=true;
+					break;
+				}
+			}
+			if (!f){
+				// add to arr and check length
+				item.timestamp = new Date().getTime();
+				var l = favs.push(item);
+				
+				if(l >= favsMax){
+					var minDate = new Date().getTime()
+					var d = 0;
+	  			for (var j in favs){
+	  				if (favs[j].timestamp < minDate){
+	  					minDate = favs[j].timestamp;
+	  					d = j;
+	  				}
+	  			}
+	  			favs.splice(d,1);
+	  		}
+			}
+			// write to ls
+			ls.favs = JSON.stringify(favs);
+			console.log(ls.favs);
+		},
+		
+		getFavs: function(){
+			return favs;
+		},
+		
+		//
+		// SETTINGS
+		//
 		getSettings: function(){
 			var settings={ip: ls.ip,
 				port: ls.port
@@ -115,12 +171,12 @@ angular.module('mopidyFE.cache', [])
 		clearCache: function(){
 			cacheClear();
 		},
-		cacheIndex: function(){
-  		return sCacheIndex;
-  	},
 		//
 		// SEARCH
 		//
+		cacheIndex: function(){
+  		return sCacheIndex;
+  	},
     getSearchCache: function(query){
     	for (i in sCacheIndex){
     		if (sCacheIndex[i].query === query){

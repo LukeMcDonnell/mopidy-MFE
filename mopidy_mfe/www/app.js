@@ -261,7 +261,8 @@ angular.module('mopidyFE', [
   			$scope.contextData.header2 = "Artist"
   			$scope.contextData.buttons = []
   			$scope.contextData.buttons.push({text: "View Artist Albums", 		type: "link", 	data:"/artist/"+context.name+"/"+context.uri});
-  			$scope.contextData.buttons.push({text: "View Related Artists", 	type: "link",		data:"/artist/"+context.name+"/"+context.uri});	
+  			$scope.contextData.buttons.push({text: "View Related Artists", 	type: "link",		data:"/artist/"+context.name+"/"+context.uri});
+  			$scope.contextData.buttons.push({text: "Add to Favourites", 		type: "addFav", data: context	});
   			//$scope.contextData.buttons.push({text: "Start Artist Radio", 		type: "link",		data:"/artist/"+context.name+"/"+context.uri});
   			$scope.contextReady	= true;
   	
@@ -285,6 +286,7 @@ angular.module('mopidyFE', [
   			$scope.contextData.buttons.push({text: "Add, Replace and Play Album", type: "playTl", 	arg:"ARP", 		data: context });
   			$scope.contextData.buttons.push({text: "Add to Queue: End", 					type: "playTl", 	arg:"APPEND", data: context	});
   			$scope.contextData.buttons.push({text: "Add to Queue: Next", 					type: "playTl", 	arg:"NEXT", 	data: context	});
+  			$scope.contextData.buttons.push({text: "Add to Favourites", 					type: "addFav", data: context	});
   			if(context.__model__ != "Ref"){
   				$scope.contextData.buttons.push({text: "More From "+context.artists[0].name, 	type: "link",		data:"/artist/"+context.artists[0].name+"/"+context.artists[0].uri });	
 	  		}
@@ -316,6 +318,7 @@ angular.module('mopidyFE', [
 		  		$scope.contextData.buttons.push({text: "Add, Replace and Play", type: "playTl", 		arg:"ARP", 			data: data});
  		 			$scope.contextData.buttons.push({text: "Add to Queue: End", 		type: "playTl", 		arg:"APPEND", 	data: data});
 	  			$scope.contextData.buttons.push({text: "Add to Queue: Next", 		type: "playTl", 		arg:"NEXT", 		data: data});
+	  			$scope.contextData.buttons.push({text: "Add to Favourites", 					type: "addFav", data: data	});
 		  		$scope.contextReady	= true;
 		  	})		
 			}
@@ -356,6 +359,8 @@ angular.module('mopidyFE', [
   			default:
   				break;
   		}
+  	} else if (type === "addFav"){
+  		cacheservice.addFav(data);
   	}
   }
   $rootScope.closeContextMenu = function(){
