@@ -26,11 +26,10 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	  mopidyservice.getItem(uri).then(function(data) {	    
 	    if (data.length > 0){
 		    cacheservice.cacheItem(uri, data);
-				
 				//re-sort data if local
 				if (uri.split(":")[0] === 'local'){
 					data = data.sort(function(a, b){return a.track_no-b.track_no});
-				}	 
+				}
 				$scope.tracks = data    
 	      $scope.albumImage = 'assets/vinyl-icon.png';
 	      // Extract album and artist(s) from first track.
@@ -52,7 +51,6 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	     	for (var i in data){
 	  			$scope.playlistUris.push(data[i].uri);
 	  		}
-        
 	  		// done.
 	     	$scope.pageReady=true;
 	    }

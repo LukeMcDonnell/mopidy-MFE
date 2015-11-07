@@ -37,18 +37,16 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 	if ($scope.showPage != 'favs'){	
 		mopidyservice.getLibraryItems(currentDir.uri).then(function(data) {
 			cacheservice.cacheBrowse(currentDir.uri, data); 
-			
 			$scope.libList = data;
-			
-			// Check for tracks
+			// Check for tracks and prepare tracklist
 		  if (data[0].type === 'track' || data[data.length-1].type === 'track'){
 				for (var i in data){
 					if (data[i].type === 'track'){
 						$scope.libTlList.push(data[i].uri)
 					}
 				}
-			}		
-			
+			}	
+			// Extra content for "home" menu
 			if ($scope.showPage === 'home'){
 				$rootScope.pageTitle = "My Music";
 				for (var i in $scope.libList){
@@ -63,7 +61,9 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 							$scope.libList[i].icon = "fa fa-rss fa-2x"
 					}
 				}
+				// we remove spotify from home menu. Spotify Browse is much better for now.
 				if (spot){ $scope.libList.splice(spot,1); }
+				// recent items.
 				$scope.recentList = []
 				var recent = _.chain(cacheservice.getRecent())
 						.sortBy('timestamp')
@@ -77,7 +77,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 								line2: "Album (by " + recent[i].artists[0].name +")",
 								uri: "#/album/"+recent[i].name+"/"+recent[i].uri,
 								timestamp: recent[i].timestamp,
-								lfmImage: recent[i].lfmImage
+								lfmImage: recent[i].lfmImage,
+								context: recent[i]
 							}
 						} else if (recent[i].__model__ === "Playlist" || (recent[i].__model__ === "Ref" && recent[i].type === "playlist")){
 							var obj = {
@@ -85,7 +86,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 								line2: "Playlist (by " + recent[i].name.split('(by')[1],
 								uri: "#/playlists/"+recent[i].uri,
 								timestamp: recent[i].timestamp,
-								lfmImage: recent[i].lfmImage
+								lfmImage: recent[i].lfmImage,
+								context: recent[i]
 							}
 						}
 						if(obj){
@@ -97,6 +99,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 			$scope.pageReady=true;
 		});
 	} else {
+		// Favourites list
 		$rootScope.pageTitle = "Favourites";
 		$scope.favList = []
 		var favs = _.chain(cacheservice.getFavs())
@@ -111,7 +114,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						line2: "Album (by " + favs[i].artists[0].name +")",
 						uri: "#/album/"+favs[i].name+"/"+favs[i].uri,
 						timestamp: favs[i].timestamp,
-						lfmImage: favs[i].lfmImage
+						lfmImage: favs[i].lfmImage,
+						context: favs[i]
 					}
 				} else if (favs[i].__model__ === "Playlist" || (favs[i].__model__ === "Ref" && favs[i].type === "playlist")){
 					var obj = {
@@ -119,7 +123,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						line2: "Playlist (by " + favs[i].name.split('(by')[1],
 						uri: "#/playlists/"+favs[i].uri,
 						timestamp: favs[i].timestamp,
-						lfmImage: favs[i].lfmImage
+						lfmImage: favs[i].lfmImage,
+						context: favs[i]
 					}
 				} else if (favs[i].__model__ === "Artist"){
 					var obj = {
@@ -127,7 +132,8 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						line2: "Artist",
 						uri: "#/artist/"+favs[i].name+"/"+favs[i].uri,
 						timestamp: favs[i].timestamp,
-						lfmImage: favs[i].lfmImage
+						lfmImage: favs[i].lfmImage,
+						context: favs[i]
 					}
 				}
 				if(obj){
@@ -137,7 +143,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 		}			
 		$scope.pageReady=true;	
 	}
-	
+	// url handling
 	$scope.getUrl = function(type, uri, name){
 		uri = util.urlEncode(uri);
 		name = util.urlEncode(name);
@@ -151,8 +157,5 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 			$location.path('/browse/'+uri+'/');
 		}
 	}
-	
-	
-	
 	
 });

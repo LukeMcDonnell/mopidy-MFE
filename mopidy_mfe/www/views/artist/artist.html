@@ -8,6 +8,7 @@
 	</div>
 	
 	<div class="artist" ng-if="pageReady">
+		
 		<div class="lfmInfo">
 			<table width=100% height=180>
 				<tr>
@@ -15,73 +16,79 @@
 					<td> <h2>{{ artistSummary | split:'&#60;a href':0 }}</h2> </td>
 				</tr>				
 			</table>	
-		</div>			
-		<div class="box3">
-			<h1>ALBUMS</h1>
-		</div>
-		<div ng-repeat="album in albums | filter:{type: 'album'}">
-			<div class="box">
-				<a href="" ng-click="contextMenu(album.album);">
-					<div class="boxRight">
-						<i class="fa fa-ellipsis-v fa-2x"></i>
-					</div>
-				</a>
-				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
-					<div class="boxLeft"> 
-						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
-					</div>
-					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ album.album.name | shorten:'':0 }}</h1>
-						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
-					</div></div></div>
-				</a>
+		</div>	
+		
+		<div ng-if="albumss">		
+			<div class="box3">
+				<h1>ALBUMS</h1>
+			</div>
+			<div ng-repeat="album in albums | filter:{type: 'album'}">
+				<div class="box">
+					<a href="" ng-click="contextMenu(album.album);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
+					<a href="#/album/{{ album.album.name | urlEncode }}/{{ album.album.uri | urlEncode }}">					
+						<div class="boxLeft"> 
+							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
+						</div>
+						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ album.album.name | shorten }}</h1>
+							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+						</div></div></div>
+					</a>
+				</div>
 			</div>
 		</div>
 		
-		<div class="box3">
-			<h1>SINGLES</h1>
-		</div>
-		<div ng-repeat="album in albums | filter:{type: 'single'}">
-			<div class="box">
-				<a href="" ng-click="contextMenu(album.album);">
-					<div class="boxRight">
-						<i class="fa fa-ellipsis-v fa-2x"></i>
-					</div>
-				</a>
-				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
-					<div class="boxLeft"> 
-						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
-					</div>
-					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ album.album.name | shorten:'':0 }}</h1>
-						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
-					</div></div></div>
-				</a>
+		<div ng-if="singles">
+			<div class="box3">
+				<h1>SINGLES</h1>
+			</div>
+			<div ng-repeat="album in albums | filter:{type: 'single'}">
+				<div class="box">
+					<a href="" ng-click="contextMenu(album.album);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
+					<a href="#/album/{{ album.album.name | urlEncode }}/{{ album.album.uri | urlEncode }}">					
+						<div class="boxLeft"> 
+							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
+						</div>
+						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ album.album.name | shorten }}</h1>
+							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+						</div></div></div>
+					</a>
+				</div>
 			</div>
 		</div>
 		
-		<div class="box3">
-			<h1>APPEARS ON</h1>
-		</div>
-		<div ng-repeat="album in albums | filter:{type: 'appearson'}">
-			<div class="box">
-				<a href="" ng-click="contextMenu(album.album);">
-					<div class="boxRight">
-						<i class="fa fa-ellipsis-v fa-2x"></i>
-					</div>
-				</a>
-				<a href="#/album/{{ album.album.name }}/{{ album.album.uri }}">					
-					<div class="boxLeft"> 
-						<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
-					</div>
-					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ album.album.name | shorten:'':0 }}</h1>
-						<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
-					</div></div></div>
-				</a>
+		<div ng-if="appearson">
+			<div class="box3">
+				<h1>APPEARS ON</h1>
+			</div>
+			<div ng-repeat="album in albums | filter:{type: 'appearson'}">
+				<div class="box">
+					<a href="" ng-click="contextMenu(album.album);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
+					<a href="#/album/{{ album.album.name | urlEncode }}/{{ album.album.uri | urlEncode }}">					
+						<div class="boxLeft"> 
+							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
+						</div>
+						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ album.album.name | shorten }}</h1>
+							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
+						</div></div></div>
+					</a>
+				</div>
 			</div>
 		</div>
-		
 		
 		
 		

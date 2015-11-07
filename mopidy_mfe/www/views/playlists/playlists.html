@@ -24,7 +24,7 @@
 				</a>
 				<a href="#/playlists/{{ plItems.uri | urlEncode }}">					
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ plItems.name | split:'(by':0 | shorten:'':0 }}</h1>
+						<h1>{{ plItems.name | split:'(by':0 | shorten }}</h1>
 						<h3>{{ plItems.uri | split:':':0 }} (by{{plItems.name | split:'(by':1 }}</h3>
 					</div></div></div>
 				</a>

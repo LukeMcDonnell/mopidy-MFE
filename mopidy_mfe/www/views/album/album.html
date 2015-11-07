@@ -27,11 +27,11 @@
 				</a>
 				<a href="" ng-click="addReplacePlay( track, playlistUris, album )">				
 					<div class="boxCenter" ng-if="track.uri != currentUri || currentUri === null"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ track.name | shorten:'':0 }}</h1>
+						<h1>{{ track.name | shorten }}</h1>
 						<h3>Track {{ track.track_no }}: {{ track.length | formatTime}}</h3>
 					</div></div></div>
 					<div class="boxCenter2" class="boxCenter2" ng-if="track.uri === currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ track.name | shorten:'':0 }}</h1>
+						<h1>{{ track.name | shorten }}</h1>
 						<h3>Track {{ track.track_no }}: {{ track.length | formatTime}}</h3>
 					</div></div></div>
 				</a>
