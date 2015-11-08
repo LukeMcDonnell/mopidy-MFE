@@ -196,11 +196,19 @@ angular.module('mopidyFE.cache', [])
 			}
 			// write to ls
 			ls.favs = JSON.stringify(favs);
-			console.log(ls.favs);
 		},
 		
 		getFavs: function(){
 			return favs;
+		},
+		
+		removeFav: function(k){
+			for (var i in favs){
+				if (favs[i].uri === k.uri){
+					favs.splice(i,1);
+				}
+			}
+			ls.favs = JSON.stringify(favs);
 		},
 		
 		//

@@ -256,18 +256,27 @@ angular.module('mopidyFE', [
 	// CONTEXT MENU
 	//
   $rootScope.contextMenu = function(context){
-  	console.log(context);
   	$scope.contextData = []
   	$scope.contextReady	= false;
-  	// prepare menu
+  	
+  	var favs = cacheservice.getFavs();
+  	var favsMenuItem = {text: "Add to Favourites", 		type: "addFav", data: context	};
+  	for (var i in favs){
+  		if(favs[i].uri === context.uri){
+  			favsMenuItem = {text: "Remove from Favourites", 		type: "removeFav", data: context	};
+  		}
+  	}
+  	
+  	// prepare menu 	
   	if (context.__model__ === "Artist" || (context.__model__ === "Ref" && context.type === "artist")){
 			$scope.contextData.image = context.lfmImage;
 			$scope.contextData.header = context.name
 			$scope.contextData.header2 = "Artist"
+			//buttons
 			$scope.contextData.buttons = []
 			$scope.contextData.buttons.push({text: "View Artist Albums", 		type: "link", 	data:"/artist/"+context.name+"/"+context.uri});
 			$scope.contextData.buttons.push({text: "View Related Artists", 	type: "link",		data:"/artist/"+context.name+"/"+context.uri});
-			$scope.contextData.buttons.push({text: "Add to Favourites", 		type: "addFav", data: context	});
+			$scope.contextData.buttons.push(favsMenuItem);
 			//$scope.contextData.buttons.push({text: "Start Artist Radio", 		type: "link",		data:"/artist/"+context.name+"/"+context.uri});
 			$scope.contextReady	= true;
 			
@@ -291,13 +300,14 @@ angular.module('mopidyFE', [
 			$scope.contextData.buttons.push({text: "Add, Replace and Play Album", type: "playTl", 	arg:"ARP", 		data: context });
 			$scope.contextData.buttons.push({text: "Add to Queue: End", 					type: "playTl", 	arg:"APPEND", data: context	});
 			$scope.contextData.buttons.push({text: "Add to Queue: Next", 					type: "playTl", 	arg:"NEXT", 	data: context	});
-			$scope.contextData.buttons.push({text: "Add to Favourites", 					type: "addFav", data: context	});
+			$scope.contextData.buttons.push(favsMenuItem);
 			if(context.__model__ != "Ref"){
 				$scope.contextData.buttons.push({text: "More From "+context.artists[0].name, 	type: "link",		data:"/artist/"+context.artists[0].name+"/"+context.artists[0].uri });	
   		}
   		$scope.contextData.buttons.push({text: "View Album Page", 	type: "link",		data:"/album/"+context.name+"/"+context.uri });	
 
   	} else if (context.__model__ === "Track" || (context.__model__ === "Ref" && context.type === "track")){
+  		
 			$scope.contextData.image = context.lfmImage;
 			$scope.contextData.header = context.name
 			if (context.artists ){ $scope.contextData.header2 = "Track by " + context.artists[0].name }
@@ -305,12 +315,14 @@ angular.module('mopidyFE', [
 			$scope.contextData.buttons.push({text: "Add and Play Track", 		type: "playTrack", 	arg:"ANP", 			data: context});
 			$scope.contextData.buttons.push({text: "Add to Queue: End", 		type: "playTrack", 	arg:"APPEND", 	data: context });
 			$scope.contextData.buttons.push({text: "Add to Queue: Next", 		type: "playTrack", 	arg:"NEXT", 		data: context});
+			$scope.contextData.buttons.push(favsMenuItem);
 			if (context.artists ){ $scope.contextData.buttons.push({text: "More From "+context.artists[0].name, 	type: "link",		data:"/artist/"+context.artists[0].name+"/"+context.artists[0].uri });	}
   		if (context.artists ){ $scope.contextData.buttons.push({text: "View Album: "+context.album.name , 	type: "link",		data:"/album/"+context.album.name+"/"+context.album.uri });}
 			//$scope.contextData.buttons.push({text: "Start Song Radio", 		type: "play",		data:"RADIO"});
 			$scope.contextReady	= true;
 				
-  		} else if (context.__model__ === "Playlist" || (context.__model__ === "Ref" && context.type === "playlist")){
+  	} else if (context.__model__ === "Playlist" || (context.__model__ === "Ref" && context.type === "playlist")){
+  			
 			$scope.contextData.header = context.name.split('(by')[0];
 			$scope.contextData.header2 = "Playlist";
 			$scope.contextData.buttons = []
@@ -323,10 +335,10 @@ angular.module('mopidyFE', [
 	  		$scope.contextData.buttons.push({text: "Add, Replace and Play", type: "playTl", 		arg:"ARP", 			data: data});
 	 			$scope.contextData.buttons.push({text: "Add to Queue: End", 		type: "playTl", 		arg:"APPEND", 	data: data});
   			$scope.contextData.buttons.push({text: "Add to Queue: Next", 		type: "playTl", 		arg:"NEXT", 		data: data});
-  			$scope.contextData.buttons.push({text: "Add to Favourites", 					type: "addFav", data: data	});
+  			$scope.contextData.buttons.push(favsMenuItem);
 	  		$scope.contextReady	= true;
 	  	})		
-			}
+		}
 		//$scope.contextData.buttons.push({text: "Close", type: "close", data: null});
   	// show menu
   	$scope.showContext = true;
@@ -366,6 +378,8 @@ angular.module('mopidyFE', [
   		}
   	} else if (type === "addFav"){
   		cacheservice.addFav(data);
+  	} else if (type === "removeFav"){
+  		cacheservice.removeFav(data);
   	}
   }
   $rootScope.closeContextMenu = function(){
