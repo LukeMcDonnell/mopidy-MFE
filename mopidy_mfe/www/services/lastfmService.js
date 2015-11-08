@@ -49,6 +49,7 @@ angular.module('mopidyFE.lastfm', [])
         success: function(data){
         	data['i'] = i;
           callback(null, data);
+          $rootScope.$apply();
         }, error: function(code, message){
             console.log('Error #'+code+': '+message);
             callback({ code: code, message: message}, null);
