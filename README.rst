@@ -25,6 +25,14 @@ Project resources
 
 Changelog
 =========
+v0.2.2 (2015-11-09)
+-------------------
+- Added ability to remove items from "favourites" list
+- Implemented image cache to reduce lastfm api hits
+- Removed mopidy dependency from pypi package
+- Various bug fixes
+
+
 v0.2.1 (2015-11-06)
 -------------------
 - Added "Favourites" functionality
