@@ -5,6 +5,7 @@ angular.module('mopidyFE.cache', [])
 	var bCacheMax = 100; 
 	var recentMax = 20;
 	var favsMax = 200;
+	var imgMax = 1000;
 	
   ls=window.localStorage
 	//ls.clear(); //for testing
@@ -21,9 +22,10 @@ angular.module('mopidyFE.cache', [])
 		ls.sCacheIndex=JSON.stringify([]);
 		ls.bCacheIndex=JSON.stringify([]);
 		ls.iCacheIndex=JSON.stringify([]);
-		// recent
+		// recent & favs
 		ls.recent = JSON.stringify([]);
 		ls.favs = JSON.stringify([]);
+		ls.imgIndex = JSON.stringify([]);
 		$location.path('/settings');
 
 	}
@@ -34,12 +36,16 @@ angular.module('mopidyFE.cache', [])
 	if (!ls.favs){
 		ls.favs = JSON.stringify([]);
 	}
+	if (!ls.imgIndex){
+		ls.imgIndex = JSON.stringify([]);
+	}
 
 	var favs = JSON.parse(ls.favs);
 	var recent = JSON.parse(ls.recent);	
 	var sCacheIndex = JSON.parse(ls.sCacheIndex);
 	var bCacheIndex = JSON.parse(ls.bCacheIndex);
 	var iCacheIndex = JSON.parse(ls.iCacheIndex);
+	var imgIndex = JSON.parse(ls.imgIndex);
 	
 	function returnCache (data){
   	var deferred = $q.defer();
@@ -57,9 +63,10 @@ angular.module('mopidyFE.cache', [])
   	ls.ip = ip;
   	ls.port = port;
   	
-  	ls.recent = JSON.stringify([]);
-  	ls.favs = JSON.stringify([]);
+  	ls.recent = JSON.stringify(recent);
+  	ls.favs = JSON.stringify(favs);
   	
+  	ls.imgIndex = JSON.stringify([]);
   	// cache indexes
 		ls.sCacheIndex=JSON.stringify([]);
 		ls.bCacheIndex=JSON.stringify([]);
@@ -71,6 +78,47 @@ angular.module('mopidyFE.cache', [])
   }  
 	
 	return {
+		//
+		// IMAGE CACHE
+		//
+		addImage: function(album, data){
+			for (var i in imgIndex){
+				if (imgIndex[i][0] === album.artist){
+					for (var n in imgIndex[i][1]){
+						if (imgIndex[i][1][n][0] === album.album){
+							return;
+						}
+					}
+					imgIndex[i][1].push([album.album, data]);
+					ls.imgIndex = JSON.stringify(imgIndex)
+					return;
+				}
+			}
+			imgIndex.push([album.artist,[[album.album, data]]]);
+			if (imgIndex.length > imgMax){
+				imgIndex.splice(ImgIndex.length - 1, 1);
+			}
+			ls.imgIndex = JSON.stringify(imgIndex); // This probably isn't a good idea...
+		},
+		
+		getImage: function(album){
+			for (var i in imgIndex){
+				if (imgIndex[i][0] === album.artist){
+					for (var n in imgIndex[i][1]){
+						if (imgIndex[i][1][n][0] === album.album){
+							var j = imgIndex.splice(i,1)[0]; 
+							imgIndex.push(j);
+							return j[1][n][1];
+						}
+					}
+				}
+			}		
+		},
+		
+		flushImage: function(){
+			ls.imgIndex = JSON.stringify(imgIndex);
+		},
+		
 		// 
 		// RECENT
 		//

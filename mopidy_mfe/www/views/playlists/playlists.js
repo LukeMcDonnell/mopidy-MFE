@@ -25,34 +25,30 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 	var plId = util.urlDecode($routeParams.id);
 			
 	if(!$routeParams.id){ 
-	  $scope.playlists = [];
+		$scope.playlists = [];
 		
 		mopidyservice.getPlaylists().then(function(data) {
-      $scope.playlists = data;
-      $scope.pageReady = true;    
-    }, console.error.bind(console));
+			$scope.playlists = data;
+			$scope.pageReady = true;    
+		}, console.error.bind(console));
 				
 	} else {
 		mopidyservice.getPlaylist(plId).then(function(data) {
-	  	$scope.playlist = data;
-	  	$scope.playlistUris = [];
-	  	$scope.pageReady = true;
-	  	
+			$scope.playlist = data;
+			$scope.playlistUris = [];
 	  	for (var i in $scope.playlist.tracks){
 	  		$scope.playlistUris.push($scope.playlist.tracks[i].uri);
-	  		// get image				
-				$scope.playlist.tracks[i].lfmImage = 'assets/vinyl-icon.png';
-				// Get album image
-		    lastfmservice.getTrackImage($scope.playlist.tracks[i], 'medium', i, function(err, albumImageUrl, i) {
-		      if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-		        $scope.playlist.tracks[i].lfmImage = albumImageUrl;
-		        $scope.$apply();
-		      }
-	   		});	
-	  	}
-  		
-	  });    
-	   
+				if (!$scope.playlist.tracks[i].lfmImage){
+					$scope.playlist.tracks[i].lfmImage = 'assets/vinyl-icon.png';
+					lastfmservice.getAlbumImage($scope.playlist.tracks[i], 'medium', i, function(err, albumImageUrl, i) {
+						if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
+							$scope.playlist.tracks[i].lfmImage = albumImageUrl;
+						}
+					});
+				}
+			}
+			$scope.pageReady = true;
+		});    
 	}
 	
 });

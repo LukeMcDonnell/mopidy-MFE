@@ -30,55 +30,50 @@ angular.module('mopidyFE.search', ['ngRoute'])
 		// get search results
 		if (searchTerm.length > 1) {
    		mopidyservice.search(searchTerm).then(function(results) {
-   			cacheservice.cacheSearch(searchTerm, results);   				
-   			
+   			cacheservice.cacheSearch(searchTerm, results);  				
 				_.forEach(results, function(result) {
-				 	
-				for (var i in result.artists){			
-					$scope.artists.push(result.artists[i]);
-					$scope.artists[i].lfmImage = 'assets/vinyl-icon.png';
-					// Get artist image
-		      lastfmservice.getArtistInfo(result.artists[i].name, i, function(err, artistInfo) {
-		        if (! err) {
-		          var img = _.find(artistInfo.artist.image, { size: 'medium' });
-		          if (img !== undefined) {
-		           	$scope.artists[artistInfo.i].lfmImage = img['#text'];
-		            $scope.$apply();
+					for (var i in result.artists){			
+						$scope.artists.push(result.artists[i]);
+						if (!$scope.artists[i].lfmImage){
+							$scope.artists[i].lfmImage = 'assets/vinyl-icon.png';
+							// Get artist image
+							lastfmservice.getArtistInfo(result.artists[i].name, i, function(err, artistInfo) {
+							 	if (! err) {
+									var img = _.find(artistInfo.artist.image, { size: 'medium' });
+									if (img !== undefined) {
+										$scope.artists[artistInfo.i].lfmImage = img['#text'];
+									}
+								}
+							});
+						} else {
+							console.log("Using artist image cahce")
+						}
+			      if (parseInt(i) === 5){
+			      	break
+			      }   
+					}
+	   			for (var i in result.albums){					
+						$scope.albums.push(result.albums[i]);
+						$scope.albums[i].lfmImage = 'assets/vinyl-icon.png';
+						// Get album image
+		        lastfmservice.getAlbumImage(result.albums[i], 'medium', i, function(err, albumImageUrl, i) {
+		          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
+		            $scope.albums[i].lfmImage = albumImageUrl;
 		          }
-		        }
-		      });
-		      if (parseInt(i) === 5){
-		      	break
-		      }   
-				}		
-				 
-   			for (var i in result.albums){					
-					$scope.albums.push(result.albums[i]);
-					$scope.albums[i].lfmImage = 'assets/vinyl-icon.png';
-					// Get album image
-	        lastfmservice.getAlbumImage(result.albums[i], 'medium', i, function(err, albumImageUrl, i) {
-	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-	            $scope.albums[i].lfmImage = albumImageUrl;
-	            $scope.$apply();
-	          }
-	        });
-	        if (parseInt(i) === 5){
-		      	break
-		      } 
-        }
-        
-      	for (var i in result.tracks){
-		      if (result.tracks[i].uri.split(":")[0] != "tunein"){
-		      	var n = $scope.tracks.push(result.tracks[i]);	      	
-		      }
-		    }
-		    
-		    $scope.viewResults = "ready";
-		    
-      });
-		})
-		
-	}
+		        });
+		        if (parseInt(i) === 5){
+			      	break
+			      } 
+	        }
+	      	for (var i in result.tracks){
+			      if (result.tracks[i].uri.split(":")[0] != "tunein"){
+			      	var n = $scope.tracks.push(result.tracks[i]);	      	
+			      }
+			    }
+			    $scope.viewResults = "ready"; 
+	      });
+			})
+		}
 	
 	} else {
 		$scope.viewResults = "history";

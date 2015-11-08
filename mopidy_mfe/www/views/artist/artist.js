@@ -61,7 +61,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 	        lastfmservice.getAlbumImage($scope.albums[i].album, 'large', i, function(err, albumImageUrl, i) {
 	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
 	            $scope.albums[i].album.lfmImage = albumImageUrl;
-	            $scope.$apply();
 	          }
 	        })
 	        // assign album type
@@ -95,7 +94,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 	        lastfmservice.getAlbumImage(data[i], 'medium', i, function(err, albumImageUrl, i) {
 	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
 	            $scope.albums[i].album.lfmImage = albumImageUrl;
-	            $scope.$apply();
 	          }
 	        })
 				}

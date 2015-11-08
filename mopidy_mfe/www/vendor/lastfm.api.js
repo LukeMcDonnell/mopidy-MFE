@@ -119,7 +119,7 @@ function LastFM(options){
 				/* Is a cache available?. */
 				if(typeof(cache) != 'undefined'){
 					var expiration = cache.getExpirationTime(params);
-
+					
 					if(expiration > 0){
 						cache.store(hash, data, expiration);
 					}

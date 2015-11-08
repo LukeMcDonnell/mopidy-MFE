@@ -165,15 +165,12 @@ angular.module('mopidyFE', [
       if (track.track.album.images && track.track.album.images.length > 0) {
         $rootScope.currentTrackImageUrl = track.track.album.images[0];
       } else {
-        lastfmservice.getTrackImage(track.track, 'large', 0, function(err, trackImageUrl, asdf) {
+        lastfmservice.getAlbumImage(track.track, 'extralarge', 0, function(err, trackImageUrl, asdf) {
           if (! err && trackImageUrl !== undefined && trackImageUrl !== '') {
             $rootScope.currentTrackImageUrl = trackImageUrl;
+          } else {
+						$rootScope.currentTrackImageUrl = defaultTrackImageUrl;
           }
-          else
-          {
-            $rootScope.currentTrackImageUrl = defaultTrackImageUrl;
-          }
-          $scope.$apply();
         });
       }
     }

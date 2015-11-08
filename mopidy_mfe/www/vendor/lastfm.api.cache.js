@@ -28,6 +28,7 @@ function LastFMCache(){
 
 	/* Methods with weekly expiration. */
 	var weeklyMethods = [
+		'album.getInfo',
 		'artist.getSimilar',
 		'tag.getSimilar',
 		'track.getSimilar',
@@ -99,12 +100,11 @@ function LastFMCache(){
 	this.store = function(hash, data, expiration){
 		var object = localStorage.getObject(name);
 		var time   = Math.round(new Date().getTime() / 1000);
-
 		object[hash] = {
 			data       : data,
 			expiration : time + expiration
 		};
-
+		
 		localStorage.setObject(name, object);
 	};
 

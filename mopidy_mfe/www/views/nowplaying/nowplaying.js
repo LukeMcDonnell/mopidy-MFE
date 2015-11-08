@@ -30,20 +30,19 @@ angular.module('mopidyFE.nowplaying', [
      return $window.innerWidth;
   }, function(value) {
      $rootScope.pageWidth = value;
- });
+ 	});
  	
 	function getImgs(){
-		for (var i in $rootScope.trackList){					
+		for (var i in $rootScope.trackList){
+			if ($rootScope.trackList[i].lfmImage){ break; }
 			$rootScope.trackList[i].lfmImage = 'assets/vinyl-icon.png';
-			console.log($rootScope.trackList[i]);
 			// Get album image
-	    lastfmservice.getTrackImage($rootScope.trackList[i].track, 'large', i, function(err, albumImageUrl, i) {
-	      if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-	        $rootScope.trackList[i].lfmImage = albumImageUrl;
-	        $scope.$apply();
-	      }
-	    });	
-	  }	
+			lastfmservice.getAlbumImage($rootScope.trackList[i].track, 'medium', i, function(err, albumImageUrl, i) {
+				if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+					$rootScope.trackList[i].lfmImage = albumImageUrl;
+				}
+			});
+		}
 	}
  	
  	if ($rootScope.showQueue){
