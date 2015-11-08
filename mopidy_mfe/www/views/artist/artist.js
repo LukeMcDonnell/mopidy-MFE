@@ -86,7 +86,7 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 				cacheservice.cacheBrowse(uri, data);
 				console.log(data)
 				for (var i in data){
-					$scope.albums ++;
+					$scope.albumss ++;
 					$scope.albums.push({album: data[i], type: "album"});
 					$scope.albums[i].album.artists = [{name: artistName}];
 					// Get album image

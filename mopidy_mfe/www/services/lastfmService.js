@@ -12,9 +12,9 @@ angular.module('mopidyFE.lastfm', [])
   });
 	
 	function getAlbumDetails(data){
-		if (data.__model__ === "Track"){
+		if (data.__model__ === "Track" || (data.__model__ === "Ref" && data.type === "track")){
 			return {artist: data.artists[0].name, album: (data.album !== null ? data.album.name : '')};
-		} else if (data.__model__ === "Album"){
+		} else if (data.__model__ === "Album" || (data.__model__ === "Ref" && data.type === "album")){
 			return {artist: data.artists[0].name, album: data.name};
 		}
 	}
