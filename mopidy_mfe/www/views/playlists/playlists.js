@@ -34,6 +34,7 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 				
 	} else {
 		mopidyservice.getPlaylist(plId).then(function(data) {
+			$rootScope.pageTitle = data.name.split("(by")[0];
 			$scope.playlist = data;
 			$scope.playlistUris = [];
 	  	for (var i in $scope.playlist.tracks){
