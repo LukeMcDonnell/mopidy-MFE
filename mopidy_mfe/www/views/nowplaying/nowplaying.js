@@ -24,6 +24,7 @@ angular.module('mopidyFE.nowplaying', [
 .controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, mopidyservice, lastfmservice, $window) {
 	$rootScope.pageTitle = "Now Playing";
  	$rootScope.showFooter = false;
+ 	$scope.showContext = false;
  	$rootScope.showQueue = $route.current.$$route.queue;
  	
  	$scope.$watch(function(){
@@ -46,6 +47,7 @@ angular.module('mopidyFE.nowplaying', [
 	}
  	
  	if ($rootScope.showQueue){
+ 		$rootScope.pageTitle = "Queue";
  		if (!$rootScope.gotTlImgs){
 	 		getImgs();
 	  	$rootScope.gotTlImgs = true;

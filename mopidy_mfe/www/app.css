@@ -68,12 +68,12 @@
 	line-height: 0px;
 }
 
-
 /*
 //
 //   OTHER BOXES.
 //
 */
+
 .box3{
 	width: 95%;
   margin-left:auto;
@@ -109,11 +109,13 @@
 	font-weight: 400;
 	color: #777777;
 }
+
 /*
 //
 // CONTEXT MENU
 //
 */
+
 .contextMenu {
 	//display: none;
 	position: fixed;
@@ -156,7 +158,6 @@
 // SEARCH AND MENU
 //
 */
-
 
 .menumask {
 	display: 		none;
@@ -214,6 +215,7 @@ input:focus {
 	font-weight: 200;
 	line-height: 11px;	
 }
+
 /*
 //
 // BODY AND BACKGROUNDS
@@ -276,11 +278,13 @@ body a {
 	filter: blur(7px) brightness(0.6);
 	
 }
+
 /*
 //
 // NOW PLAYING AND QUEUE
 //
 */
+
 .nowPlaying {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
   text-align: center;
@@ -353,13 +357,17 @@ body a {
 	opacity: 0.9;
 	position: absolute;
 	width: 100%;
-	min-height: 90%;
+	min-height: 100%;
 	top: 50px;
 	padding: 0px;
 	margin: 0px;
 }
 
-/* HEADERS AND FOOTERS */
+/*
+//
+// HEADERS AND FOOTERS
+//
+*/
 
 .header {
 	background: rgb(22, 22, 22);

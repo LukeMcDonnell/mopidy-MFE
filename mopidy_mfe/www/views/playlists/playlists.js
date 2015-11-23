@@ -20,6 +20,7 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 .controller('playlistsCtrl', function($rootScope, $scope, mopidyservice, $routeParams, util, lastfmservice) {
 	$rootScope.pageTitle = "Playlists";
 	$rootScope.showFooter = true;
+	$scope.showContext = false;
 	$scope.pageReady = false;
 	
 	var plId = util.urlDecode($routeParams.id);

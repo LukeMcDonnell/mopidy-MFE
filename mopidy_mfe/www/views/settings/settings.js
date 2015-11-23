@@ -13,6 +13,7 @@ angular.module('mopidyFE.settings', ['ngRoute'])
 .controller('settingsCtrl', function($rootScope, $scope, cacheservice, mopidyservice) {
 	$rootScope.pageTitle = "Settings";
 	$rootScope.showFooter = true;
+	$scope.showContext = false;
 	
 	var settings = cacheservice.getSettings();
 	$scope.ip = settings.ip

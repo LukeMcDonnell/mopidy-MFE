@@ -40,7 +40,7 @@
 				<tr>
 					<td width=5 >  </td>
 					<td valign="middle" width=30 > <a href="javascript:void(0);" onclick="toggleMenu();"><i class="fa fa-bars"></i></a> </td>
-					<td valign="middle" align="left" ng-if="pageTitle != 'Search'"> <h1> {{ pageTitle }} </h1> </td>
+					<td valign="middle" align="left" ng-if="pageTitle != 'Search'"><h1> {{ pageTitle }} </h1></td>
 					<td valign="middle" align="left" ng-if="pageTitle === 'Search'"> 
 						<form onsubmit="getSearch()" id="searchForm"> 
 					  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">
@@ -62,10 +62,11 @@
 								}
 								
 							</script>	
-					  	
 						</form>	
 					</td>
-					<td></td>
+					<td width=30>
+						<div ng-if="showQueue"><a href='#/nowplaying/'><i class='fa fa-times'></i></a></div>
+					</td>
 				</tr>
 			</table>	
 			

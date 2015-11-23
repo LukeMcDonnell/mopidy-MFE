@@ -17,6 +17,7 @@ angular.module('mopidyFE.search', ['ngRoute'])
 .controller('searchCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice) {
 	$rootScope.pageTitle = "Search";
 	$rootScope.showFooter = true;
+	$scope.showContext = false;
 	
 	var searchTerm = $routeParams.id;
 	$scope.searchTerm = searchTerm;

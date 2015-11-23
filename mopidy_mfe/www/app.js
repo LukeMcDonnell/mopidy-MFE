@@ -165,7 +165,7 @@ angular.module('mopidyFE', [
       if (track.track.album.images && track.track.album.images.length > 0) {
         $rootScope.currentTrackImageUrl = track.track.album.images[0];
       } else {
-        lastfmservice.getAlbumImage(track.track, 'extralarge', 0, function(err, trackImageUrl, asdf) {
+        lastfmservice.getAlbumImage(track.track, 'mega', 0, function(err, trackImageUrl, asdf) {
           if (! err && trackImageUrl !== undefined && trackImageUrl !== '') {
             $rootScope.currentTrackImageUrl = trackImageUrl;
           } else {
@@ -345,9 +345,9 @@ angular.module('mopidyFE', [
   }
   
   $rootScope.contextLink = function (type, data, arg){
-  	$scope.showContext = false;
   	if (type === "link"){
   		$location.path(data);
+  		$scope.showContext = false;
   	} else if (type === "playTrack"){
   		switch (arg){
   			case "ANP":
@@ -362,6 +362,7 @@ angular.module('mopidyFE', [
   			default:
   				break;
   		}
+  		$scope.showContext = false;
   	} else if (type === "playTl"){
   		switch (arg){
   			case "ARP":
@@ -376,10 +377,13 @@ angular.module('mopidyFE', [
   			default:
   				break;
   		}
+  		$scope.showContext = false;
   	} else if (type === "addFav"){
   		cacheservice.addFav(data);
+  		$scope.contextMenu(data);
   	} else if (type === "removeFav"){
   		cacheservice.removeFav(data);
+  		$scope.contextMenu(data);
   	}
   }
   $rootScope.closeContextMenu = function(){

@@ -18,6 +18,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 .controller('browseCtrl', function($rootScope, $scope, $routeParams, $location, mopidyservice, util, cacheservice) {
 	$rootScope.pageTitle = "Browse";
 	$rootScope.showFooter = true;
+	$scope.showContext = false;
 	$scope.pageReady = false;
 	$scope.showPage = 'home';
 	

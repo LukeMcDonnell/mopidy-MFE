@@ -12,6 +12,7 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 .controller('artistCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util) {
 	$rootScope.pageTitle = "Artist";
 	$rootScope.showFooter = true;
+	$scope.showContext = false;
 	$scope.pageReady=false;
 	
 	var artistName = util.urlDecode($routeParams.id);
@@ -84,7 +85,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 		} else { // hate it hate it hate it.
 			mopidyservice.getLibraryItems(uri).then(function(data) {
 				cacheservice.cacheBrowse(uri, data);
-				console.log(data)
 				for (var i in data){
 					$scope.albumss ++;
 					$scope.albums.push({album: data[i], type: "album"});
