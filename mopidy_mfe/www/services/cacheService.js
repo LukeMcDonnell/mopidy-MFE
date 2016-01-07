@@ -1,11 +1,11 @@
 angular.module('mopidyFE.cache', [])
 .factory('cacheservice', function($q, $location) {
-  var sCacheMax = 20; // max number or entries for each cache
-	var iCacheMax = 100; 
-	var bCacheMax = 100; 
+  var sCacheMax = 15; // max number or entries for each cache
+	var iCacheMax = 50; 
+	var bCacheMax = 50; 
 	var recentMax = 20;
 	var favsMax = 200;
-	var imgMax = 1000;
+	var imgMax = 600;
 	
   ls=window.localStorage
 	//ls.clear(); //for testing
