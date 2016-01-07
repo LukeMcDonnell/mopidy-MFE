@@ -25,6 +25,15 @@ Project resources
 
 Changelog
 =========
+v0.3.0 (2016-01-07)
+------------------
+- Filter Favourites by artists/albums/tracks/playlists
+- Added ability to clear search history
+- Refined context menus
+- Basic playlist control (currently only able to remove tracks, more functionality to come...)
+- Reduced cache limits. This should prevent maxing out the browser localstorage limit.
+
+
 v0.2.2 (2015-11-09)
 -------------------
 - Added ability to remove items from "favourites" list
