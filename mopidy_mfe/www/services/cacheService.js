@@ -230,6 +230,18 @@ angular.module('mopidyFE.cache', [])
 		//
 		// SEARCH
 		//
+		clearSearchCache: function(){
+			var i = 0
+			while (i <= sCacheMax){
+				if (ls["sCache" + i]){
+					ls["sCache" + i].delete;
+				}
+				i++;
+			}
+			sCacheIndex = []
+			ls.sCacheIndex = JSON.stringify(sCacheIndex);
+		},
+		
 		cacheIndex: function(){
   		return sCacheIndex;
   	},

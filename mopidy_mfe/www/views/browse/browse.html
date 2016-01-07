@@ -117,8 +117,19 @@
 	</div>
 	
 	<div ng-if="pageReady && showPage === 'favs'">
+		<div class="box3" style="text-align: right;">
+			<br>
+			<i class="fa fa-filter"></i>
+			<select ng-model="q2">
+				<option value="">					View All</option>
+				<option value="artist">		Artists</option>
+				<option value="album">		Albums</option>
+				<option value="track">		Tracks</option>
+				<option value="playlist">	Playlists</option>
+			</select>
+		</div>
 	
-		<div ng-repeat="fav in favList">
+		<div ng-repeat="fav in favList | filter:{line2:q2} as results ">
 
 			<div class="box" ng-if="libItem.type != 'track'">
 				<a href="" ng-click="contextMenu(fav.context);">

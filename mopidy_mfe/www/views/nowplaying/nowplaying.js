@@ -21,7 +21,7 @@ angular.module('mopidyFE.nowplaying', [
 }])
 
 
-.controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, mopidyservice, lastfmservice, $window) {
+.controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, mopidyservice, lastfmservice, $window, cacheservice) {
 	$rootScope.pageTitle = "Now Playing";
  	$rootScope.showFooter = false;
  	$scope.showContext = false;
@@ -40,6 +40,7 @@ angular.module('mopidyFE.nowplaying', [
 			// Get album image
 			lastfmservice.getAlbumImage($rootScope.trackList[i].track, 'medium', i, function(err, albumImageUrl, i) {
 				if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+					$rootScope.trackList[i].track.lfmImage = albumImageUrl;
 					$rootScope.trackList[i].lfmImage = albumImageUrl;
 				}
 			});

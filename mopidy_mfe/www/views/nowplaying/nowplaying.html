@@ -45,6 +45,11 @@
 					
 			<div ng-repeat="tracks in trackList">				
 				<div class="box">
+					<a href="" ng-click="queueMenu(tracks);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
 					<a href="" ng-click="playTlTrack( tracks.tlid )">
 						<div class="boxLeft"> 
 							<img ng-src="{{tracks.lfmImage}}" width=50 height=50 />

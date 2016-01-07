@@ -14,10 +14,11 @@ angular.module('mopidyFE.search', ['ngRoute'])
   
 }])
 
-.controller('searchCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice) {
+.controller('searchCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, $route) {
 	$rootScope.pageTitle = "Search";
 	$rootScope.showFooter = true;
 	$scope.showContext = false;
+	$scope.viewResults = "";
 	
 	var searchTerm = $routeParams.id;
 	$scope.searchTerm = searchTerm;
@@ -77,7 +78,6 @@ angular.module('mopidyFE.search', ['ngRoute'])
 		}
 	
 	} else {
-		$scope.viewResults = "history";
 		// Show recent searches maybe?
 		$scope.searchHistory = _.chain(cacheservice.cacheIndex())
 			.sortBy('timestamp')
@@ -85,7 +85,14 @@ angular.module('mopidyFE.search', ['ngRoute'])
 		
 		$scope.searchHistory.reverse();
 		
+		if ($scope.searchHistory.length > 0){
+			$scope.viewResults = "history";
+		}
 	}	
-
+	
+	$rootScope.removeHistory = function(data){
+		cacheservice.clearSearchCache();
+		$route.reload();
+	}
 	
 });

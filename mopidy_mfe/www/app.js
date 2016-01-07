@@ -251,6 +251,40 @@ angular.module('mopidyFE', [
       mopidyservice.seek(Math.round(milliSeconds));      
     }
   }
+  
+  //
+  // QUEUE MENU
+  //  
+  $rootScope.queueMenu = function(context){
+		console.log(context);
+		$scope.contextData = []
+  	$scope.contextReady	= false;	
+ 	
+		var favs = cacheservice.getFavs();
+  	var favsMenuItem = {text: "Add to Favourites", 		type: "addFavQ", data: context	};
+  	for (var i in favs){
+  		if(favs[i].uri === context.track.uri){
+  			favsMenuItem = {text: "Remove from Favourites", 		type: "removeFavQ", data: context	};
+  		}
+  	}
+  	
+		$scope.contextData.image = context.lfmImage;
+		$scope.contextData.header = context.track.name;
+		
+		if (context.track.artists ){ $scope.contextData.header2 = "Track by " + context.track.artists[0].name }
+		$scope.contextData.buttons = []
+		$scope.contextData.buttons.push({text: "Delete from queue", 	type: "QCtrl", arg: "REMOVE",	data:	context	});
+		//$scope.contextData.buttons.push({text: "Move UP queue", 	type: "QCtrl", arg: "UP",	data:	context	}); 
+		//$scope.contextData.buttons.push({text: "Move DOWN queue", 	type: "QCtrl", arg: "DOWN",	data:	context	});
+		$scope.contextData.buttons.push(favsMenuItem);
+		if (context.track.artists ){ $scope.contextData.buttons.push({text: "More From "+context.track.artists[0].name, 	type: "link",		data:"/artist/"+context.track.artists[0].name+"/"+context.track.artists[0].uri });	}
+  	if (context.track.artists ){ $scope.contextData.buttons.push({text: "View Album: "+context.track.album.name , 	type: "link",		data:"/album/"+context.track.album.name+"/"+context.track.album.uri });}
+		//$scope.contextData.buttons.push({text: "Start Song Radio", 		type: "play",		data:"RADIO"});
+		
+		$scope.contextReady = true;
+		$scope.showContext = true;
+	}	
+  	
   	
 	//
 	// CONTEXT MENU
@@ -307,7 +341,6 @@ angular.module('mopidyFE', [
   		$scope.contextData.buttons.push({text: "View Album Page", 	type: "link",		data:"/album/"+context.name+"/"+context.uri });	
 
   	} else if (context.__model__ === "Track" || (context.__model__ === "Ref" && context.type === "track")){
-  		
 			$scope.contextData.image = context.lfmImage;
 			$scope.contextData.header = context.name
 			if (context.artists ){ $scope.contextData.header2 = "Track by " + context.artists[0].name }
@@ -384,7 +417,31 @@ angular.module('mopidyFE', [
   	} else if (type === "removeFav"){
   		cacheservice.removeFav(data);
   		$scope.contextMenu(data);
+  	} else if (type === "addFavQ"){
+  		cacheservice.addFav(data.track);
+  		$scope.queueMenu(data);
+  	} else if (type === "removeFavQ"){
+  		cacheservice.removeFav(data.track);
+  		$scope.queueMenu(data);
+  	} else if (type ==="QCtrl"){
+  		switch (arg){
+  			case "REMOVE":
+  				mopidyservice.queueRemove([data.tlid]);
+					//console.log(data);
+  				break;
+  			case "UP":
+  				
+  				break;
+  			case "DOWN":
+  				
+  				break;
+  			default:
+	  			break;
+	  	}
+	  	$scope.showContext = false;
+  		
   	}
+  	
   }
   $rootScope.closeContextMenu = function(){
   	$scope.showContext = false;
@@ -410,19 +467,18 @@ angular.module('mopidyFE', [
 		if (recent){
 			cacheservice.addRecent(recent);
 		}
-	}
+	};
 	$rootScope.addTrackNext = function(track, recent){
 		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.addTrackNext(track);
 		if (recent){
 			cacheservice.addRecent(recent);
 		}
-	}
+	};
 	$rootScope.playTrackNext = function(track){
 		if (typeof track === 'string'){ track = [ track ]; }
 		mopidyservice.playTrackNext(track);
-	}
+	};
 	// more to come.
-	
 	
 });

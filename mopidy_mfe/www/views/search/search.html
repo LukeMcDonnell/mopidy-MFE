@@ -90,13 +90,16 @@
 		<div class="box3">
 			<h1>RECENT SEARCHES</h1>
 		</div>
+		
 		<div ng-repeat="history in searchHistory">	
 			<div class="box">
+				<!--
 				<a href="" ng-click="removeHistory(history);">
 					<div class="boxRight">
-						<i class="fa fa-ellipsis-v fa-2x"></i>
+						<i class="fa fa-times fa-2x"></i>
 					</div>
 				</a>
+				--> 
 				<a href="#/search/{{ history.query }}">				
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ history.query }}</h1>
@@ -104,6 +107,15 @@
 				</a>
 			</div>
 		</div>
+		
+		<div class="box">
+			<a href="" ng-click="removeHistory();">				
+				<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+					<h3>CLEAR SEARCH HISTORY</h3>
+				</div></div></div>
+			</a>
+		</div>
+		
 	</div>
 	
 	

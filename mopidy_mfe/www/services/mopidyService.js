@@ -290,6 +290,18 @@ angular.module('mopidyFE.mopidy', [])
           .then(function() {
             self.mopidy.playback.play();
           }, consoleError);
-      }
+      },
+			// Queue ctrl
+      queueRemove: function(data){
+      	return wrapMopidyFunc("mopidy.tracklist.remove", this)({ tlid: data });
+      },
+     	queueMoveUp: function(){
+     		
+     	},
+     	queueMoveDown: function(){
+     		
+     	}
+      
+      
     };
   });
