@@ -10,10 +10,18 @@
 	</div>
 		
 	<div ng-if="viewResults === 'ready'" class="searchResults">
+		<div class="minbox" style="text-align: right;">
+			<i class="fa fa-filter"></i>
+			<select ng-model="q2">
+				<option value="">View All</option>
+				<option ng-repeat="backend in backends" value="{{backend}}">{{backend}}</option>
+			</select>
+		</div>
+		
 		<div class="box3">
 			<h1>ARTISTS</h1>
 		</div>	
-		<div ng-repeat="artist in artists">
+		<div ng-repeat="artist in artists | filter:{backend:q2} as results">
 			
 			<div class="box">
 				<a href="" ng-click="contextMenu(artist);">
@@ -27,6 +35,7 @@
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1> {{artist.name}}	</h1>
+						<h3> ({{artist.backend | uppercase }})</h3>
 					</div></div></div>
 				</a>
 			</div>
@@ -38,7 +47,7 @@
 		<div class="box3">
 			<h1>ALBUMS</h1>
 		</div>		
-		<div ng-repeat="album in albums">
+		<div ng-repeat="album in albums | filter:{backend:q2} as results">
 			
 			<div class="box">
 				<a href="" ng-click="contextMenu(album);">
@@ -52,7 +61,8 @@
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle; ">
 						<h1>{{ album.name | shorten:'':0 }}</h1>
-						<h3>{{ album.artists[0].name }}&nbsp;&nbsp;({{album.date}})</h3>
+						<h3> ({{ album.backend | uppercase }}) {{ album.artists[0].name }}&nbsp;&nbsp;{{album.date}}</h3>
+						
 					</div></div></div>
 				</a>
 			</div>		
@@ -64,7 +74,7 @@
 		<div class="box3">
 			<h1>TRACKS</h1>
 		</div>
-		<div ng-repeat="track in tracks track by track.uri">
+		<div ng-repeat="track in tracks  | filter:{backend:q2} as results track by track.uri">
 			
 			<div class="box">
 				<a href="" ng-click="contextMenu(track);">

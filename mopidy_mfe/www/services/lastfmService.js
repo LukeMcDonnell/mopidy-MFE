@@ -48,7 +48,7 @@ angular.module('mopidyFE.lastfm', [])
       lastfm.artist.getInfo({artist: artistName}, {
         success: function(data){
         	data['i'] = i;
-          callback(null, data);
+          callback(null, data, i);
           $rootScope.$apply();
         }, error: function(code, message){
             console.log('Error #'+code+': '+message);

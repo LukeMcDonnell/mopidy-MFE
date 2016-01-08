@@ -3,6 +3,14 @@
 //   BOXES.
 //
 */
+.minbox {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	overflow:hidden;
+  width: 95%;
+  margin: auto;
+	text-align: left;
+}
+
 .box {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	overflow:hidden;
