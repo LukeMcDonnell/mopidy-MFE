@@ -127,7 +127,7 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						lfmImage: favs[i].lfmImage,
 						context: favs[i]
 					}
-				} else if (favs[i].__model__ === "Artist"){
+				} else if (favs[i].__model__ === "Artist" || (favs[i].__model__ === "Ref" && favs[i].type === "artist")){
 					var obj = {
 						line1: favs[i].name,
 						line2: "Artist",
@@ -136,15 +136,16 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						lfmImage: favs[i].lfmImage,
 						context: favs[i]
 					}
-				} else if (favs[i].__model__ === "Track"){
+				} else if (favs[i].__model__ === "Track" || (favs[i].__model__ === "Ref" && favs[i].type === "track")){
 					var obj = {
 						line1: favs[i].name,
-						line2: "Track by " + favs[i].artists[0].name,
+						line2: "Stream",
 						uri: "#/browse/favourites", // this is a problem
 						timestamp: favs[i].timestamp,
 						lfmImage: favs[i].lfmImage,
 						context: favs[i]
 					}
+					if (favs[i].artists) { obj.line2 = "Track by " + favs[i].artists[0].name };
 				}
 				if(obj){
 					$scope.favList.push(obj);
