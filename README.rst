@@ -25,6 +25,13 @@ Project resources
 
 Changelog
 =========
+v0.3.1 (2016-01-09)
+------------------
+- Added stream support to favourites list
+- Forced local artists/albums into search results
+- Refinements to how results are displayed
+- Filtering by backend for search results
+
 v0.3.0 (2016-01-07)
 ------------------
 - Filter Favourites by artists/albums/tracks/playlists
@@ -59,6 +66,5 @@ v0.2.0 (2015-11-05)
 
 v0.1.2 (2015-10-31)
 -------------------
-
 - Initial release.
 
