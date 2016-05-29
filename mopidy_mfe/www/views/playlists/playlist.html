@@ -1,12 +1,65 @@
+<div class="blurBackground" id="background">
+	<div class="blurBackImg">
+		<div class="blurBackImg2" style="background-image: url('{{plImage}}');"></div>
+	</div>
+</div>
+
+<script>
+	$(window).scroll(function(){			
+    if ($(this).scrollTop() > (290-50)){
+    	$("#launchMenu").css({'top': '50px'});
+    	$("#launchMenu").css({'position': 'fixed'});
+    	$('#background').css({'top': "-120px"});
+    	$("#background").css({'z-index': '11'});
+			$("#background").css({'clip': 'rect(0px,2000px,200px,0px'});
+    } else {
+    	$("#launchMenu").css({'top': '290px'});
+    	$("#launchMenu").css({'position': 'absolute'});
+    	$('#background').css({'top': -($(this).scrollTop() / 2) + "px"});
+    	$("#background").css({'z-index': '-1'});
+    	$("#background").css({'clip': 'rect(0px,2000px,2000px,0px'});
+    }
+        
+	});		
+</script>
+
 <div class="main">
-	<div style="height: 60px"></div>
+	<div style="height: 50px"></div>
 	
-	<div ng-if="!pageReady">
+	<div class="lfmInfo" id="info">
+		<h1> </h1>
+		<img ng-src="{{ plImage }}" width=180 height=180>
+		<h2>{{ backend | uppercase }} PLAYLIST</h2>
+	</div>	
+		
+	<div style="height:240px; width: 100%;"></div>
+	
+	<div class="playMenu" id="launchMenu" ng-if="pageReady">
+		<div class="playMenuContainer">
+			
+			<a href="" ng-click="contextMenu(playlist);">
+				<div class="boxRight">
+					<i class="fa fa-ellipsis-v fa-2x"></i>
+				</div>
+			</a>
+			<a href="" ng-click="addReplacePlay( playlistUris[0], playlistUris, playlist )">
+				<div class="menuBox"> Play All </div>
+			</a>
+			<a href="" ng-click="addTrackNext( playlistUris, playlist )">
+				<div class="menuBox"> Play Next </div>
+			</a>
+			<a href="" ng-click="appendTrack( playlistUris, playlist )">
+				<div class="menuBox"> Queue </div>
+			</a>		
+		</div>		
+	</div>
+	
+	<div class="albumList" id="list" ng-if="!pageReady">
 		<br><br><br>
 		<i class="fa fa-spinner fa-2x fa-pulse"></i>
 	</div>
 	
-	<div ng-if="pageReady">
+	<div class="albumList" id="list" ng-if="pageReady">
 		<div ng-repeat="plItems in playlist.tracks">
 			
 			<div class="box">
@@ -20,18 +73,18 @@
 						<img ng-src="{{plItems.lfmImage}}" width=50 height=50 />
 					</div>			
 					<div class="boxCenter" ng-if="plItems.uri != currentUri || currentUri === null"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ plItems.name | shorten:'':0 }}</h1>
-						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
+						<h1>{{ plItems.name }}</h1>
+						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name }}</h3>
 					</div></div></div>
 					<div class="boxCenter2" ng-if="plItems.uri === currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ plItems.name | shorten:'':0 }}</h1>
-						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name | shorten:'':0 }}</h3>
+						<h1>{{ plItems.name }}</h1>
+						<h3>{{ plItems.artists[0].name }}&nbsp;&nbsp; -&nbsp;&nbsp;{{ plItems.album.name }}</h3>
 					</div></div></div>
 				</a>
 			</div>				
 
 		</div>
-		
+		<br><br><br>
 	</div>
-	<br><br><br>
+	
 </div>

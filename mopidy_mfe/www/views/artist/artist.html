@@ -1,27 +1,70 @@
-<div class="backImg"> <img id="bg" ng-src="{{artistImage}}" /></div>
+<div class="blurBackground" id="background">
+	<div class="blurBackImg">
+		<div class="blurBackImg2" style="background-image: url('{{artistImage}}');"></div>
+	</div>
+</div>
+
+<script>
+	$(window).scroll(function(){			
+    if ($(this).scrollTop() > (290-50)){
+    	$("#launchMenu").css({'top': '50px'});
+    	$("#launchMenu").css({'position': 'fixed'});
+    	$('#background').css({'top': "-120px"});
+    	$("#background").css({'z-index': '11'});
+			$("#background").css({'clip': 'rect(0px,2000px,200px,0px'});
+    } else {
+    	$("#launchMenu").css({'top': '290px'});
+    	$("#launchMenu").css({'position': 'absolute'});
+    	$('#background').css({'top': -($(this).scrollTop() / 2) + "px"});
+    	$("#background").css({'z-index': '-1'});
+    	$("#background").css({'clip': 'rect(0px,2000px,2000px,0px'});
+    }
+        
+	});		
+</script>
+
 <div class="main">
-	<div style="height: 60px"></div>
+	<div style="height: 50px"></div>
 		
-	<div ng-if="!pageReady">
-		<br><br><br>
-		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	<div class="lfmInfo" id="info">
+		<h1> </h1>
+		<img ng-src="{{ artistImage }}" width=180 height=180>
+		<h2>{{ backend | uppercase }} ALBUMS</h2>
+	</div>	
+		
+	<div style="height:240px; width: 100%;"></div>
+	
+	<div class="playMenu" id="launchMenu" ng-if="pageReady">
+		<div class="playMenuContainer">
+			
+			<a href="" ng-click="contextMenu(albums[0].album.artists[0]);">
+				<div class="boxRight">
+					<i class="fa fa-ellipsis-v fa-2x"></i>
+				</div>
+			</a>
+			<a href="" ng-click="addReplacePlay(playlistUris[0], playlistUris, artist);">
+				<div class="menuBox"> Play All </div>
+			</a>
+			<a href="" ng-click="appendTrack(playlistUris, artist);">
+				<div class="menuBox"> Queue </div>
+			</a>
+			<!--
+			<div class="menuBox"> Radio </div>
+			-->
+		</div>
 	</div>
 	
-	<div class="artist" ng-if="pageReady">
-		
-		<div class="lfmInfo">
-			<table width=100% height=180>
-				<tr>
-					<td width=180> <img ng-src="{{ artistImage }}" width=180 height=180> </td>
-					<td> <h2>{{ artistSummary | split:'&#60;a href':0 }}</h2> </td>
-				</tr>				
-			</table>	
-		</div>	
-		
+	<div class="albumList" id="list" ng-if="!pageReady">
+		<br><br><br>
+		<i class="fa fa-spinner fa-2x fa-pulse"></i>
+	</div>	
+	
+	<div class="albumList" id="list" ng-if="pageReady">
 		<div ng-if="albumss">		
 			<div class="box3">
 				<h1>ALBUMS</h1>
 			</div>
+			
 			<div ng-repeat="album in albums | filter:{type: 'album'}">
 				<div class="box">
 					<a href="" ng-click="contextMenu(album.album);">
@@ -34,7 +77,7 @@
 							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 						</div>
 						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-							<h1>{{ album.album.name | shorten }}</h1>
+							<h1>{{ album.album.name }}</h1>
 							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
 						</div></div></div>
 					</a>
@@ -58,7 +101,7 @@
 							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 						</div>
 						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-							<h1>{{ album.album.name | shorten }}</h1>
+							<h1>{{ album.album.name }}</h1>
 							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
 						</div></div></div>
 					</a>
@@ -82,7 +125,7 @@
 							<img ng-src="{{album.album.lfmImage}}" width=50 height=50 />
 						</div>
 						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-							<h1>{{ album.album.name | shorten }}</h1>
+							<h1>{{ album.album.name }}</h1>
 							<h3>{{ album.album.artists[0].name }}&nbsp;&nbsp;{{album.album.date}}</h3>
 						</div></div></div>
 					</a>
@@ -90,10 +133,7 @@
 			</div>
 		</div>
 		
-		
-		
-		
-		
-	</div>
-	<br><br><br>
+		<br><br><br><br>
+	</div>	
+	
 </div>

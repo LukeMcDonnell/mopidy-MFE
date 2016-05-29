@@ -29,15 +29,23 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 		$scope.playlists = [];
 		
 		mopidyservice.getPlaylists().then(function(data) {
+			for (var i in data){
+				data[i].lfmImage = 'assets/vinyl-icon.png';
+			}
+			
 			$scope.playlists = data;
 			$scope.pageReady = true;    
 		}, console.error.bind(console));
 				
 	} else {
+		$scope.backend = plId.split(":")[0]
+		$scope.plImage = 'assets/vinyl-icon.png';
 		mopidyservice.getPlaylist(plId).then(function(data) {
 			$rootScope.pageTitle = data.name.split("(by")[0];
+			data.lfmImage = 'assets/vinyl-icon.png';
 			$scope.playlist = data;
 			$scope.playlistUris = [];
+			
 	  	for (var i in $scope.playlist.tracks){
 	  		$scope.playlistUris.push($scope.playlist.tracks[i].uri);
 				if (!$scope.playlist.tracks[i].lfmImage){

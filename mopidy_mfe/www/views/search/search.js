@@ -32,22 +32,21 @@ angular.module('mopidyFE.search', ['ngRoute'])
 		
 		// get search results
 		if (searchTerm.length > 2) {
-			
    		mopidyservice.search(searchTerm).then(function(results) {
    			cacheservice.cacheSearch(searchTerm, results);
    			var resultArray = { artists:[], albums:[], tracks:[] }			
+				
 				_.forEach(results, function(result) {
-					var backend = result.uri.split(":")[0];
-					
+					var backend = result.uri.split(":")[0];	
 					if (backend != "tunein"){		
-						$scope.backends.push(backend);	
-								
+						$scope.backends.push(backend);			
 						var localArtists = [];
 						var localAlbums = [];
+						
 						for (var i in result.tracks){		
 							result.tracks[i].backend = backend;	      
 			      	resultArray.tracks.push(result.tracks[i]);
-			      	// add local backend artists and albums.
+			      	//force add local backend artists and albums.
 			      	if (backend === "local" && result.tracks[i].album.artists){
 			      		var f = false;
 			      		for (var n in localArtists){
@@ -77,15 +76,15 @@ angular.module('mopidyFE.search', ['ngRoute'])
 							resultArray.artists.push(result.artists[i]) 
 						};
 			    	for (var i in result.albums){
+			    		if (!result.albums[i].artists){
+			    			result.albums[i].artists = [{name: null}]
+			    		}
 			    		result.albums[i].backend = backend; 
 			    		resultArray.albums.push(result.albums[i]) 
 			    	};      
 			      
 			    }
 			  });
-				//resultArray.artists.reverse();
-				//resultArray.albums.reverse();
-				
 				
 				for (var i in resultArray.artists){
 					// Get artist image
@@ -113,7 +112,6 @@ angular.module('mopidyFE.search', ['ngRoute'])
         }
         
         $scope.tracks = resultArray.tracks;
-	        
 	      $scope.viewResults = "ready"; 
 			    
 			})

@@ -1,8 +1,8 @@
 angular.module('mopidyFE.lastfm', [])
 .factory('lastfmservice', function($rootScope, cacheservice) {
   
-  var API_KEY= '077c9fa281240d1c38b24d48bc234940';
-  var API_SECRET = '';
+  var API_KEY= '003cbc5a4efe12e459eb12f0e4014a05';
+  var API_SECRET = 'a358ab70cdefe967b6788a78a0d047bf';
 
   var fmcache = new LastFMCache();
   var lastfm = new LastFM({
@@ -21,6 +21,7 @@ angular.module('mopidyFE.lastfm', [])
 
   return {
     getAlbumImage: function(track, size, i, callback) {
+    	
     	var deets = getAlbumDetails(track);
     	var data = cacheservice.getImage(deets)
     	if (data){

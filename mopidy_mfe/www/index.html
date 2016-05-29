@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="component.css" />
   <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  
+  <script src="vendor/jquery-2.2.0.min.js"></script>
 	<script src="vendor/angular.min.js"></script>
   <script src="vendor/angular-route.min.js"></script>
 </head>
@@ -41,7 +43,7 @@
 					<td width=5 >  </td>
 					<td valign="middle" width=30 > <a href="javascript:void(0);" onclick="toggleMenu();"><i class="fa fa-bars"></i></a> </td>
 					<td valign="middle" align="left" ng-if="pageTitle != 'Search'"><h1> {{ pageTitle }} </h1></td>
-					<td valign="middle" align="left" ng-if="pageTitle === 'Search'"> 
+					<td valign="middle" align="left" ng-if="pageTitle == 'Search'"> 
 						<form onsubmit="getSearch()" id="searchForm"> 
 					  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">
 					  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times" style="font-size: 30px;"></i></a>				  	

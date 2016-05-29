@@ -65,7 +65,7 @@
 						<img ng-src="{{album.lfmImage}}" width=50 height=50 />
 					</div>
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle; ">
-						<h1>{{ album.name | shorten:'':0 }}</h1>
+						<h1>{{ album.name }}</h1>
 						<h3> ({{ album.backend | uppercase }}) {{ album.artists[0].name }}&nbsp;&nbsp;{{album.date}}</h3>
 						
 					</div></div></div>
@@ -94,8 +94,8 @@
 				</a>
 				<a href="" ng-click="appendTrack( track.uri )">					
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ track.name | shorten:'':0 }}</h1>
-						<h3>({{ track.uri | split:':':0 | uppercase  }}) {{ track.artists[0].name }} - {{ track.album.name  | shorten:'':0 }}</h3>
+						<h1>{{ track.name }}</h1>
+						<h3>({{ track.uri | split:':':0 | uppercase  }}) {{ track.artists[0].name }} - {{ track.album.name }}</h3>
 					</div></div></div>
 				</a>
 			</div>		

@@ -63,7 +63,7 @@ angular.module('mopidyFE.cache', [])
   	ls.ip = ip;
   	ls.port = port;
   	
-  	ls.recent = JSON.stringify(recent);
+  	ls.recent = JSON.stringify([]);
   	ls.favs = JSON.stringify(favs);
   	
   	ls.imgIndex = JSON.stringify([]);

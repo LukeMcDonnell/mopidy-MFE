@@ -38,37 +38,38 @@
 						<i class="{{ libItem.icon }}"></i>
 					</div>				
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ libItem.name | shorten }}</h1>
+						<h1>{{ libItem.name }}</h1>
 					</div></div></div>
 				</a>
 			</div>
 
 		</div>
 	
-		<div class="box3">
-			<h1>RECENTLY PLAYED</h1>
-		</div>
-	
-		<div ng-repeat="recent in recentList">
-
-			<div class="box" ng-if="libItem.type != 'track'">
-				<a href="" ng-click="contextMenu(recent.context);">
-					<div class="boxRight">
-						<i class="fa fa-ellipsis-v fa-2x"></i>
-					</div>
-				</a>
-				<a href="{{ recent.uri }}">
-					<div class="boxLeft"> 
-						<img ng-src="{{recent.lfmImage}}" width=50 height=50 />
-					</div>	
-					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ recent.line1 | shorten }}</h1>
-						<h3>{{ recent.line2 }}</h3>
-					</div></div></div>
-				</a>
+		<div ng-if="recentList">
+			<div class="box3">
+				<h1>RECENTLY PLAYED</h1>
 			</div>
-
+		
+			<div ng-repeat="recent in recentList">
+				<div class="box" ng-if="libItem.type != 'track'">
+					<a href="" ng-click="contextMenu(recent.context);">
+						<div class="boxRight">
+							<i class="fa fa-ellipsis-v fa-2x"></i>
+						</div>
+					</a>
+					<a href="{{ recent.uri }}">
+						<div class="boxLeft"> 
+							<img ng-src="{{recent.lfmImage}}" width=50 height=50 />
+						</div>	
+						<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+							<h1>{{ recent.line1 }}</h1>
+							<h3>{{ recent.line2 }}</h3>
+						</div></div></div>
+					</a>
+				</div>
+			</div>
 		</div>
+		
 		<br><br><br>
 		
 	</div>
@@ -86,7 +87,7 @@
 			<div class="box" ng-if="libItem.type != 'track'">
 				<a href="" ng-click="getUrl(libItem.type, libItem.uri, libItem.name)">				
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ libItem.name | shorten }}</h1>
+						<h1>{{ libItem.name }}</h1>
 						<h3>{{ libItem.type }}</h3>
 					</div></div></div>
 				</a>
@@ -100,11 +101,11 @@
 				</a>
 				<a href="" ng-click="addReplacePlay( libItem, libTlList )">				
 					<div class="boxCenter" ng-if="libItem.uri != currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ libItem.name | shorten }}</h1>
+						<h1>{{ libItem.name }}</h1>
 						<h3>{{ libItem.type }}</h3>
 					</div></div></div>
 					<div class="boxCenter2" ng-if="libItem.uri === currentUri"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ libItem.name | shorten }}</h1>
+						<h1>{{ libItem.name }}</h1>
 						<h3>{{ libItem.type }}</h3>
 					</div></div></div>
 				</a>
@@ -143,7 +144,7 @@
 						<img ng-src="{{fav.lfmImage}}" width=50 height=50 />
 					</div>	
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ fav.line1 | shorten }}</h1>
+						<h1>{{ fav.line1 }}</h1>
 						<h3>{{ fav.line2 }}</h3>
 					</div></div></div>
 				</a>

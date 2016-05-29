@@ -25,6 +25,13 @@ Project resources
 
 Changelog
 =========
+v0.4.0 (2016-05-30)
+------------------
+- Major UI improvements.
+- Added queueing options and context menu for artist, album and playlist pages.
+- Fixed search to be compatible with latest mopidy and mopidy-spotify updates.
+- Stability improvements and bug fixes
+
 v0.3.1 (2016-01-09)
 ------------------
 - Added stream support to favourites list

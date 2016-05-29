@@ -1,5 +1,5 @@
 <div class="main">
-	<div style="height: 60px"></div>
+	<div style="height: 50px"></div>
 	
 	<div ng-if="!pageReady">
 		<br><br><br>
@@ -15,23 +15,26 @@
 		</div>
 		
 		<div ng-repeat="plItems in playlists | filter:{name:q} as results">
-			
 			<div class="box">
 				<a href="" ng-click="contextMenu(plItems);">
 					<div class="boxRight">
 						<i class="fa fa-ellipsis-v fa-2x"></i>
 					</div>
 				</a>
-				<a href="#/playlists/{{ plItems.uri | urlEncode }}">					
+				<a href="#/playlists/{{ plItems.uri | urlEncode }}">	
+					<div class="boxLeft"> 
+						<img ng-src="{{plItems.lfmImage}}" width=50 height=50 />
+					</div>	
+									
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-						<h1>{{ plItems.name | split:'(by':0 | shorten }}</h1>
+						<h1>{{ plItems.name | split:'(by':0 }}</h1>
 						<h3>{{ plItems.uri | split:':':0 }} (by{{plItems.name | split:'(by':1 }}</h3>
 					</div></div></div>
 				</a>
 			</div>
-				
 		</div>
 		
+		<br><br><br>
+		
 	</div>
-	<br><br><br>
 </div>

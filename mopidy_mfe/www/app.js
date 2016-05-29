@@ -361,10 +361,11 @@ angular.module('mopidyFE', [
 			$scope.contextData.buttons = []
 			
 			mopidyservice.getPlaylist(context.uri).then(function(data) {
-		  	data.tlUris = [];		  	
+		  	data.tlUris = [];
+		  	data.lfmImage = $scope.contextData.image = context.lfmImage;	  	
 		  	for (var i in data.tracks){
 	  			data.tlUris.push(data.tracks[i].uri);
-	  		}		  				  		
+	  		}
 	  		$scope.contextData.buttons.push({text: "Add, Replace and Play", type: "playTl", 		arg:"ARP", 			data: data});
 	 			$scope.contextData.buttons.push({text: "Add to Queue: End", 		type: "playTl", 		arg:"APPEND", 	data: data});
   			$scope.contextData.buttons.push({text: "Add to Queue: Next", 		type: "playTl", 		arg:"NEXT", 		data: data});

@@ -17,25 +17,25 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	
 	var albumName = util.urlDecode($routeParams.id);
 	var uri = util.urlDecode($routeParams.uri);
+	
 	$scope.albumName = albumName;
-		
+	$scope.albumImage = 'assets/vinyl-icon.png';
+			
 	if (albumName){
 		$rootScope.pageTitle = albumName;
 		$scope.album = {};
 	  $scope.tracks = [];
+		$scope.backend = uri.split(":")[0]
 	
 	  mopidyservice.getItem(uri).then(function(data) {	    
 	    if (data.length > 0){
 		    cacheservice.cacheItem(uri, data);
 				//re-sort data if local
-				if (uri.split(":")[0] === 'local'){
-					data = data.sort(function(a, b){return a.track_no-b.track_no});
-				}
-				$scope.tracks = data    
-	      $scope.albumImage = 'assets/vinyl-icon.png';
+				data = data.sort(function(a, b){return a.track_no-b.track_no});
+				
+				$scope.tracks = data
 	      // Extract album and artist(s) from first track.
-	      var firstTrack = data[0];
-	      $scope.album = firstTrack.album;	
+	      $scope.album = data[0].album;	
 	     	// get last FM Image.
 	     	lastfmservice.getAlbumImage($scope.album, 'large', 0, function(err, albumImageUrl, i) {
           if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
