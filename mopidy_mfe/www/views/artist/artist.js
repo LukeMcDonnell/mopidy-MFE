@@ -90,8 +90,10 @@ angular.module('mopidyFE.artist', ['ngRoute'])
         	$scope.albums[i].type = 'appearson'; 
         	$scope.appearson ++;
         }
-      }		     
-			$scope.albums[0].album.artists[0].lfmImage = $scope.artistImage
+      }
+      if($scope.albums[0]){
+				$scope.albums[0].album.artists[0].lfmImage = $scope.artistImage
+			}
 			$scope.pageReady=true;	
 		}, console.error.bind(console));
 	}
