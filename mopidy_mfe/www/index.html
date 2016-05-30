@@ -74,8 +74,8 @@
 			
 		</div>
 		
-	
 		<!-- FOOTER -->
+		
 		<div class="footer" ng-show="showFooter && (currentState === 'paused' || currentState === 'playing')">
 			<div class="footerBackground" id="background">
 				<div class="footerBackImg">
@@ -87,28 +87,19 @@
 			  <div class="footerProgressBar footerProgress"></div>
 			</div>
 			
-			<div>
-				<!--
-				<div class="footer_left">
-					<img ng-src="{{currentTrackImageUrl}}" width=50 height=50>
-				</div>
-				-->
-				
+			<div>	
 				<a href="#/nowplaying">
 				<div class="footer_center">
 					<h1>{{ currentTrack }}</h1>
 					<h3>{{ currentArtists[0].name }}</h3>
-					<!-- {{ currentTrackPosition }} / {{ currentTrackLengthString }} -->
 				</div>						
 				</a>
-							
 				<div class="footer_right">  
 					<a href="" ng-click="play()"><i class="fa fa-play" ng-if="currentState === 'paused' || currentState === 'stopped'"></i></a>
 					<a href="" ng-click="play()"><i class="fa fa-pause" ng-if="currentState === 'playing'"></i></a>
 					&nbsp;&nbsp;
 					<a href="" ng-click="next()"><i class="fa fa-step-forward"></i></a>	
 		  	</div>
-		  	
 		  </div>
 		  
 		</div>
