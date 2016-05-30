@@ -49,7 +49,7 @@ angular.module('mopidyFE', [
   $routeProvider.otherwise({redirectTo: '/nowplaying'});
 }])
 
-.controller('AppCtrl', function AppController ($rootScope, $scope, $location, $window, mopidyservice, lastfmservice, util, cacheservice) {
+.controller('AppCtrl', function AppController ($rootScope, $scope, $location, $timeout, $window, mopidyservice, lastfmservice, util, cacheservice) {
 	$rootScope.showBG = true;
 	$scope.showContext = false;
 	$rootScope.online = false;
@@ -481,5 +481,41 @@ angular.module('mopidyFE', [
 		mopidyservice.playTrackNext(track);
 	};
 	// more to come.
+	
+	
+	//
+	// Scroll control
+	//
+	$scope.scrollPos = {}; // scroll position of each view
+
+	$(window).on('scroll', function() {
+		if ($scope.okSaveScroll) { // false between $routeChangeStart and $routeChangeSuccess
+			$scope.scrollPos[$location.path()] = $(window).scrollTop();
+			//console.log($scope.scrollPos);
+		}
+	});
+	
+	$scope.scrollClear = function(path) {
+		$scope.scrollPos[path] = 0;
+	}
+	
+	$scope.$on('$routeChangeStart', function() {
+		$scope.okSaveScroll = false;
+	});
+	
+	$scope.$on('$routeChangeSuccess', function() {
+    $timeout(function() { // wait for DOM, then restore scroll position
+    	if(!$rootScope.noScrollSave){
+        $(window).scrollTop($scope.scrollPos[$location.path()] ? $scope.scrollPos[$location.path()] : 0);
+        $scope.okSaveScroll = true;
+      } else {
+      	$scope.okSaveScroll = true;
+      	$rootScope.noScrollSave = false
+  			$scope.scrollPos[$location.path()] = 0;
+  		}
+    }, 500);
+	});
+	
+	
 	
 });
