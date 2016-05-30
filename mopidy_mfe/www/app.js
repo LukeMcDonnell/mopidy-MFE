@@ -212,6 +212,9 @@ angular.module('mopidyFE', [
       	$scope.currentTrackPositionMS = $scope.currentTrackLength;
       }
     }
+		$('.footerProgressBar').stop().animate({
+			width: $scope.currentTimePosition +"%"
+		}, 1);
     $scope.$apply();
   }
 	//
