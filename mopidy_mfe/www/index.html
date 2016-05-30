@@ -27,7 +27,6 @@
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 		<a onclick="toggleMenu()" href="#/search"><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
 		<a onclick="toggleMenu()" href="#/browse"><i class="fa fa-music"></i> &nbsp;&nbsp;&nbsp;My Music</a>
-		<!-- <a onclick="toggleMenu()" href="#/playlists"> <i class="fa fa-list-ol"></i> &nbsp;&nbsp;&nbsp;Playlists</a> -->
 		<a onclick="toggleMenu()" href="#/nowplaying"> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
 		<a onclick="toggleMenu()" href="#/settings"> <i class="fa fa-cog"></i> &nbsp;&nbsp;&nbsp;Settings</a>
 	</nav>	
@@ -37,41 +36,41 @@
 	  <div ng-view > </div>
 	
 		<!-- HEADER -->
+		
 		<div class="header">
-			<table align="center" width="100%" height="100%">
-				<tr>
-					<td width=5 >  </td>
-					<td valign="middle" width=30 > <a href="javascript:void(0);" onclick="toggleMenu();"><i class="fa fa-bars"></i></a> </td>
-					<td valign="middle" align="left" ng-if="pageTitle != 'Search'"><h1> {{ pageTitle }} </h1></td>
-					<td valign="middle" align="left" ng-if="pageTitle == 'Search'"> 
-						<form onsubmit="getSearch()" id="searchForm"> 
-					  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">
-					  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times" style="font-size: 30px;"></i></a>				  	
-					  	<script>	
-								getSearch = function(){
-									var term = document.getElementById("searchTerm").value;
-									if(term){
-										document.getElementById("searchTerm").blur()
-										location.href='#/search/' + term;
-									};
-								};
-								clearSearch = function(){
-									document.getElementById("searchTerm").value = '';
-									document.getElementById("searchTerm").focus()
-								}
-								focusSearch = function(){
-									document.getElementById("searchTerm").focus()									
-								}
-								
-							</script>	
-						</form>	
-					</td>
-					<td width=30>
-						<div ng-if="showQueue"><a href='#/nowplaying/'><i class='fa fa-times'></i></a></div>
-					</td>
-				</tr>
-			</table>	
-			
+			<a href="javascript:void(0);" onclick="toggleMenu();">
+				<div class="headerLeft"><i class="fa fa-angle-double-right"></i></div>
+			</a>
+			<a href='#/nowplaying/'>
+				<div class="headerRight"><i class='fa fa-list-alt'></i></div>
+			</a>
+
+			<div class="headerCenter" ng-if="pageTitle != 'Search'">
+				<h1> {{ pageTitle }} </h1>
+			</div>
+			<div class="headerCenter" ng-if="pageTitle == 'Search'">
+				<form onsubmit="getSearch()" id="searchForm"> 
+			  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">			  	
+			  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times searchReset"></i></a>	
+			  	<script>	
+						getSearch = function(){
+							var term = document.getElementById("searchTerm").value;
+							if(term){
+								document.getElementById("searchTerm").blur()
+								location.href='#/search/' + term;
+							};
+						};
+						clearSearch = function(){
+							document.getElementById("searchTerm").value = '';
+							document.getElementById("searchTerm").focus()
+						}
+						focusSearch = function(){
+							document.getElementById("searchTerm").focus()									
+						}
+						
+					</script>	
+				</form>	
+			</div>	
 		</div>
 		
 		<!-- FOOTER -->
@@ -121,7 +120,7 @@
 									<img ng-src="{{contextData.image}}" width=50 height=50 />
 								</div>
 								<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-									<h1> {{contextData.header | shorten }}	</h1>
+									<h1> {{contextData.header }}	</h1>
 									<h3> {{contextData.header2}} </h3>
 								</div></div></div>
 						</div>		
