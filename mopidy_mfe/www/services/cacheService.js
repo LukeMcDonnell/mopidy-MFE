@@ -1,10 +1,10 @@
 angular.module('mopidyFE.cache', [])
 .factory('cacheservice', function($q, $location) {
-  var sCacheMax = 15; // max number or entries for each cache
-	var iCacheMax = 50; 
-	var bCacheMax = 50; 
+  var sCacheMax = 10; // max number or entries for each cache
+	var iCacheMax = 20; 
+	var bCacheMax = 20; 
 	var recentMax = 20;
-	var favsMax = 200;
+	var favsMax = 600;
 	var imgMax = 600;
 	
   ls=window.localStorage
@@ -54,17 +54,25 @@ angular.module('mopidyFE.cache', [])
   }
   
   function cacheClear (){
-  	var ip = ls.ip;
-  	var port = ls.port;
+  	//var ip = ls.ip;
+  	//var port = ls.port;
   	
-  	ls.clear()
+  	//ls.clear()
   	
-  	ls.init = "true";
-  	ls.ip = ip;
-  	ls.port = port;
+  	//ls.init = "true";
+  	//ls.ip = ip;
+  	//ls.port = port;
   	
-  	ls.recent = JSON.stringify([]);
-  	ls.favs = JSON.stringify(favs);
+  	//ls.recent = JSON.stringify([]);
+  	//ls.favs = JSON.stringify(favs);
+  	
+  	var i = 0
+		while (i <= sCacheMax){
+			if (ls["sCache" + i]){
+				ls["sCache" + i].delete;
+			}
+			i++;
+		}
   	
   	ls.imgIndex = JSON.stringify([]);
   	// cache indexes
