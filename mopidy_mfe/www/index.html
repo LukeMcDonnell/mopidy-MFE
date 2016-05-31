@@ -22,7 +22,7 @@
   <script src="vendor/angular-route.min.js"></script>
 </head>
 
-<body ng-cloak >
+<body ng-cloak ng-controller="AppCtrl" id="appctrl">
 	
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 		<a onclick="toggleMenu()" href="#/search"><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
@@ -30,10 +30,42 @@
 		<a onclick="toggleMenu()" href="#/nowplaying"> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
 		<a onclick="toggleMenu()" href="#/settings"> <i class="fa fa-cog"></i> &nbsp;&nbsp;&nbsp;Settings</a>
 	</nav>	
-		
+	
 	<div>
-		
-	  <div ng-view > </div>
+				
+	  <div ng-view></div>
+	
+	
+		<div class="cbp-spmenu cbp-spmenu-right" id="cbp-spmenu-s2">
+			<div class="queueWrapper">
+				<div class="queueContent">
+					<div ng-repeat="tracks in trackList">				
+						<div class="box">
+							<a href="" ng-click="queueMenu(tracks);">
+								<div class="boxRight">
+									<i class="fa fa-ellipsis-v fa-2x"></i>
+								</div>
+							</a>
+							<a href="" ng-click="playTlTrack( tracks.tlid )">
+								<div class="boxLeft"> 
+									<img ng-src="{{tracks.lfmImage}}" width=50 height=50 />
+								</div>			
+								<div class="boxCenter" ng-if="tracks.tlid != currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+									<h1>{{ tracks.track.name }}</h1>
+									<h3>{{ tracks.track.artists[0].name }}</h3>
+								</div></div></div>
+								<div class="boxCenter2" ng-if="tracks.tlid === currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
+									<h1>{{ tracks.track.name }}</h1>
+									<h3>{{ tracks.track.artists[0].name }}</h3>
+								</div></div></div>
+							</a>
+						</div>
+					</div>
+					<br><br><br><br><br>
+				</div>
+			</div>
+		</div>		
+	
 	
 		<!-- HEADER -->
 		
@@ -41,7 +73,7 @@
 			<a href="javascript:void(0);" onclick="toggleMenu();">
 				<div class="headerLeft"><i class="fa fa-bars"></i></div>
 			</a>
-			<a href='#/nowplaying/'>
+			<a href="javascript:void(0);" onclick="toggleQueue();">
 				<div class="headerRight"><i class='fa fa-list-alt'></i></div>
 			</a>
 
@@ -107,7 +139,7 @@
 		<!-- MASKS AND MENUS -->
 		
 
-		<div id="menumask" class="menumask" onclick="toggleMenu()"></div>
+		<div id="menumask" class="menumask" onclick="closeMenu()"></div>
 		
 		<div class="contextMenu" ng-if="showContext">
 				<a href="" ng-click="closeContextMenu()">
@@ -115,7 +147,7 @@
 				</a>
 				<div class="contextOuter">
 					<div class="contextInner">					
-						<div class="box">						
+						<div class="box" style="border-color: #777777;">						
 								<div class="boxLeft"> 
 									<img ng-src="{{contextData.image}}" width=50 height=50 />
 								</div>
@@ -128,10 +160,17 @@
 							<div ng-repeat="button in contextData.buttons">
 								<a href="" ng-click="contextLink(button.type, button.data, button.arg)">
 									<div class="box2">
-										<h1>{{ button.text | shorten }}</h1>
+										<div class="boxCenter"><div style="display: table; height: 45px;"><div style="display: table-cell; vertical-align: middle;">
+											<h1>{{ button.text }}</h1>
+										</div></div></div>
 									</div>
 								</a>  
 							</div>
+							<a href="" ng-click="closeContextMenu()">
+								<div class="contextClose">
+									Close
+								</div>
+							</a> 
 						</div>
 						<div ng-show="!contextReady">
 							<br><br>
@@ -165,27 +204,60 @@
   <script src="services/lastfmService.js"></script>
   <script src="services/util.js"></script>
   <script src="js/classie.js"></script>
+  <script src="js/jquery.slimscroll.min.js"></script>
   
 	<script>
+		// menu
 		var menuMask = document.getElementById( 'menumask' );
-		var maskState= false;
+		var menuState= false;
+		var queueState= false;
 		var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
 			body = document.body;
-
+		var queueRight = document.getElementById( 'cbp-spmenu-s2' ),
+		
 		toggleMenu = function() {
-			if (maskState){
+			if (menuState){
 				menuMask.style.display = 'none';
-				maskState = false;
+				menuState = false;
 			} else {
 				menuMask.style.display = 'block';
-				maskState = true;
+				menuState = true;
 			}
-			//classie.toggle( this, 'active' );
+			if (queueState){
+				classie.toggle( queueRight, 'cbp-spmenu-open' );
+				queueState = false
+			}
+			
 			classie.toggle( menuLeft, 'cbp-spmenu-open' );
 		};
-	</script>
-  
-  
+		
+		// queue
+		toggleQueue = function() {
+			if (queueState){
+				menuMask.style.display = 'none';
+				queueState = false;
+			} else {
+				menuMask.style.display = 'block';
+				queueState = true;
+				angular.element($("#appctrl")).scope().getImgs();
+			}
+			
+			if (menuState){
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				menuState = false
+			}
+			
+			classie.toggle( queueRight, 'cbp-spmenu-open' );		
+		};
+		
+		closeMenu = function(){
+			if (queueState){ classie.toggle( queueRight, 'cbp-spmenu-open' ); }
+			if (menuState){ classie.toggle( menuLeft, 'cbp-spmenu-open' ); }
+			queueState = false;
+		 	menuState = false;
+		 	menuMask.style.display = 'none';
+		}
+  </script>
   
 </body>
 </html>

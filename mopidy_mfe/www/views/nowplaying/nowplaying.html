@@ -6,9 +6,9 @@
 		<div class="nowPlayingTop">
 			<table align="center" width="100%">
 				<tr>
-					<td width=30px align="left" valign="middle"> <a href="" ><i class="fa fa-volume-up" style="font-size: 20px;"></i></a> </td>	
+					<td width=30px align="left" valign="middle"> </td>	
 					<td valign="middle"><p>{{ currentAlbum.name }}</p></td>
-					<td width=30px align="right" valign="middle"><a href="#/nowplaying/queue" ><i class="fa fa-list-ul" style="font-size: 20px;"></i></a></td>
+					<td width=30px align="right" valign="middle"></td>
 				</tr>
 			</table>
 		</div>
@@ -38,36 +38,5 @@
 					</tr>
 			</table>			
 		</div>
-
-		<!-- PLAY QUEUE -->
-		
-		<div class="queueControl" ng-if="showQueue">
-					
-			<div ng-repeat="tracks in trackList">				
-				<div class="box">
-					<a href="" ng-click="queueMenu(tracks);">
-						<div class="boxRight">
-							<i class="fa fa-ellipsis-v fa-2x"></i>
-						</div>
-					</a>
-					<a href="" ng-click="playTlTrack( tracks.tlid )">
-						<div class="boxLeft"> 
-							<img ng-src="{{tracks.lfmImage}}" width=50 height=50 />
-						</div>			
-						<div class="boxCenter" ng-if="tracks.tlid != currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-							<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
-							<h3>{{ tracks.track.artists[0].name }}</h3>
-						</div></div></div>
-						<div class="boxCenter2" ng-if="tracks.tlid === currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-							<h1>{{ tracks.track.name | shorten:'':0 }}</h1>
-							<h3>{{ tracks.track.artists[0].name }}</h3>
-						</div></div></div>
-					</a>
-				</div>
-			</div>	
-			
-		</div>
-		
-		
-		
+	
 </div>

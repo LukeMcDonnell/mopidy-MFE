@@ -22,13 +22,6 @@
 
 /* Orientation-dependent styles for the content of the menu */
 
-.cbp-spmenu-vertical {
-	width: 240px;
-	height: 100%;
-	top: 50px;
-	z-index: 1000;
-}
-
 .cbp-spmenu-vertical a {
 	border-bottom: 1px solid #000000;
 	padding: 1em;
@@ -38,6 +31,23 @@
 
 .cbp-spmenu-left {
 	left: -240px;
+	width: 240px;
+	height: 100%;
+	top: 50px;
+	z-index: 11114;
+}
+
+.cbp-spmenu-right {
+	right: -300px;
+	width: 300px;
+	height: 100%;
+	top: 50px;
+	z-index: 11114;
+	overflow: hidden;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
 }
 
 .cbp-spmenu-left.cbp-spmenu-open {
