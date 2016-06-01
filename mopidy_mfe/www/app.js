@@ -258,8 +258,9 @@ angular.module('mopidyFE', [
   }
   
   //
-  // QUEUE
+  // QUEUE & MAIN MENU
   //
+  
   $scope.getImgs = function(){
   	if(!$scope.gotTlImgs){
 			for (var i in $rootScope.trackList){
@@ -279,14 +280,70 @@ angular.module('mopidyFE', [
   
 	$scope.$on('updateTl', function(event, data) {
 		$scope.gotTlImgs = false;
-	 	$scope.getImgs();
+		if(queueState){
+	 		$scope.getImgs();
+	 	}
 	});
+	
+	// menu
+	var menuMask = document.getElementById( 'menumask' );
+	var menuState= false;
+	var queueState= false;
+	var menuLeft = document.getElementById( 'cbp-spmenu-s1' )
+	var body = document.body;
+	var queueRight = document.getElementById( 'cbp-spmenu-s2' )
+	
+	$scope.toggleMenu = function() {
+		if (menuState){
+			menuMask.style.display = 'none';
+			menuState = false;
+		} else {
+			menuMask.style.display = 'block';
+			menuState = true;
+		}
+		if (queueState){
+			classie.toggle( queueRight, 'cbp-spmenu-open' );
+			queueState = false
+		}
+		classie.toggle( menuLeft, 'cbp-spmenu-open' );
+	};
+	
+	// queue
+	$scope.toggleQueue = function() {
+		if (queueState){
+			menuMask.style.display = 'none';
+			queueState = false;
+		} else {
+			menuMask.style.display = 'block';
+			queueState = true;
+			$timeout(function(){$scope.getImgs()}, 1000);
+		}
+		if (menuState){
+			classie.toggle( menuLeft, 'cbp-spmenu-open' );
+			menuState = false
+		}
+		classie.toggle( queueRight, 'cbp-spmenu-open' );		
+	};
+	
+	$scope.closeMenu = function(){
+		if (queueState){ classie.toggle( queueRight, 'cbp-spmenu-open' ); }
+		if (menuState){ classie.toggle( menuLeft, 'cbp-spmenu-open' ); }
+		queueState = false;
+	 	menuState = false;
+	 	menuMask.style.display = 'none';
+	}
+	
+	$scope.loadMenuItem = function(url){
+		$scope.closeMenu();
+		$timeout(function(){$location.path(url)}, 250);
+	}
+	
+	
   
   //
   // QUEUE MENU
   //  
   $rootScope.queueMenu = function(context){
-		console.log(context);
 		$scope.contextData = []
   	$scope.contextReady	= false;	
  	

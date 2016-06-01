@@ -27,10 +27,10 @@
 	<!-- MAIN MENU -->
 	
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-		<a onclick="toggleMenu()" href="#/search"><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
-		<a onclick="toggleMenu()" href="#/browse"><i class="fa fa-music"></i> &nbsp;&nbsp;&nbsp;My Music</a>
-		<a onclick="toggleMenu()" href="#/nowplaying"> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
-		<a onclick="toggleMenu()" href="#/settings"> <i class="fa fa-cog"></i> &nbsp;&nbsp;&nbsp;Settings</a>
+		<a ng-click="loadMenuItem('/search')" 			href=""><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
+		<a ng-click="loadMenuItem('/browse')" 			href=""><i class="fa fa-music"></i> &nbsp;&nbsp;&nbsp;My Music</a>
+		<a ng-click="loadMenuItem('/nowplaying')" 	href=""> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
+		<a ng-click="loadMenuItem('/settings')" 		href=""> <i class="fa fa-cog"></i> &nbsp;&nbsp;&nbsp;Settings</a>
 	</nav>	
 	
 	<div>
@@ -74,10 +74,10 @@
 		
 		<div class="header">
 			<div ng-if="showHeaderBG" class="headerBG"></div>
-			<a href="javascript:void(0);" onclick="toggleMenu();">
+			<a href="javascript:void(0);" ng-click="toggleMenu();">
 				<div class="headerLeft"><i class="fa fa-bars"></i></div>
 			</a>
-			<a href="javascript:void(0);" onclick="toggleQueue();">
+			<a href="javascript:void(0);" ng-click="toggleQueue();">
 				<div class="headerRight"><i class='fa fa-list-alt'></i></div>
 			</a>
 
@@ -144,7 +144,7 @@
 		<!-- CONTEXT MENU -->
 		
 
-		<div id="menumask" class="menumask" onclick="closeMenu()"></div>
+		<div id="menumask" class="menumask" ng-click="closeMenu()"></div>
 		
 		<div class="contextMenu" ng-if="showContext">
 				<a href="" ng-click="closeContextMenu()">
@@ -209,60 +209,6 @@
   <script src="services/lastfmService.js"></script>
   <script src="services/util.js"></script>
   <script src="js/classie.js"></script>
-  <script src="js/jquery.slimscroll.min.js"></script>
-  
-	<script>
-		// menu
-		var menuMask = document.getElementById( 'menumask' );
-		var menuState= false;
-		var queueState= false;
-		var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-			body = document.body;
-		var queueRight = document.getElementById( 'cbp-spmenu-s2' ),
-		
-		toggleMenu = function() {
-			if (menuState){
-				menuMask.style.display = 'none';
-				menuState = false;
-			} else {
-				menuMask.style.display = 'block';
-				menuState = true;
-			}
-			if (queueState){
-				classie.toggle( queueRight, 'cbp-spmenu-open' );
-				queueState = false
-			}
-			
-			classie.toggle( menuLeft, 'cbp-spmenu-open' );
-		};
-		
-		// queue
-		toggleQueue = function() {
-			if (queueState){
-				menuMask.style.display = 'none';
-				queueState = false;
-			} else {
-				menuMask.style.display = 'block';
-				queueState = true;
-				//angular.element($("#appctrl")).scope().getImgs();
-			}
-			
-			if (menuState){
-				classie.toggle( menuLeft, 'cbp-spmenu-open' );
-				menuState = false
-			}
-			
-			classie.toggle( queueRight, 'cbp-spmenu-open' );		
-		};
-		
-		closeMenu = function(){
-			if (queueState){ classie.toggle( queueRight, 'cbp-spmenu-open' ); }
-			if (menuState){ classie.toggle( menuLeft, 'cbp-spmenu-open' ); }
-			queueState = false;
-		 	menuState = false;
-		 	menuMask.style.display = 'none';
-		}
-  </script>
   
 </body>
 </html>
