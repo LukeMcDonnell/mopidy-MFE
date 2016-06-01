@@ -139,7 +139,7 @@
 
 /*
 //
-// CONTEXT AND QUEUE MENU
+// PLAY QUEUE
 //
 */
 
@@ -152,6 +152,68 @@
 	height: 100%;
 	width: 300px;
 }
+
+.queueBox {
+	width: 98%;
+	height: 40px;
+	margin: auto;
+	border-bottom-style: solid;
+	border-color: #333333;
+	border-width: 1px;
+	text-align: left;
+}
+.queueBoxLeft{
+	width: 43px;
+	height: 40px;
+	float: left;
+}
+
+.queueBoxRight{
+	height: 40px;
+ 	width: 40px;
+  float: right;
+  line-height: 40px;
+  color: #666666;
+  text-align: center;
+}
+
+.queueBoxCenter{
+	height: 40px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.queueBoxCenter h1 {
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 0px;
+	padding-top: 14px;
+	margin: 0 auto;
+}
+
+.queueBoxCenter h2 {
+	color: lightgreen;
+	font-size: 14px;
+	font-weight: 100;
+	line-height: 0px;
+	padding-top: 14px;
+	margin: 0 auto;
+}
+
+.queueBoxCenter h3 {
+	color: #999999;
+	font-size: 11px;
+	font-weight: 100;
+	line-height: 3px;
+}
+
+/*
+//
+// CONTEXT MENU
+//
+*/
 
 .contextClose {
 	height: 30px;
@@ -168,7 +230,6 @@
 }
 
 .contextMenu {
-	//display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -215,12 +276,12 @@
 
 .menumask {
 	display: 		none;
-	opacity:    0.5; 
+	opacity:    0.9; 
   background: #000; 
   width:      100%;
   height:     100%; 
   z-index:    11113;
-  top:        0; 
+  top:        50px; 
   left:       0; 
   position:   fixed; 
 }
@@ -249,6 +310,8 @@ input:focus {
 	min-height: 340px;
 	position: absolute;
 	z-index: 10;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 
 .lfmInfo {
@@ -329,12 +392,10 @@ input:focus {
 	
 	height: 340px;
 	z-index: -1;
-
 }
 
 .blurBackImg {
   overflow: hidden;
-	
 	width: 50%;
 	height: 50%;
 
@@ -358,9 +419,6 @@ input:focus {
 	
 	-webkit-filter: blur(18px) brightness(0.7);
   -webkit-perspective: 1000;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
-	
 	filter: blur(18px) brightness(0.7);
 
 }
@@ -423,11 +481,9 @@ body a {
 	
 	-webkit-filter: blur(7px) brightness(0.6);
   -webkit-perspective: 1000;
+	filter: blur(7px) brightness(0.6);
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
-	
-	filter: blur(7px) brightness(0.6);
-	
 }
 
 /*
@@ -547,10 +603,17 @@ body a {
 	color: #888888;
 }
 
+.headerBG {
+	background: rgb(22, 22, 22);
+	z-index: -1;
+	position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50px;
+}
 
 .header {
-	background: rgb(22, 22, 22);
-	background: rgba(22, 22, 22, 0.6);
 	position: fixed;
   left: 0;
   right: 0;
@@ -612,7 +675,7 @@ body a {
   right: 0;
   bottom: 0;
   height: 50px; 
-  z-index: 11113; 
+  z-index: 11119; 
 }
 .footer h1 {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -664,7 +727,7 @@ body a {
 	margin-left: auto;
 	overflow: hidden;
 	width: 100%;
-	background-color: #000000;
+	background-color: #222222;
 	
 	height: 50px;
 	z-index: -1;
@@ -673,7 +736,6 @@ body a {
 
 .footerBackImg {
   overflow: hidden;
-	
 	width: 50%;
 	height: 50%;
 
@@ -695,13 +757,9 @@ body a {
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	
-
-	-webkit-filter: blur(10px) brightness(0.9);
-  -webkit-perspective: 1000;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
-	
-	filter: blur(10px) brightness(0.9);
+	-webkit-filter: blur(15px) brightness(0.7);
+  -webkit-perspective: 1000;	
+	filter: blur(15px) brightness(0.7);
 
 }
 
@@ -718,9 +776,9 @@ body a {
   position: relative;
 }
 .footerProgressBar {
-    background: #999999;
-    width: 0%;
-    left: 0;
-    position: absolute;
-    top: 0;
-  }
+	background: #999999;
+	width: 0%;
+	left: 0;
+	position: absolute;
+	top: 0;
+}

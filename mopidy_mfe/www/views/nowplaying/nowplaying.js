@@ -24,6 +24,7 @@ angular.module('mopidyFE.nowplaying', [
 .controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, mopidyservice, lastfmservice, $window, cacheservice) {
 	$rootScope.pageTitle = "Now Playing";
  	$rootScope.showFooter = false;
+ 	$rootScope.showHeaderBG = false;
  	$scope.showContext = false;
  	 	
  	$scope.$watch(function(){

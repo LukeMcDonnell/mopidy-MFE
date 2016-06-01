@@ -12,6 +12,7 @@ angular.module('mopidyFE.album', ['ngRoute'])
 .controller('albumCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util) {
 	$rootScope.pageTitle = "Album";
 	$rootScope.showFooter = true;
+	$rootScope.showHeaderBG = false;
 	$scope.showContext = false;
 	$scope.pageReady=false;
 	

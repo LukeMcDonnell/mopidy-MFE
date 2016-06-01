@@ -24,6 +24,8 @@
 
 <body ng-cloak ng-controller="AppCtrl" id="appctrl">
 	
+	<!-- MAIN MENU -->
+	
 	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 		<a onclick="toggleMenu()" href="#/search"><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
 		<a onclick="toggleMenu()" href="#/browse"><i class="fa fa-music"></i> &nbsp;&nbsp;&nbsp;My Music</a>
@@ -34,34 +36,35 @@
 	<div>
 				
 	  <div ng-view></div>
-	
-	
+		
+		<!-- QUEUE -->
+		
 		<div class="cbp-spmenu cbp-spmenu-right" id="cbp-spmenu-s2">
 			<div class="queueWrapper">
 				<div class="queueContent">
+					
 					<div ng-repeat="tracks in trackList">				
-						<div class="box">
+						<div class="queueBox">
 							<a href="" ng-click="queueMenu(tracks);">
-								<div class="boxRight">
-									<i class="fa fa-ellipsis-v fa-2x"></i>
+								<div class="queueBoxRight">
+									<i class="fa fa-ellipsis-v fa-lg"></i>
 								</div>
 							</a>
 							<a href="" ng-click="playTlTrack( tracks.tlid )">
-								<div class="boxLeft"> 
-									<img ng-src="{{tracks.lfmImage}}" width=50 height=50 />
+								<div class="queueBoxLeft"> 
+									<img ng-src="{{tracks.lfmImage}}" width=40 height=40 />
 								</div>			
-								<div class="boxCenter" ng-if="tracks.tlid != currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-									<h1>{{ tracks.track.name }}</h1>
+								<div class="queueBoxCenter">
+									<h1 ng-if="tracks.tlid != currentTlid">{{ tracks.track.name }}</h1>
+									<h2 ng-if="tracks.tlid == currentTlid">{{ tracks.track.name }}</h2>
 									<h3>{{ tracks.track.artists[0].name }}</h3>
-								</div></div></div>
-								<div class="boxCenter2" ng-if="tracks.tlid === currentTlid"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
-									<h1>{{ tracks.track.name }}</h1>
-									<h3>{{ tracks.track.artists[0].name }}</h3>
-								</div></div></div>
+								</div>
 							</a>
 						</div>
 					</div>
-					<br><br><br><br><br>
+					
+					<div style="height: 102px;"></div>
+					
 				</div>
 			</div>
 		</div>		
@@ -70,6 +73,7 @@
 		<!-- HEADER -->
 		
 		<div class="header">
+			<div ng-if="showHeaderBG" class="headerBG"></div>
 			<a href="javascript:void(0);" onclick="toggleMenu();">
 				<div class="headerLeft"><i class="fa fa-bars"></i></div>
 			</a>
@@ -108,7 +112,8 @@
 		<!-- FOOTER -->
 		
 		<div class="footer" ng-show="showFooter && (currentState === 'paused' || currentState === 'playing')">
-			<div class="footerBackground" id="background">
+			
+			<div class="footerBackground">
 				<div class="footerBackImg">
 					<div class="footerBackImg2" style="background-image: url('{{currentTrackImageUrl}}');"></div>
 				</div>
@@ -136,7 +141,7 @@
 		</div>
 
 
-		<!-- MASKS AND MENUS -->
+		<!-- CONTEXT MENU -->
 		
 
 		<div id="menumask" class="menumask" onclick="closeMenu()"></div>

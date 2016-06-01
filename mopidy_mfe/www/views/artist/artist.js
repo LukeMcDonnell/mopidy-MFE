@@ -12,6 +12,7 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 .controller('artistCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util) {
 	$rootScope.pageTitle = "Artist";
 	$rootScope.showFooter = true;
+	$rootScope.showHeaderBG = false;
 	$scope.showContext = false;
 	$scope.pageReady = false;
 	
