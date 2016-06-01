@@ -9,12 +9,13 @@ angular.module('mopidyFE.artist', ['ngRoute'])
   });
 }])
 
-.controller('artistCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util) {
+.controller('artistCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util, $timeout) {
 	$rootScope.pageTitle = "Artist";
 	$rootScope.showFooter = true;
 	$rootScope.showHeaderBG = false;
 	$scope.showContext = false;
 	$scope.pageReady = false;
+  $timeout(function(){$scope.showBlurBG = true}, 100);
 	
 	var artistName = util.urlDecode($routeParams.id);
 	var uri = util.urlDecode($routeParams.uri);

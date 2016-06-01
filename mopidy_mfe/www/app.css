@@ -310,8 +310,8 @@ input:focus {
 	min-height: 340px;
 	position: absolute;
 	z-index: 10;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
+	//-webkit-backface-visibility: hidden;
+	//-webkit-transform: translateZ(0);
 }
 
 .lfmInfo {
@@ -756,7 +756,7 @@ body a {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-	
+		
 	-webkit-filter: blur(15px) brightness(0.7);
   -webkit-perspective: 1000;	
 	filter: blur(15px) brightness(0.7);

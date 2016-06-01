@@ -22,7 +22,7 @@
   <script src="vendor/angular-route.min.js"></script>
 </head>
 
-<body ng-cloak ng-controller="AppCtrl" id="appctrl">
+<body ng-cloak>
 	
 	<!-- MAIN MENU -->
 	
@@ -38,7 +38,7 @@
 	  <div ng-view></div>
 		
 		<!-- QUEUE -->
-		
+				
 		<div class="cbp-spmenu cbp-spmenu-right" id="cbp-spmenu-s2">
 			<div class="queueWrapper">
 				<div class="queueContent">
@@ -68,7 +68,7 @@
 				</div>
 			</div>
 		</div>		
-	
+		
 	
 		<!-- HEADER -->
 		
@@ -244,7 +244,7 @@
 			} else {
 				menuMask.style.display = 'block';
 				queueState = true;
-				angular.element($("#appctrl")).scope().getImgs();
+				//angular.element($("#appctrl")).scope().getImgs();
 			}
 			
 			if (menuState){

@@ -98,6 +98,7 @@ angular.module('mopidyFE', [
   }); 
 
 	function updateEvent(timePosition, state){
+		
 		mopidyservice.getCurrentTlTrack().then(function(track) {
 			mopidyservice.getTimePosition().then(function(timePosition) {
 				mopidyservice.getState().then(function(state) {			
@@ -106,7 +107,8 @@ angular.module('mopidyFE', [
 		    	});
 		    });
 		  });
- 		});      
+ 		}); 
+ 		    
   }
 	
   function updateCurrentTrack(data) {
@@ -406,6 +408,7 @@ angular.module('mopidyFE', [
   
   $rootScope.contextLink = function (type, data, arg){
   	if (type === "link"){
+  		closeMenu();
   		$location.path(data);
   		$scope.showContext = false;
   	} else if (type === "playTrack"){
@@ -541,7 +544,7 @@ angular.module('mopidyFE', [
   		}
     }, 500);
 	});
-	
+		
 	
 	
 });

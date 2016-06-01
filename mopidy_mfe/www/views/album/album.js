@@ -9,13 +9,14 @@ angular.module('mopidyFE.album', ['ngRoute'])
   });
 }])
 
-.controller('albumCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util) {
+.controller('albumCtrl', function($rootScope, $scope, $routeParams, mopidyservice, lastfmservice, cacheservice, util, $timeout) {
 	$rootScope.pageTitle = "Album";
 	$rootScope.showFooter = true;
 	$rootScope.showHeaderBG = false;
 	$scope.showContext = false;
 	$scope.pageReady=false;
-	
+ 	$timeout(function(){$scope.showBlurBG = true}, 100);
+  
 	var albumName = util.urlDecode($routeParams.id);
 	var uri = util.urlDecode($routeParams.uri);
 	

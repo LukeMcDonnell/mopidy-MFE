@@ -17,12 +17,14 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
   
 }])
 
-.controller('playlistsCtrl', function($rootScope, $scope, mopidyservice, $routeParams, util, lastfmservice) {
+.controller('playlistsCtrl', function($rootScope, $scope, mopidyservice, $routeParams, util, lastfmservice, $timeout) {
 	$rootScope.pageTitle = "Playlists";
 	$rootScope.showFooter = true;
 	$rootScope.showHeaderBG = true;
 	$scope.showContext = false;
 	$scope.pageReady = false;
+  $timeout(function(){$scope.showBlurBG = true}, 100);
+	
 	
 	var plId = util.urlDecode($routeParams.id);
 			
@@ -42,6 +44,8 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 		$rootScope.showHeaderBG = false;
 		$scope.backend = plId.split(":")[0]
 		$scope.plImage = 'assets/vinyl-icon.png';
+
+		
 		mopidyservice.getPlaylist(plId).then(function(data) {
 			$rootScope.pageTitle = data.name.split("(by")[0];
 			data.lfmImage = 'assets/vinyl-icon.png';
@@ -62,5 +66,4 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 			$scope.pageReady = true;
 		});    
 	}
-	
 });
