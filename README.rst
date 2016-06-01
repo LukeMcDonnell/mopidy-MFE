@@ -25,6 +25,15 @@ Project resources
 
 Changelog
 =========
+v0.4.1 (2016-06-01)
+------------------
+- Play Queue is now a slide in menu, accessible from the header.
+- Fixed bug where album page would fail to load when no albums present.
+- Fixed bug where clearing cache would cause last-fm service to fail.
+- Fixed bug where page would auto scroll to position of previous page when loading content from cache.
+- Scroll position is now remembered individual browsing pages.
+- Various Cosmetic adjustments and enhancements.
+
 v0.4.0 (2016-05-30)
 ------------------
 - Major UI improvements.
