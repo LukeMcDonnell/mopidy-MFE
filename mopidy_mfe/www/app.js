@@ -465,9 +465,13 @@ angular.module('mopidyFE', [
   
   $rootScope.contextLink = function (type, data, arg){
   	if (type === "link"){
-  		$scope.closeMenu();
-  		$location.path(data);
   		$scope.showContext = false;
+  		if (queueState){
+  			$scope.closeMenu();
+  			$timeout(function(){ $location.path(data); }, 250);
+			} else {
+				$location.path(data);
+			}
   	} else if (type === "playTrack"){
   		switch (arg){
   			case "ANP":
