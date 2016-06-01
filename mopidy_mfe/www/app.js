@@ -465,7 +465,7 @@ angular.module('mopidyFE', [
   
   $rootScope.contextLink = function (type, data, arg){
   	if (type === "link"){
-  		closeMenu();
+  		$scope.closeMenu();
   		$location.path(data);
   		$scope.showContext = false;
   	} else if (type === "playTrack"){
