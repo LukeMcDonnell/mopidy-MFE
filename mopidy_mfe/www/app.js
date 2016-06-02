@@ -120,8 +120,7 @@ angular.module('mopidyFE', [
   	}
   	
   	if (trackList){
-  		$rootScope.trackList = trackList
-  		$rootScope.gotTlImgs = false;
+  		$rootScope.trackList = trackList;
   		$scope.$broadcast('updateTl', "hello");
   	}
   	
@@ -214,9 +213,8 @@ angular.module('mopidyFE', [
       	$scope.currentTrackPositionMS = $scope.currentTrackLength;
       }
     }
-		$('.footerProgressBar').stop().animate({
-			width: $scope.currentTimePosition +"%"
-		}, 1);
+		$('.footerProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
+		$('.npProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
     $scope.$apply();
   }
 	//

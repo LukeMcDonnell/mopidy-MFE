@@ -456,118 +456,182 @@ body a {
 
 }
 
-.backImg {
-	background-color: black;
-	position: fixed;
-  overflow: hidden;
-	z-index: -1;
+/*
+//
+// NOW PLAYING
+//
+*/
 
-	width: 10%;
-	height: 10%;
+.npBackground{
+	top: 0;
+	right: 0;
+	left: 0;
+	margin-right: auto;
+	margin-left: auto;
+	position: fixed;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	z-index: -1;
+}
+
+.npBackImg {
+  overflow: hidden;
+	width: 50%;
+	height: 50%;
 
 	-webkit-transform-origin: top left;
-	-webkit-transform: scale(10) !important;
+	-webkit-transform: scale(2) !important;
 	-webkit-perspective: 1000;
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
 
 	transform-origin: top left;
-	transform: scale(10);
+	transform: scale(2);
 }
-#bg{
+
+.npBackImg2 {
+	position: fixed;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 	
-	-webkit-filter: blur(7px) brightness(0.6);
+	-webkit-filter: blur(25px) brightness(0.5);
   -webkit-perspective: 1000;
-	filter: blur(7px) brightness(0.6);
+	filter: blur(25px) brightness(0.5);
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
 }
 
-/*
-//
-// NOW PLAYING AND QUEUE
-//
-*/
-
 .nowPlaying {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
   text-align: center;
-  width: 100%;
-  height: 100%;
   padding: 0px;
 	margin: 0px;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
 }
 .nowPlaying h1 {
 	color: #FFFFFF;
-	font-size: 17px;
-	font-weight: 100;
-	line-height: 3px;
-}
-.nowPlaying h3 {
-	color: #ffffff;
-	font-size: 12px;
-	font-weight: 100;
-	line-height: 0px;
-}
-.nowPlaying p {
-	color: #999999;
-	font-size: 14px;
-	font-weight: 100;
-	line-height: 0px;
-}
-.nowPlaying a {
-		color: #ffffff;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 16px;
 }
 
-.playControls {
-  position: fixed;
-	left: 0;
-  right: 0;
-  bottom: 0;
-  height: 150px;
-  padding: 0px;
-  margin: 0px;
+.nowPlaying p {
+	color: #9f9f9f;
+	font-size: 12px;
+	font-weight: 100;
+	line-height: 12px;
 }
-.playControls table{
-	font-size: 30px;
-	text-decoration: none;
-	letter-spacing: 0px;
-	max-width:700px;
-	line-height: 0px;
-	padding: 0px
+.nowPlaying a {
+	color: #ffffff;
 }
-.nowPlayingTop table{
+
+#npTable{
+	width: 100%;
+	height: 100%;
+}
+
+#npTop {
+	height: 20px;
+	width: 100%;
+	overflow: hidden;
+}
+
+#npMiddle {
+	width: 100%;
+	height: 100%;
+}
+.npImage{
+	margin: 0 auto;
+  Height: 100%;
+	width: 95%;
+	background-position: center; 
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+#npBottom {
+	width: 100%;
+	height: 160px;
+  text-align: center;
+}
+
+.npDetails{
+	width: 100%;
+	text-align: center;
+	height: 70px;
+	overflow: auto;
+}
+
+.npProgressContainer{
+	margin: 0 auto;
+	width: 100%;
+	height: 20px;
 	max-width: 700px;
 }
 
-.nowPlayingTop {
-	height: 45px;
-	width: 100%;
-}
-.albumImg {
-	position:fixed;
-	left: 0;
-  right: 0;
-  top: 100px;
-  bottom:150px 
-}
-.albumImg img{
-  height: 300px;
-  max-Height: 100%
+.npProgressLeft{
+	float: left;
+	width: 50px;
 }
 
-.queueControl{
-	background: #000000;
-	opacity: 0.9;
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	top: 50px;
-	padding: 0px;
-	margin: 0px;
+.npProgressRight{
+	float: right;
+	width: 50px;
 }
+
+.npProgressCenter {
+	overflow: hidden;
+	height: 20px;
+	text-align: left;
+}
+
+
+.npProgressWrap {
+	height: 2px;
+	width: 100%;
+  background: #111;
+  margin: 0px auto;
+  margin-top: 9px;
+}
+.npProgressBar {
+	background: #ffffff;
+	width: 0%;
+	height: 100%;
+}
+
+.npButtonContainer{
+	margin: 0 auto;
+	height: 50px;
+	width: 95%;
+	max-width: 700px;
+	overflow: hidden;
+}
+.npButton {
+	padding-top: 10px;
+	float: left;
+}
+.npButtonPlay {
+	text-align: center;
+	float: left;
+}
+.npButtonSide {
+	padding-top: 17px;
+	float: left;
+}
+.npButtonSide a{
+	color: #777777 !important;
+}
+
+
 
 /*
 //
