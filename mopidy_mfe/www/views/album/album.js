@@ -47,6 +47,7 @@ angular.module('mopidyFE.album', ['ngRoute'])
 			     		$scope.tracks[i].album.lfmImage = $scope.albumImage;
 			  		}
           }
+          $scope.bgReady = true;
         });
         // prepare tracklist
         $scope.playlistUris = []

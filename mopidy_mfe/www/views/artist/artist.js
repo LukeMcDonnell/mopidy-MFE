@@ -42,6 +42,7 @@ angular.module('mopidyFE.artist', ['ngRoute'])
     		}	 
     	  $scope.artistSummary = artistInfo.artist.bio.summary;
     	}
+    	$scope.bgReady = true;
  		});
  		
  		// Mopidy Data

@@ -594,6 +594,7 @@ angular.module('mopidyFE', [
 	});
 	
 	$scope.$on('$routeChangeSuccess', function() {
+		 $(window).scrollTop(0); // start at the top
     $timeout(function() { // wait for DOM, then restore scroll position
     	if(!$rootScope.noScrollSave){
         $(window).scrollTop($scope.scrollPos[$location.path()] ? $scope.scrollPos[$location.path()] : 0);
