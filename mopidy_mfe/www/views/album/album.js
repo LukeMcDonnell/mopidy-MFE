@@ -15,7 +15,7 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	$rootScope.showHeaderBG = false;
 	$scope.showContext = false;
 	$scope.pageReady=false;
- 	$timeout(function(){$scope.showBlurBG = true}, 100);
+ 	$timeout(function(){$scope.showBlurBG = true; $scope.$apply();}, 500);
   
 	var albumName = util.urlDecode($routeParams.id);
 	var uri = util.urlDecode($routeParams.uri);

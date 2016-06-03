@@ -23,8 +23,8 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 	$rootScope.showHeaderBG = true;
 	$scope.showContext = false;
 	$scope.pageReady = false;
-  $timeout(function(){$scope.showBlurBG = true}, 100);
-	
+  $timeout(function(){$scope.showBlurBG = true; $scope.$apply();}, 500);
+	$scope.bgReady = true;
 	
 	var plId = util.urlDecode($routeParams.id);
 			
