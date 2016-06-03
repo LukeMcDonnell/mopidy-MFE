@@ -25,6 +25,15 @@ Project resources
 
 Changelog
 =========
+v0.4.2 (2016-06-04)
+------------------
+- Updated Now Playing screen. 
+- Added repeat and random functionality to now playing.
+- Improved speed when loading context menu links from queue.
+- Improved slide-in menu and queue performance.
+- Fixed slow loading of list pages.
+
+
 v0.4.1 (2016-06-01)
 ------------------
 - Play Queue is now a slide in menu, accessible from the header.
