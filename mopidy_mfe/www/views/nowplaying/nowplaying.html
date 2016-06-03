@@ -27,8 +27,8 @@
 				</div>
 				
 				<div class="npProgressContainer"> 
-					<div class="npProgressLeft">{{ currentTrackPosition }}</div>
-					<div class="npProgressRight">{{ currentTrackLengthString }}</div>
+					<div class="npProgressLeft"><h2>{{ currentTrackPosition }}</h2></div>
+					<div class="npProgressRight"><h2>{{ currentTrackLengthString }}</h2></div>
 					<div class="npProgressCenter">
 						<div class="npProgressWrap">
 							<div class="npProgressBar npProgress"></div>
@@ -38,7 +38,10 @@
 				
 				<div class="npButtonContainer">
 					<div style="width: 15%; text-align: left;" class="npButtonSide">
-						<a href="" ng-click=""><i class="fa fa-random"></i></a>
+						<a href="" ng-click="toggleRandom();">
+							<i ng-if="random" class="fa fa-random" id="randomOn"></i>
+							<i ng-if="!random" class="fa fa-random" id="randomOff"></i>
+						</a>
 					</div>
 					<div style="width: 19%;" class="npButton">
 						<a href="" ng-click="previous()"><i class="fa fa-step-backward fa-2x"></i></a>
@@ -53,7 +56,10 @@
 						<a href="" ng-click="next()"><i class="fa fa-step-forward fa-2x"></i></a>
 					</div>
 					<div style="width: 15%; text-align: right;" class="npButtonSide">
-						<a href="" ng-click=""><i class="fa fa-repeat"></i></a>
+						<a href="" ng-click="toggleRepeat();">
+							<i ng-if="repeat" class="fa fa-repeat" id="repeatOn"></i>
+							<i ng-if="!repeat" class="fa fa-repeat" id="repeatOff"></i>
+						</a>
 					</div>
 				</div>
 			</td>

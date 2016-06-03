@@ -149,6 +149,9 @@ angular.module('mopidyFE.mopidy', [])
       getRandom: function () {
         return wrapMopidyFunc("mopidy.tracklist.getRandom", this)();
       },
+      getRepeat: function () {
+        return wrapMopidyFunc("mopidy.tracklist.getRepeat", this)();
+      },
       getCurrentTrackList: function () {
         return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
       },
@@ -176,8 +179,11 @@ angular.module('mopidyFE.mopidy', [])
       next: function() {
         return wrapMopidyFunc("mopidy.playback.next", this)();
       },
-      setRandom: function (isRandom) {
-        return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
+      setRandom: function (set) {
+        return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ set ]);
+      },
+      setRepeat: function (set) {
+        return wrapMopidyFunc("mopidy.tracklist.setRepeat", this)([ set ]);
       },
       //
       // Queueing controls

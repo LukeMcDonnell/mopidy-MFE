@@ -50,7 +50,6 @@ angular.module('mopidyFE', [
 }])
 
 .controller('AppCtrl', function AppController ($rootScope, $scope, $location, $timeout, $window, mopidyservice, lastfmservice, util, cacheservice) {
-	$rootScope.showBG = true;
 	$scope.showContext = false;
 	$rootScope.online = false;
 	var timerTick = 0;
@@ -68,14 +67,16 @@ angular.module('mopidyFE', [
   });
 
   $scope.$on('mopidy:state:online', function(event, data) {
+		updateOptions();
   	updateEvent();
   	$rootScope.online = true;
   });
 
   $scope.$on('mopidy:event:playbackStateChanged', function(event, data) {
-  	mopidyservice.getTimePosition().then(function(timePosition) {
-	   	updateCurrentTrack({state: data.new_state, timePosition: timePosition});
-		})
+  	if(data.new_state == "stopped"){
+	   	updateCurrentTrack({state: "stopped", timePosition: 0});
+	   	$scope.$apply();
+		}
   });
   
   $scope.$on('mopidy:event:tracklistChanged', function(event, data) {
@@ -83,20 +84,33 @@ angular.module('mopidyFE', [
 			updateCurrentTrack({ trackList: trackList });
 		});
   });  
-  
+  //
+  // Playback events
+  //
   $scope.$on('mopidy:event:seeked', function(event, data) {
   	updateTimePosition(data.time_position);
   });
-  
   $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data){
-  	mopidyservice.getTimePosition().then(function(timePosition) {
-  		updateCurrentTrack({track: data.tl_track, timePosition: timePosition, state: "playing"})
-  	});
+  	updateCurrentTrack({track: data.tl_track, timePosition: 0, state: "playing"})
+  	$scope.$apply();
   }); 
   $scope.$on('mopidy:event:trackPlaybackPaused', function (event, data){
   	updateCurrentTrack({track: data.tl_track, timePosition: data.time_position, state: "paused"})
+  	$scope.$apply();
+  });
+  $scope.$on('mopidy:event:trackPlaybackResumed', function (event, data){
+  	updateCurrentTrack({track: data.tl_track, timePosition: data.time_position, state: "playing"})
+  	$scope.$apply();
   }); 
-
+  //
+  // Options events
+  //
+  $scope.$on('mopidy:event:optionsChanged', function (event, data){
+  	updateOptions()
+  });
+	//
+	//Full Refresh
+	//
 	function updateEvent(timePosition, state){
 		mopidyservice.getCurrentTlTrack().then(function(track) {
 			mopidyservice.getTimePosition().then(function(timePosition) {
@@ -106,9 +120,17 @@ angular.module('mopidyFE', [
 		    	});
 		    });
 		  });
- 		}); 
- 		    
+ 		});
   }
+  
+  function updateOptions(){
+  	mopidyservice.getRandom().then(function(random) {
+  		mopidyservice.getRepeat().then(function(repeat) {
+  			$scope.random = random;
+  			$scope.repeat = repeat;  			
+  		});
+		});
+	}
 	
   function updateCurrentTrack(data) {
   	if (data){
@@ -125,12 +147,12 @@ angular.module('mopidyFE', [
   	
   	if (state){
   		$scope.currentState = state;
-      if ($scope.currentState === 'playing') {
+      if ($scope.currentState == 'playing') {
       	clearInterval(checkPositionTimer);
         checkPositionTimer = setInterval(function() {
           updateTimePosition();
         }, 1000);                
-      } else if ($scope.currentState === 'paused'){
+      } else if ($scope.currentState == 'paused'){
       	clearInterval(checkPositionTimer);
       } else {
       	clearInterval(checkPositionTimer);
@@ -173,7 +195,6 @@ angular.module('mopidyFE', [
   		updateTimePosition(timePosition);
   	}
     
-    
   }
 
   function resetCurrentTrack() {
@@ -189,7 +210,7 @@ angular.module('mopidyFE', [
     $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
     $rootScope.currentTrackImageUrl = defaultTrackImageUrl;
   	$scope.currentState = '';
-  	$scope.currentTrackPositionMS = 0;
+  	$scope.currentTrackPositionMS = 0;  	
   }
 
   function updateTimePosition(newPosition) {
@@ -243,6 +264,23 @@ angular.module('mopidyFE', [
     	updateEvent(0, "stopped");
     }
   };
+
+	$scope.toggleRandom = function(){
+		if($scope.random){
+			mopidyservice.setRandom(false);
+		} else {
+			mopidyservice.setRandom(true);
+		}
+	}
+	
+	$scope.toggleRepeat = function(){
+		if($scope.repeat){
+			mopidyservice.setRepeat(false);
+		} else {
+			mopidyservice.setRepeat(true);
+		}
+	}
+
 
   $scope.$on('mopidyFE:slidervaluechanging', function(event, value) {
     isSeeking = true;
