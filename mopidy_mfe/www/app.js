@@ -98,7 +98,6 @@ angular.module('mopidyFE', [
   }); 
 
 	function updateEvent(timePosition, state){
-		
 		mopidyservice.getCurrentTlTrack().then(function(track) {
 			mopidyservice.getTimePosition().then(function(timePosition) {
 				mopidyservice.getState().then(function(state) {			
@@ -124,10 +123,6 @@ angular.module('mopidyFE', [
   		$scope.$broadcast('updateTl', "hello");
   	}
   	
-  	if (timePosition != null){ 
-  		$scope.currentTrackPositionMS = timePosition;
-  	}
-  	
   	if (state){
   		$scope.currentState = state;
       if ($scope.currentState === 'playing') {
@@ -141,6 +136,7 @@ angular.module('mopidyFE', [
       	clearInterval(checkPositionTimer);
       }
     }
+    
     if (track) {
     	$scope.currentUri = track.track.uri;
     	$scope.currentTlid = track.tlid;
@@ -149,14 +145,11 @@ angular.module('mopidyFE', [
       $scope.currentAlbum = track.track.album;
       $scope.currentTrackLength = track.track.length;
       $scope.currentTrackLengthString = util.timeFromMilliSeconds(track.track.length);
-			//$scope.currentTrackPositionMS = timePosition;
 			
       if ($scope.currentTrackLength > 0) {
        	$scope.currentTimePosition = ($scope.currentTrackPositionMS / $scope.currentTrackLength) * 100;
       	$scope.currentTrackPosition = util.timeFromMilliSeconds($scope.currentTrackPositionMS);
-      }
-      else
-      {
+      } else {
         $scope.currentTimePosition = 0;
         $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
       }
@@ -175,6 +168,11 @@ angular.module('mopidyFE', [
         });
       }
     }
+    
+    if (timePosition != null){ 
+  		updateTimePosition(timePosition);
+  	}
+    
     
   }
 
@@ -195,7 +193,7 @@ angular.module('mopidyFE', [
   }
 
   function updateTimePosition(newPosition) {
-    if (! isSeeking) {
+    if (!isSeeking) {
     	if (newPosition != null){
     		$scope.currentTrackPositionMS = newPosition;
     	} else {
@@ -212,31 +210,38 @@ angular.module('mopidyFE', [
       if ($scope.currentTrackPositionMS > $scope.currentTrackLength){
       	$scope.currentTrackPositionMS = $scope.currentTrackLength;
       }
+      $('.footerProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
+			$('.npProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
     }
-		$('.footerProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
-		$('.npProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
-    $scope.$apply();
+    if(newPosition == null){
+   		$scope.$apply();
+  	}
   }
+  
 	//
 	// Player Controls
 	//
 	$scope.play = function() {
     if ($scope.currentState === "playing") {
-      // pause
       mopidyservice.pause();
     }
     else {
-      // play
       mopidyservice.play();
     }
   };
   
   $scope.previous = function() {
     mopidyservice.previous();
+    if ($scope.currentState === "stopped") {
+    	updateEvent(0, "stopped");
+    }
   };
 
   $scope.next = function() {
     mopidyservice.next();
+    if ($scope.currentState === "stopped") {
+    	updateEvent(0, "stopped");
+    }
   };
 
   $scope.$on('mopidyFE:slidervaluechanging', function(event, value) {
