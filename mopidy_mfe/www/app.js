@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('mopidyFE', [
   'ngRoute',
+  'rzModule',
   'mopidyFE.cache',
   'mopidyFE.nowplaying',
   'mopidyFE.browse',
@@ -68,6 +69,7 @@ angular.module('mopidyFE', [
 
   $scope.$on('mopidy:state:online', function(event, data) {
 		updateOptions();
+		updateVolume();
   	updateEvent();
   	$rootScope.online = true;
   });
@@ -108,6 +110,22 @@ angular.module('mopidyFE', [
   $scope.$on('mopidy:event:optionsChanged', function (event, data){
   	updateOptions()
   });
+  $scope.$on('mopidy:event:volumeChanged', function (event, data){
+  	updateVolume(data.volume)
+  });
+  
+  $scope.volSlider = {
+	  value: 100,
+	  options: {
+	    floor: 0,
+	    ceil: 100,
+	    keyboardSupport: true,
+			hidePointerLabels: true,
+			hideLimitLabels: true,
+			showSelectionBar: true
+	  }
+	};
+  
 	//
 	//Full Refresh
 	//
@@ -131,6 +149,21 @@ angular.module('mopidyFE', [
   		});
 		});
 	}
+	
+	function updateVolume(volume){
+		if(volume){
+			$scope.volSlider.value = volume;
+		} else {
+			mopidyservice.getVolume().then(function(volume) {
+				$scope.volSlider.value = volume;
+			})
+		}
+	}
+	
+	$scope.$on("slideEnded", function() {
+		mopidyservice.setVolume($scope.volSlider.value);
+	});
+	
 	
   function updateCurrentTrack(data) {
   	if (data){

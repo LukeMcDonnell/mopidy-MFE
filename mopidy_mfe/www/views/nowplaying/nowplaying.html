@@ -9,13 +9,29 @@
 		<tr><td style="height:40px;"></td></tr>
 		<tr>
 			<td id="npTop">
+				<div class="npVolControlContainer">
+					<div class="npVolLeft">
+						<i class="fa fa-volume-down"></i>
+					</div>
+					<div class="npVolRight">
+						<i class="fa fa-volume-up"></i>
+					</div>
+					<div class="npVol">
+						<rzslider rz-slider-model="volSlider.value" rz-slider-options="volSlider.options"></rzslider>
+						<!--
+						<div class="npVolumeWrap">
+							<div class="npVolumeBar"></div>
+						</div>
+						-->
+					</div>
+				</div>
+				
       	<p ng-if="currentAlbum.name"> From the album: {{ currentAlbum.name }}</p>
 			</td>
 		</tr>
 		<tr>
 			<td id="npMiddle">
 				<div class="npImage" style="background-image: url('{{currentTrackImageUrl}}');">
-					<!-- <img ng-src="{{currentTrackImageUrl}}" id="npImage"> -->
 				</div>
 			</td>
 		</tr>
