@@ -57,25 +57,12 @@ angular.module('mopidyFE', [
 	var checkPositionTimer;
   var isSeeking = false;
   var defaultTrackImageUrl = 'assets/vinyl-icon.png';
-
-
-	//
-	// Orientation changes:
-	//
-	function resize(){
-		if (window.innerWidth > (window.innerHeight-50)){
-			$scope.orientation = 'horizontal';
-		} else {
-			$scope.orientation = 'vertical';
-		}
-	}
-	$(window).resize(function(){
-   resize();
-   $scope.$apply();
-	});
-	resize();
-
-	$scope.volSlider = {
+	
+  
+  //
+  // SLIDERS
+  //
+  $scope.volSlider = {
 	  value: 100,
 	  options: {
 	  	id: "volume",
@@ -88,7 +75,7 @@ angular.module('mopidyFE', [
 			onEnd: function () { mopidyservice.setVolume($scope.volSlider.value);	}
 	  }
 	};
-	
+  	
 	$scope.seekSlider = {
 	  value: 0,
 	  options: {
@@ -111,6 +98,9 @@ angular.module('mopidyFE', [
   resetCurrentTrack();
 	mopidyservice.start();
 
+	//
+	// EVENT HANDLERS
+	//
 	$scope.$on('mopidy:state:offline', function() {
     clearInterval(checkPositionTimer);
     resetCurrentTrack();
@@ -381,7 +371,7 @@ angular.module('mopidyFE', [
   
 	$scope.$on('updateTl', function(event, data) {
 		$scope.gotTlImgs = false;
-		if(queueState){
+		if(queueState || $rootScope.widescreen){
 	 		$scope.getImgs();
 	 	}
 	});
@@ -411,19 +401,21 @@ angular.module('mopidyFE', [
 	
 	// queue
 	$scope.toggleQueue = function() {
-		if (queueState){
-			menuMask.style.display = 'none';
-			queueState = false;
-		} else {
-			menuMask.style.display = 'block';
-			queueState = true;
-			$timeout(function(){$scope.getImgs()}, 1000);
-		}
-		if (menuState){
-			classie.toggle( menuLeft, 'cbp-spmenu-open' );
-			menuState = false
-		}
-		classie.toggle( queueRight, 'cbp-spmenu-open' );		
+		if(!$rootScope.widescreen){
+			if (queueState){
+				menuMask.style.display = 'none';
+				queueState = false;
+			} else {
+				menuMask.style.display = 'block';
+				queueState = true;
+				$timeout(function(){$scope.getImgs()}, 1000);
+			}
+			if (menuState){
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				menuState = false
+			}
+			classie.toggle( queueRight, 'cbp-spmenu-open' );
+		}	
 	};
 	
 	$scope.closeMenu = function(){
@@ -436,8 +428,34 @@ angular.module('mopidyFE', [
 	
 	$scope.loadMenuItem = function(url){
 		$scope.closeMenu();
-		$timeout(function(){$location.path(url)}, 250);
+		$timeout(function(){$location.path(url)}, 300);
 	}
+	
+	//
+  //resizes
+  //
+  function resize(){
+  	if(window.innerWidth > 1200 && !$rootScope.widescreen){
+  		if (queueState){ $scope.closeMenu(); }
+  		$( queueRight ).removeClass("cbp-spmenu cbp-spmenu-right");
+  		$( queueRight ).addClass("queuePerm");
+  		$rootScope.widescreen = true;
+  		if(!$scope.gotTlImgs){
+		 		$scope.getImgs();
+		 	}
+  	} else if (window.innerWidth <= 1200 && $rootScope.widescreen){
+  		$( queueRight ).addClass("cbp-spmenu cbp-spmenu-right");
+  		$( queueRight ).removeClass("queuePerm");
+  		$rootScope.widescreen = false;
+  	}
+  }
+  
+  $(window).resize(function(){
+  	resize();
+  	$scope.$apply();
+  });
+  
+  resize();
 	
 	
   

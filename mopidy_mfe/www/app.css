@@ -142,6 +142,47 @@
 // PLAY QUEUE
 //
 */
+.queuePerm {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	background: #222222;
+	position: fixed;
+	float: right;
+	right: 0px;
+	width: 300px;
+	height: 100%;
+	top: 50px;
+	z-index: 11114;
+	overflow: hidden;
+}
+.queueHeader {
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #ffffff;
+	background: #222222;
+	position: fixed;
+	float: right;
+	right: 0px;
+	width: 300px;
+	height: 50px;
+	top: 0px;
+	z-index: 11114;
+	overflow: hidden;
+	text-align: center;
+	line-height: 50px;
+}
+
+
+.queueSpacer {
+	background: #222222;
+	position: relative;
+	float: right;
+	right: 0px;
+	width: 300px;
+	height: 50px;
+	top: 0px;
+	z-index: 11110;
+	overflow: hidden;
+}
+
 
 .queueWrapper {
 	overflow: auto;
@@ -308,7 +349,6 @@ input:focus {
 	width: 100%;
 	background: #111111;
 	min-height: 340px;
-	position: absolute;
 	z-index: 10;
 	//-webkit-backface-visibility: hidden;
 	//-webkit-transform: translateZ(0);
@@ -319,7 +359,6 @@ input:focus {
 	margin: 0 auto;
 	position: fixed;
 	text-align: center;
-	right: 0;
 	left: 0;
 	margin-right: auto;
 	margin-left: auto;
@@ -348,6 +387,7 @@ input:focus {
 .playMenu {
 	background-color: #111111;
 	position: absolute;
+	top: 290px;
 	width: 100%;
 	z-index: 100;
 	text-align: center;
@@ -381,7 +421,6 @@ input:focus {
 
 .blurBackground{
 	top: 0;
-	right: 0;
 	left: 0;
 	margin-right: auto;
 	margin-left: auto;
@@ -448,11 +487,11 @@ body a {
 
 .main {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	overflow: hidden;
   text-align: center;
-  width: 100%;
   height: 100%;
   padding: 0px;
-	margin: 0px;
+	margin: 0 auto;
 
 }
 
@@ -510,12 +549,11 @@ body a {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
   text-align: center;
   padding: 0px;
-	margin: 0px;
-	position: fixed;
+	margin: 0 auto;
+	overflow: hidden;
 	top: 0;
 	bottom: 0;
-	width: 100%;
-	height: 100%;
+	height: 500px;
 }
 .nowPlaying h1 {
 	color: #FFFFFF;

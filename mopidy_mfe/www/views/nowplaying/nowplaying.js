@@ -21,16 +21,31 @@ angular.module('mopidyFE.nowplaying', [
 }])
 
 
-.controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, mopidyservice, lastfmservice, $window, cacheservice) {
+.controller('nowplayingCtrl', function NowPlayingController($rootScope, $scope, $route, $timeout, mopidyservice, lastfmservice, $window, cacheservice) {
 	$rootScope.pageTitle = "Now Playing";
  	$rootScope.showFooter = false;
  	$rootScope.showHeaderBG = false;
  	$scope.showContext = false;
- 	 	
- 	$scope.$watch(function(){
-     return $window.innerWidth;
-  }, function(value) {
-     $rootScope.pageWidth = value;
- 	});
- 	 	
+ 	var npElement = document.getElementById( 'npElement' );
+ 	//
+	// Orientation changes:
+	//
+	function resize(){
+		if (window.innerWidth > (window.innerHeight-50)){
+			$scope.orientation = 'horizontal';
+		} else {
+			$scope.orientation = 'vertical';
+		}
+		npElement.style.height = (window.innerHeight) + 'px';
+		
+		$timeout(function () {
+    	$scope.$broadcast('rzSliderForceRender');
+    }, 100);
+	}
+	$(window).resize(function(){
+   	resize();
+   	$scope.$apply();
+	});
+	resize();	
+	
 });

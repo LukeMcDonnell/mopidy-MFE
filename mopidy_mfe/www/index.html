@@ -39,14 +39,16 @@
 	
 	<div>
 				
-	  <div ng-view></div>
-		
 		<!-- QUEUE -->
-				
+		<div ng-if="widescreen" class="queueSpacer"></div>
+		<div ng-show="widescreen" class="queueHeader">
+			Play Queue	
+		</div>
+		
 		<div class="cbp-spmenu cbp-spmenu-right" id="cbp-spmenu-s2">
 			<div class="queueWrapper">
 				<div class="queueContent">
-					
+										
 					<div ng-repeat="tracks in trackList">				
 						<div class="queueBox">
 							<a href="" ng-click="queueMenu(tracks);">
@@ -68,11 +70,11 @@
 					</div>
 					
 					<div style="height: 102px;"></div>
-					
 				</div>
 			</div>
 		</div>		
 		
+	  <div ng-view></div>
 	
 		<!-- HEADER -->
 		
