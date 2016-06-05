@@ -549,7 +549,7 @@ body a {
 }
 
 #npTop {
-	height: 20px;
+	height: 60px;
 	width: 100%;
 	overflow: hidden;
 }
@@ -562,6 +562,14 @@ body a {
 	margin: 0 auto;
   Height: 100%;
 	width: 95%;
+	background-position: center; 
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.npImageWide{
+  height: 90%;
+	width: 90%;
 	background-position: center; 
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -602,23 +610,10 @@ body a {
 	height: 20px;
 }
 
-.npVolumeWrap {
-	height: 2px;
-	width: 100%;
-  background: #111;
-  margin: 0px auto;
-  margin-top: 9px;
-}
-.npVolumeBar {
-	background: #ffffff;
-	width: 0%;
-	height: 100%;
-}
-
 .npDetails{
 	width: 100%;
 	text-align: center;
-	height: 70px;
+	height: 90px;
 	overflow: auto;
 }
 

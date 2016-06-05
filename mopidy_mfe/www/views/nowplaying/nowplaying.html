@@ -6,80 +6,81 @@
 
 <div class="nowPlaying">	
 	<table id="npTable">
-		<tr><td style="height:40px;"></td></tr>
-		<tr>
-			<td id="npTop">
-				<div class="npVolControlContainer">
-					<div class="npVolLeft">
-						<i class="fa fa-volume-down"></i>
-					</div>
-					<div class="npVolRight">
-						<i class="fa fa-volume-up"></i>
-					</div>
-					<div class="npVol">
-						<rzslider rz-slider-model="volSlider.value" rz-slider-options="volSlider.options"></rzslider>
-						<!--
-						<div class="npVolumeWrap">
-							<div class="npVolumeBar"></div>
+	<tr><td style="height:40px;"></td></tr>
+	<tr><td>
+		<table id="npTable">
+			<tr ng-if="orientation == 'horizontal'"><td></td></tr>
+			<tr>
+				<td id="npTop" valign="top">
+					<div class="npVolControlContainer">
+						<div class="npVolLeft">
+							<i class="fa fa-volume-down"></i>
 						</div>
-						-->
-					</div>
-				</div>
-				
-      	<p ng-if="currentAlbum.name"> From the album: {{ currentAlbum.name }}</p>
-			</td>
-		</tr>
-		<tr>
-			<td id="npMiddle">
-				<div class="npImage" style="background-image: url('{{currentTrackImageUrl}}');">
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td id="npBottom">
-				<div class="npDetails">
-					<h1>{{ currentTrack}}</h1>
-					<p>{{ currentArtists[0].name }}</p>
-				</div>
-				
-				<div class="npProgressContainer"> 
-					<div class="npProgressLeft"><h2>{{ currentTrackPosition }}</h2></div>
-					<div class="npProgressRight"><h2>{{ currentTrackLengthString }}</h2></div>
-					<div class="npProgressCenter">
-						<div class="npProgressWrap">
-							<div class="npProgressBar npProgress"></div>
+						<div class="npVolRight">
+							<i class="fa fa-volume-up"></i>
+						</div>
+						<div class="npVol">
+							<rzslider rz-slider-model="volSlider.value" rz-slider-options="volSlider.options"></rzslider>
 						</div>
 					</div>
-				</div>
-				
-				<div class="npButtonContainer">
-					<div style="width: 15%; text-align: left;" class="npButtonSide">
-						<a href="" ng-click="toggleRandom();">
-							<i ng-if="random" class="fa fa-random" id="randomOn"></i>
-							<i ng-if="!random" class="fa fa-random" id="randomOff"></i>
-						</a>
+					
+	      	<p ng-if="currentAlbum.name"> From the album: {{ currentAlbum.name }}</p>
+				</td>
+			</tr>
+			<tr ng-if="orientation == 'vertical'">
+				<td id="npMiddle">
+					<div class="npImage" style="background-image: url('{{currentTrackImageUrl}}');">
 					</div>
-					<div style="width: 19%;" class="npButton">
-						<a href="" ng-click="previous()"><i class="fa fa-step-backward fa-2x"></i></a>
+				</td>
+			</tr>
+			<tr>
+				<td id="npBottom">
+					<div class="npDetails">
+						<h1>{{ currentTrack}}</h1>
+						<p>{{ currentArtists[0].name }}</p>
 					</div>
 					
-					<div style="width: 32%;" class="npButtonPlay">
-						<i ng-if="currentState != 'playing'"><a href="" ng-click="play()"><i class="fa fa-play fa-3x"></i></a></i>
-						<i ng-if="currentState === 'playing'"><a href="" ng-click="play()"><i class="fa fa-pause fa-3x"></i></a></i>
+					<div class="npProgressContainer"> 
+						<div class="npProgressLeft"><h2>{{ currentTrackPosition }}</h2></div>
+						<div class="npProgressRight"><h2>{{ currentTrackLengthString }}</h2></div>
+						<div class="npProgressCenter">
+							<rzslider rz-slider-model="seekSlider.value" rz-slider-options="seekSlider.options"></rzslider>
+						</div>
 					</div>
 					
-					<div style="width: 19%;" class="npButton">
-						<a href="" ng-click="next()"><i class="fa fa-step-forward fa-2x"></i></a>
+					<div class="npButtonContainer">
+						<div style="width: 15%; text-align: left;" class="npButtonSide">
+							<a href="" ng-click="toggleRandom();">
+								<i ng-if="random" class="fa fa-random" id="randomOn"></i>
+								<i ng-if="!random" class="fa fa-random" id="randomOff"></i>
+							</a>
+						</div>
+						<div style="width: 19%;" class="npButton">
+							<a href="" ng-click="previous()"><i class="fa fa-step-backward fa-2x"></i></a>
+						</div>
+						
+						<div style="width: 32%;" class="npButtonPlay">
+							<i ng-if="currentState != 'playing'"><a href="" ng-click="play()"><i class="fa fa-play fa-3x"></i></a></i>
+							<i ng-if="currentState === 'playing'"><a href="" ng-click="play()"><i class="fa fa-pause fa-3x"></i></a></i>
+						</div>
+						
+						<div style="width: 19%;" class="npButton">
+							<a href="" ng-click="next()"><i class="fa fa-step-forward fa-2x"></i></a>
+						</div>
+						<div style="width: 15%; text-align: right;" class="npButtonSide">
+							<a href="" ng-click="toggleRepeat();">
+								<i ng-if="repeat" class="fa fa-repeat" id="repeatOn"></i>
+								<i ng-if="!repeat" class="fa fa-repeat" id="repeatOff"></i>
+							</a>
+						</div>
 					</div>
-					<div style="width: 15%; text-align: right;" class="npButtonSide">
-						<a href="" ng-click="toggleRepeat();">
-							<i ng-if="repeat" class="fa fa-repeat" id="repeatOn"></i>
-							<i ng-if="!repeat" class="fa fa-repeat" id="repeatOff"></i>
-						</a>
-					</div>
-				</div>
-			</td>
-		</tr>
+				</td>
+			</tr>
+			<tr ng-if="orientation == 'horizontal'"><td></td></tr>
+		</table>
+	</td><td ng-if="orientation == 'horizontal'" width="50%" align="center">
+		<div class="npImageWide" style="background-image: url('{{currentTrackImageUrl}}');"></div>
+	</td></tr>
 	</table>
 
 </div>

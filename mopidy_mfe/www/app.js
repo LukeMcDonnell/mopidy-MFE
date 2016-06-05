@@ -58,6 +58,56 @@ angular.module('mopidyFE', [
   var isSeeking = false;
   var defaultTrackImageUrl = 'assets/vinyl-icon.png';
 
+
+	//
+	// Orientation changes:
+	//
+	function resize(){
+		if (window.innerWidth > (window.innerHeight-50)){
+			$scope.orientation = 'horizontal';
+		} else {
+			$scope.orientation = 'vertical';
+		}
+	}
+	$(window).resize(function(){
+   resize();
+   $scope.$apply();
+	});
+	resize();
+
+	$scope.volSlider = {
+	  value: 100,
+	  options: {
+	  	id: "volume",
+	    floor: 0,
+	    ceil: 100,
+	    keyboardSupport: true,
+			hidePointerLabels: true,
+			hideLimitLabels: true,
+			showSelectionBar: true,
+			onEnd: function () { mopidyservice.setVolume($scope.volSlider.value);	}
+	  }
+	};
+	
+	$scope.seekSlider = {
+	  value: 0,
+	  options: {
+	  	id: "seek",
+	    floor: 0,
+	    ceil: 100,
+	    keyboardSupport: true,
+			hidePointerLabels: true,
+			hideLimitLabels: true,
+			showSelectionBar: true,
+			onStart: function () { isSeeking = true; },
+			onEnd: function () { 
+				isSeeking = false; 
+				mopidyservice.seek($scope.seekSlider.value);
+				clearInterval(checkPositionTimer);
+			}
+	  }
+	};
+
   resetCurrentTrack();
 	mopidyservice.start();
 
@@ -90,7 +140,8 @@ angular.module('mopidyFE', [
   // Playback events
   //
   $scope.$on('mopidy:event:seeked', function(event, data) {
-  	updateTimePosition(data.time_position);
+  	updateCurrentTrack({timePosition: data.time_position});
+  	$scope.$apply();
   });
   $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data){
   	updateCurrentTrack({track: data.tl_track, timePosition: 0, state: "playing"})
@@ -113,19 +164,7 @@ angular.module('mopidyFE', [
   $scope.$on('mopidy:event:volumeChanged', function (event, data){
   	updateVolume(data.volume)
   });
-  
-  $scope.volSlider = {
-	  value: 100,
-	  options: {
-	    floor: 0,
-	    ceil: 100,
-	    keyboardSupport: true,
-			hidePointerLabels: true,
-			hideLimitLabels: true,
-			showSelectionBar: true
-	  }
-	};
-  
+    
 	//
 	//Full Refresh
 	//
@@ -160,11 +199,6 @@ angular.module('mopidyFE', [
 		}
 	}
 	
-	$scope.$on("slideEnded", function() {
-		mopidyservice.setVolume($scope.volSlider.value);
-	});
-	
-	
   function updateCurrentTrack(data) {
   	if (data){
   		var state = data.state;
@@ -180,16 +214,6 @@ angular.module('mopidyFE', [
   	
   	if (state){
   		$scope.currentState = state;
-      if ($scope.currentState == 'playing') {
-      	clearInterval(checkPositionTimer);
-        checkPositionTimer = setInterval(function() {
-          updateTimePosition();
-        }, 1000);                
-      } else if ($scope.currentState == 'paused'){
-      	clearInterval(checkPositionTimer);
-      } else {
-      	clearInterval(checkPositionTimer);
-      }
     }
     
     if (track) {
@@ -200,15 +224,6 @@ angular.module('mopidyFE', [
       $scope.currentAlbum = track.track.album;
       $scope.currentTrackLength = track.track.length;
       $scope.currentTrackLengthString = util.timeFromMilliSeconds(track.track.length);
-			
-      if ($scope.currentTrackLength > 0) {
-       	$scope.currentTimePosition = ($scope.currentTrackPositionMS / $scope.currentTrackLength) * 100;
-      	$scope.currentTrackPosition = util.timeFromMilliSeconds($scope.currentTrackPositionMS);
-      } else {
-        $scope.currentTimePosition = 0;
-        $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
-      }
-			
 			$scope.currentAlbumUri = track.track.album.uri;
 
       if (track.track.album.images && track.track.album.images.length > 0) {
@@ -224,53 +239,65 @@ angular.module('mopidyFE', [
       }
     }
     
-    if (timePosition != null){ 
+    if (timePosition != null || track){ 
   		updateTimePosition(timePosition);
   	}
     
-  }
-
-  function resetCurrentTrack() {
-  	$scope.currentUri = '';
-  	$scope.currentTlid = null;
-    $scope.currentTrack = '';
-    $scope.currentAlbum = '';
-    $scope.currentAlbumUri = '';
-    $scope.currentArtists = [];
-    $scope.currentTrackLength = 0;
-    $scope.currentTrackLengthString = '0:00';
-    $scope.currentTimePosition = 0; // 0-100
-    $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
-    $rootScope.currentTrackImageUrl = defaultTrackImageUrl;
-  	$scope.currentState = '';
-  	$scope.currentTrackPositionMS = 0;  	
+    if ($scope.currentState == 'playing') {
+    	clearInterval(checkPositionTimer);
+      checkPositionTimer = setInterval(function() {
+        updateTimePosition();
+      }, 1000);                
+    } else if ($scope.currentState == 'paused'){
+    	clearInterval(checkPositionTimer);
+    } else {
+    	clearInterval(checkPositionTimer);
+    }
+    
   }
 
   function updateTimePosition(newPosition) {
-    if (!isSeeking) {
-    	if (newPosition != null){
-    		$scope.currentTrackPositionMS = newPosition;
-    	} else {
-	    	$scope.currentTrackPositionMS += 1000 
- 			}
-    	if ($scope.currentTrackLength > 0 && $scope.currentTrackPositionMS > 0) {
-        $scope.currentTimePosition = ($scope.currentTrackPositionMS / $scope.currentTrackLength) * 100;
-        $scope.currentTrackPosition = util.timeFromMilliSeconds($scope.currentTrackPositionMS);
-      } else {
-        $scope.currentTimePosition = 0;
-        $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
-        
-      }
-      if ($scope.currentTrackPositionMS > $scope.currentTrackLength){
-      	$scope.currentTrackPositionMS = $scope.currentTrackLength;
-      }
-      $('.footerProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
-			$('.npProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
+  	if (newPosition != null){
+  		$scope.currentTrackPositionMS = newPosition;
+  	} else {
+    	$scope.currentTrackPositionMS += 1000 
+		}
+  	if ($scope.currentTrackLength > 0 && $scope.currentTrackPositionMS > 0) {
+      $scope.currentTimePosition = ($scope.currentTrackPositionMS / $scope.currentTrackLength) * 100;
+      $scope.currentTrackPosition = util.timeFromMilliSeconds($scope.currentTrackPositionMS);
+    } else {
+      $scope.currentTimePosition = 0;
+      $scope.currentTrackPosition = util.timeFromMilliSeconds(0);
+    }
+    if ($scope.currentTrackPositionMS > $scope.currentTrackLength){
+    	$scope.currentTrackPositionMS = $scope.currentTrackLength;
+    }
+    $('.footerProgressBar').stop().animate({ width: $scope.currentTimePosition +"%"	}, 1);
+		if (!isSeeking) {
+			$scope.seekSlider.value = $scope.currentTrackPositionMS;
+			$scope.seekSlider.options.ceil = $scope.currentTrackLength
     }
     if(newPosition == null){
    		$scope.$apply();
   	}
   }
+
+	function resetCurrentTrack() {
+		$scope.currentUri = '';
+		$scope.currentTlid = null;
+		$scope.currentTrack = '';
+		$scope.currentAlbum = '';
+		$scope.currentAlbumUri = '';
+		$scope.currentArtists = [];
+		$scope.currentTrackLength = 0;
+		$scope.currentTrackLengthString = '0:00';
+		$scope.currentTimePosition = 0; // 0-100
+		$scope.currentTrackPosition = util.timeFromMilliSeconds(0);
+		$rootScope.currentTrackImageUrl = defaultTrackImageUrl;
+		$scope.currentState = '';
+		$scope.currentTrackPositionMS = 0;
+		updateTimePosition(0);
+	}
   
 	//
 	// Player Controls
