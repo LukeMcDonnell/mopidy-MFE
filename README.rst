@@ -25,6 +25,10 @@ Project resources
 
 Changelog
 =========
+v0.4.4 (2016-06-06)
+------------------
+- Added favicon and full icon support for ios and Android mobile web app compatibility.
+
 v0.4.3 (2016-06-05)
 ------------------
 - Added volume and seek controls to Now Playing.
