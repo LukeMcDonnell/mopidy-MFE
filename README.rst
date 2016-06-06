@@ -25,6 +25,12 @@ Project resources
 
 Changelog
 =========
+v0.4.3 (2016-06-05)
+------------------
+- Added volume and seek controls to Now Playing.
+- Added layout support in Now Playing for landscape oriented devices.
+- Play Queue & Main Menu becomes permanent on large screens.
+
 v0.4.2 (2016-06-04)
 ------------------
 - Updated Now Playing screen. 
