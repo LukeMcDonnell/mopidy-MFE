@@ -28,7 +28,6 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 	
 	if ($routeParams.uri){
 		currentDir = { name: util.urlDecode($routeParams.name), uri: util.urlDecode($routeParams.uri) };
-		console.log(currentDir.uri);
 		if (currentDir.uri === 'favourites'){
 			$scope.showPage = 'favs';
 		} else {
@@ -71,7 +70,6 @@ angular.module('mopidyFE.browse', ['ngRoute'])
 						.sortBy('timestamp')
 						.value()
 				recent.reverse();
-				console.log(recent);
 				if (recent){
 					for (var i in recent){
 						if (recent[i].__model__ === "Album" || (recent[i].__model__ === "Ref" && recent[i].type === "album")){
