@@ -388,7 +388,7 @@ input:focus {
 	background-color: #111111;
 	position: absolute;
 	top: 290px;
-	width: 100%;
+	//width: 100%;
 	z-index: 100;
 	text-align: center;
 	height: 50px
@@ -459,6 +459,8 @@ input:focus {
 	-webkit-filter: blur(18px) brightness(0.7);
   -webkit-perspective: 1000;
 	filter: blur(18px) brightness(0.7);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 
 

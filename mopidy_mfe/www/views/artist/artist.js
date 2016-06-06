@@ -32,17 +32,26 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 		$scope.playlistUris = [];
 		$scope.backend = uri.split(":")[0]
 		
+		// Create Artist model
+		$scope.artist = {
+					__model__: 'Artist',
+					name: artistName,
+					uri: uri,
+					lfmImage: 'assets/vinyl-icon.png'
+		}
+		
 		// lastFM Data
 		lastfmservice.getArtistInfo(artistName, 0, function(err, artistInfo) {
     	if (! err) {
     		var img = _.find(artistInfo.artist.image, { size: 'large' });
 		    if (img['#text'] != undefined && img['#text'] != '') {
 					$scope.artistImage = img['#text'];
-					$scope.albums[0].album.artists[0].lfmImage = img['#text'];
+					$scope.artist.lfmImage = img['#text'];
     		}	 
     	  $scope.artistSummary = artistInfo.artist.bio.summary;
     	}
     	$scope.bgReady = true;
+    	$scope.$apply()
  		});
  		
  		// Mopidy Data
@@ -64,6 +73,11 @@ angular.module('mopidyFE.artist', ['ngRoute'])
       $scope.albums = allAlbums;
       
 			for (var i in $scope.albums) {
+				// Attempt to fill in missing artist info.				
+				if (!$scope.albums[i].album.artists){
+					$scope.albums[i].album.artists = [$scope.artist];
+				};				
+				
 				// Get album image
 				$scope.albums[i].album.lfmImage = 'assets/vinyl-icon.png';
         lastfmservice.getAlbumImage($scope.albums[i].album, 'large', i, function(err, albumImageUrl, i) {
@@ -76,9 +90,6 @@ angular.module('mopidyFE.artist', ['ngRoute'])
         for (var j in $scope.albums[i].tracks){
         	$scope.playlistUris.push($scope.albums[i].tracks[j]);
         }
-        
-        // extract artist model
-        $scope.artist = $scope.albums[0].album.artists[0]
         
         // assign album type
 				if ($scope.albums[i].album.artists[0].uri === uri) {
@@ -94,11 +105,8 @@ angular.module('mopidyFE.artist', ['ngRoute'])
         	$scope.appearson ++;
         }
       }
-      if($scope.albums[0]){
-				$scope.albums[0].album.artists[0].lfmImage = $scope.artistImage
-			}
-			$scope.pageReady=true;	
-		}, console.error.bind(console));
+			$scope.pageReady=true;
+		})
 	}
 	
 	
@@ -119,23 +127,18 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 	});
 	function resize(){
 		if ($rootScope.widescreen){
-			var w = window.innerWidth - 300;
-			$("#launchMenu").css({'width': w+'px'});
-			$("#list").css({'width': w+'px'});
-			$("#background").css({'width': w+'px'});
-			$("#info").css({'width': w+'px'});
+			$("#launchMenu").css({'width': 'calc(100% - 300px)'});
+			$("#background").css({'width': 'calc(100% - 300px)'});
+			$("#info").css({'width': 'calc(100% - 300px)'});
 		} else {
 			$("#launchMenu").css({'width': '100%'});
-			$("#list").css({'width': '100%'});
 			$("#background").css({'width': '100%'});
 			$("#info").css({'width': '100%'});
 		}
 	}
-	$(window).resize(function(){
-   	resize();
-   	$scope.$apply();
-	});
-	$timeout(function(){resize(); $scope.$apply();}, 600);
-	
+	$scope.$on('widescreenChanged', function(event, data) {
+		resize();
+	})
+	resize();
 	
 });

@@ -84,25 +84,18 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 	});
 	function resize(){
 		if ($rootScope.widescreen){
-			var w = window.innerWidth - 300;
-			$("#launchMenu").css({'width': w+'px'});
-			$("#list").css({'width': w+'px'});
-			$("#background").css({'width': w+'px'});
-			$("#info").css({'width': w+'px'});
+			$("#launchMenu").css({'width': 'calc(100% - 300px)'});
+			$("#background").css({'width': 'calc(100% - 300px)'});
+			$("#info").css({'width': 'calc(100% - 300px)'});
 		} else {
 			$("#launchMenu").css({'width': '100%'});
-			$("#list").css({'width': '100%'});
 			$("#background").css({'width': '100%'});
 			$("#info").css({'width': '100%'});
 		}
 	}
-	$(window).resize(function(){
-   	resize();
-   	$scope.$apply();
-	});
-	$timeout(function(){resize(); $scope.$apply();}, 600);
-	
-	
-	
+	$scope.$on('widescreenChanged', function(event, data) {
+		resize();
+	})
+	resize();	
 	
 });

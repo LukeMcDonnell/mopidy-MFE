@@ -105,6 +105,7 @@ angular.module('mopidyFE', [
     clearInterval(checkPositionTimer);
     resetCurrentTrack();
     $rootScope.online = false;
+    $scope.$apply()
   });
 
   $scope.$on('mopidy:state:online', function(event, data) {
@@ -112,6 +113,7 @@ angular.module('mopidyFE', [
 		updateVolume();
   	updateEvent();
   	$rootScope.online = true;
+  	$scope.$apply();
   });
 
   $scope.$on('mopidy:event:playbackStateChanged', function(event, data) {
@@ -124,6 +126,7 @@ angular.module('mopidyFE', [
   $scope.$on('mopidy:event:tracklistChanged', function(event, data) {
    	mopidyservice.getCurrentTrackList().then(function(trackList) {
 			updateCurrentTrack({ trackList: trackList });
+			$scope.$apply();
 		});
   });  
   //
@@ -446,6 +449,7 @@ angular.module('mopidyFE', [
   		$( queueRight ).removeClass("cbp-spmenu cbp-spmenu-right");
   		$( queueRight ).addClass("queuePerm");
   		$rootScope.widescreen = true;
+  		$rootScope.$broadcast('widescreenChanged', true);
   		if(!$scope.gotTlImgs){
 		 		$scope.getImgs();
 		 	}
@@ -453,6 +457,7 @@ angular.module('mopidyFE', [
   		$( queueRight ).addClass("cbp-spmenu cbp-spmenu-right");
   		$( queueRight ).removeClass("queuePerm");
   		$rootScope.widescreen = false;
+  		$rootScope.$broadcast('widescreenChanged', false);
   	}
   }
   
@@ -461,9 +466,7 @@ angular.module('mopidyFE', [
   	$scope.$apply();
   });
   
-  resize();
-	
-	
+  resize();	
   
   //
   // QUEUE MENU
@@ -706,7 +709,6 @@ angular.module('mopidyFE', [
 	$(window).on('scroll', function() {
 		if ($scope.okSaveScroll) { // false between $routeChangeStart and $routeChangeSuccess
 			$scope.scrollPos[$location.path()] = $(window).scrollTop();
-			//console.log($scope.scrollPos);
 		}
 	});
 	
