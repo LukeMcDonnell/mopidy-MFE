@@ -428,9 +428,13 @@ angular.module('mopidyFE', [
 	 	menuMask.style.display = 'none';
 	}
 	
-	$scope.loadMenuItem = function(url){
+	$scope.loadMenuItem = function(url, quickLoad){
 		$scope.closeMenu();
-		$timeout(function(){$location.path(url)}, 300);
+		if (!quickLoad){
+			$timeout(function(){$location.path(url)}, 300);
+		} else {
+			$location.path(url)
+		}
 	}
 	
 	//
