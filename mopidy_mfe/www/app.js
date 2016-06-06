@@ -385,18 +385,20 @@ angular.module('mopidyFE', [
 	var queueRight = document.getElementById( 'cbp-spmenu-s2' )
 	
 	$scope.toggleMenu = function() {
-		if (menuState){
-			menuMask.style.display = 'none';
-			menuState = false;
-		} else {
-			menuMask.style.display = 'block';
-			menuState = true;
+		if (!$rootScope.widescreen){
+			if (menuState){
+				menuMask.style.display = 'none';
+				menuState = false;
+			} else {
+				menuMask.style.display = 'block';
+				menuState = true;
+			}
+			if (queueState){
+				classie.toggle( queueRight, 'cbp-spmenu-open' );
+				queueState = false
+			}
+			classie.toggle( menuLeft, 'cbp-spmenu-open' );
 		}
-		if (queueState){
-			classie.toggle( queueRight, 'cbp-spmenu-open' );
-			queueState = false
-		}
-		classie.toggle( menuLeft, 'cbp-spmenu-open' );
 	};
 	
 	// queue
@@ -432,11 +434,11 @@ angular.module('mopidyFE', [
 	}
 	
 	//
-  //resizes
+  // RESIZING
   //
   function resize(){
   	if(window.innerWidth > 1200 && !$rootScope.widescreen){
-  		if (queueState){ $scope.closeMenu(); }
+  		if (queueState || menuState){ $scope.closeMenu(); }
   		$( queueRight ).removeClass("cbp-spmenu cbp-spmenu-right");
   		$( queueRight ).addClass("queuePerm");
   		$rootScope.widescreen = true;

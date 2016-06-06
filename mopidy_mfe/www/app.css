@@ -735,6 +735,31 @@ body a {
 // HEADER AND SEARCH
 //
 */
+.menuPerm {
+	height: 50px;
+	top: 0px;
+	display: inline;
+	float: left;
+}
+
+.menuPerm a{
+	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+	color: #ffffff;
+	text-decoration: none;
+	
+	display: inline;
+	
+	font-size: 16px !important;
+	font-weight: 300 !important;
+	line-height: 48px !important;
+
+}
+
+.pageTitle {
+	overflow: hidden;
+	display: inline;
+}
+
 .searchBox, .searchBox active, .searchBox hover {
 	-webkit-appearance: none;
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -745,10 +770,10 @@ body a {
 	margin-top: 13px;
 	border: 0px;
 	border-bottom: 1px solid #555555;
-	width: calc(100% - 15px);
-	//max-width: 300px;
+	width: 300px;
 	height: 18px;
 	color: #ffffff;
+	overflow: hidden
 }
 .searchButton {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -816,7 +841,6 @@ body a {
 .headerCenter {
 	overflow: hidden;
 	height: 50px;
-	width: calc(100% - 100px);
 	text-align: left;
 }
 

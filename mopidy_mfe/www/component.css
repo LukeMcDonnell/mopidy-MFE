@@ -19,13 +19,6 @@
 	color: #ffffff;
 }
 
-/* Orientation-dependent styles for the content of the menu */
-
-.cbp-spmenu-vertical a {
-	border-bottom: 1px solid #000000;
-	padding: 1em;
-}
-
 /* Vertical menu that slides from the left or right */
 
 .cbp-spmenu-left {
@@ -34,6 +27,11 @@
 	height: 100%;
 	top: 50px;
 	z-index: 11114;
+}
+
+.cbp-spmenu-left a {
+	border-bottom: 1px solid #000000;
+	padding: 1em;
 }
 
 .cbp-spmenu-right {

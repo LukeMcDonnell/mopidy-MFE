@@ -1,5 +1,30 @@
 <div class="main">
 	<div style="height: 60px"></div>
+	<script>	
+		getSearch = function(){
+			var term = document.getElementById("MFEsearchTerm").value;
+			if(term){
+				document.getElementById("MFEsearchTerm").blur()
+				location.href='#/search/' + term;
+			};
+		};
+		clearSearch = function(){
+			document.getElementById("MFEsearchTerm").value = '';
+			document.getElementById("MFEsearchTerm").focus()
+		}
+		focusSearch = function(){
+			document.getElementById("MFEsearchTerm").focus()									
+		}
+		
+	</script>	
+	
+	<div ng-if="viewResults != 'loading'" style="width: 95%; margin: auto; text-align: left;">
+		<form onsubmit="getSearch()" id="searchForm"> 
+	  	<input type="text" placeholder="Search..." class="searchBox" id="MFEsearchTerm">			  	
+	  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times searchReset"></i></a>	
+		</form>	
+	</div>
+	
 	
 	<div ng-if="viewResults === 'loading'" class="searchResults">
 		<br><br><br>
@@ -10,10 +35,11 @@
 	</div>
 		
 	<div ng-if="viewResults === 'ready'" class="searchResults">
-		<div class="minbox" style="text-align: right;">
-			<i class="fa fa-filter"></i>
+		<br><br>
+		<div class="minbox" style="text-align: left;">
+			"{{ searchTerm }}" in: &nbsp;&nbsp;
 			<select ng-model="q2">
-				<option value="">View All</option>
+				<option value="">All Backends</option>
 				<option ng-repeat="backend in backends" value="{{backend}}">{{backend}}</option>
 			</select>
 		</div>
@@ -106,7 +132,7 @@
 	
 	</div>
 	
-	<div ng-if="viewResults === 'history'">
+	<div ng-if="viewResults === 'history'">			
 		<div class="box3">
 			<h1>RECENT SEARCHES</h1>
 		</div>

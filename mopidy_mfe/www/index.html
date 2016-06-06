@@ -30,7 +30,7 @@
 	
 	<!-- MAIN MENU -->
 	
-	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+	<nav class="cbp-spmenu cbp-spmenu-left" id="cbp-spmenu-s1">
 		<a ng-click="loadMenuItem('/search')" 			href=""><i class="fa fa-search"></i> &nbsp;&nbsp;&nbsp;Search</a>
 		<a ng-click="loadMenuItem('/browse')" 			href=""><i class="fa fa-music"></i> &nbsp;&nbsp;&nbsp;My Music</a>
 		<a ng-click="loadMenuItem('/nowplaying')" 	href=""> <i class="fa fa-volume-up"></i> &nbsp;&nbsp;&nbsp;Now Playing</a>		
@@ -87,31 +87,17 @@
 				<div class="headerRight"><i class='fa fa-list-alt'></i></div>
 			</a>
 
-			<div class="headerCenter" ng-if="pageTitle != 'Search'">
-				<h1> {{ pageTitle }} </h1>
-			</div>
-			<div class="headerCenter" ng-if="pageTitle == 'Search'">
-				<form onsubmit="getSearch()" id="searchForm"> 
-			  	<input type="text" placeholder="Search..." class="searchBox" id="searchTerm">			  	
-			  	<a href="javascript:void(0);" onclick="clearSearch()"><i type="reset" class="fa fa-times searchReset"></i></a>	
-			  	<script>	
-						getSearch = function(){
-							var term = document.getElementById("searchTerm").value;
-							if(term){
-								document.getElementById("searchTerm").blur()
-								location.href='#/search/' + term;
-							};
-						};
-						clearSearch = function(){
-							document.getElementById("searchTerm").value = '';
-							document.getElementById("searchTerm").focus()
-						}
-						focusSearch = function(){
-							document.getElementById("searchTerm").focus()									
-						}
-						
-					</script>	
-				</form>	
+			<div class="headerCenter">
+				<div class="menuPerm" ng-if="widescreen"> 
+					<a ng-click="loadMenuItem('/search')" 			href="">&nbsp;&nbsp;<i class="fa fa-search"></i> 			&nbsp; Search 			&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a ng-click="loadMenuItem('/browse')" 			href="">&nbsp;&nbsp;<i class="fa fa-music"></i> 			&nbsp; My Music 		&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a ng-click="loadMenuItem('/nowplaying')" 	href="">&nbsp;&nbsp;<i class="fa fa-volume-up"></i> 	&nbsp; Now Playing 	&nbsp;&nbsp;&nbsp;&nbsp;|</a>		
+					<a ng-click="loadMenuItem('/settings')" 		href="">&nbsp;&nbsp;<i class="fa fa-cog"></i> 				&nbsp; Settings 		&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</div>
+				<div class="pageTitle">
+					<h1> {{ pageTitle }} </h1>
+				</div>
 			</div>	
 		</div>
 		
