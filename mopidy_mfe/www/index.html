@@ -57,8 +57,8 @@
 			<div class="queueWrapper" id="queueScroll">
 				<div class="queueContent">
 										
-					<div ng-repeat="tracks in trackList">				
-						<div class="queueBox">
+					<div ng-repeat="tracks in trackList" on-finish-render="test">				
+						<div class="queueBox" id="track{{tracks.tlid}}">
 							<a href="" ng-click="queueMenu(tracks);">
 								<div class="queueBoxRight">
 									<i class="fa fa-ellipsis-v fa-lg"></i>

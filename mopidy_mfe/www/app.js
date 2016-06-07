@@ -230,6 +230,7 @@ angular.module('mopidyFE', [
           }
         });
       }
+     	scrollToTrack();
     }
     
     if (timePosition != null || track){ 
@@ -248,6 +249,18 @@ angular.module('mopidyFE', [
     }
     
   }
+  
+	$scope.$on('test', function(ngRepeatFinishedEvent) {
+		scrollToTrack();
+	});
+  
+  function scrollToTrack(){
+		var pqElem = $("#track"+$scope.currentTlid).get(0);
+		if (pqElem){
+			pqElem.scrollIntoView();
+		}
+	}
+  
 
   function updateTimePosition(newPosition) {
   	if (newPosition != null){
@@ -826,11 +839,10 @@ function( $window, $document ) {
             var hidden = [];
             // Determine the window dimensions.
             var windowHeight = win.height();
-            var scrollTop = document.getElementById('queueScroll').scrollTop;
-            //console.log(scrollTop);
+            var scrollTop = win.scrollTop();
             // Calculate the viewport offsets.
-            var topFoldOffset = scrollTop-200;
-            var bottomFoldOffset = ( topFoldOffset + windowHeight + 400);
+            var topFoldOffset = scrollTop;
+            var bottomFoldOffset = ( topFoldOffset + windowHeight );
             // Query the DOM for layout and seperate the
             // images into two different categories: those
             // that are now in the viewport and those that
@@ -1292,4 +1304,19 @@ function( $window, $document ) {
         link: link,
         restrict: "A"
     });
+})
+
+
+
+.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit(attr.onFinishRender);
+                });
+            }
+        }
+    }
 });
