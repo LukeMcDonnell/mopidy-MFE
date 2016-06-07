@@ -25,6 +25,13 @@ Project resources
 
 Changelog
 =========
+v0.4.5 (2016-06-07)
+------------------
+- Tracks in album now sort by disc #, then track #.
+- fixed bug in wide mode where page elements wouldn't align correctly.
+- Workaround fix for slow loading background images.
+ 
+ 
 v0.4.4 (2016-06-06)
 ------------------
 - Added favicon and icon support for ios and Android mobile web app compatibility.

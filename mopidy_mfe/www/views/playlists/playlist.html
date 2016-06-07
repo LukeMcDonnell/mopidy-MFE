@@ -51,7 +51,7 @@
 				</a>
 				<a href="" ng-click="addReplacePlay( plItems, playlistUris, playlist )">
 					<div class="boxLeft"> 
-						<img ng-src="{{plItems.lfmImage}}" width=50 height=50 />
+						<img bn-lazy-src="{{plItems.lfmImage}}" width=50 height=50 />
 					</div>			
 					<div class="boxCenter" ng-if="plItems.uri != currentUri || currentUri === null"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ plItems.name }}</h1>

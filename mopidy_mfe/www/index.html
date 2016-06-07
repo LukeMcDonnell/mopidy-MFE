@@ -54,7 +54,7 @@
 		</div>
 		
 		<div class="cbp-spmenu cbp-spmenu-right" id="cbp-spmenu-s2">
-			<div class="queueWrapper">
+			<div class="queueWrapper" id="queueScroll">
 				<div class="queueContent">
 										
 					<div ng-repeat="tracks in trackList">				
@@ -66,7 +66,7 @@
 							</a>
 							<a href="" ng-click="playTlTrack( tracks.tlid )">
 								<div class="queueBoxLeft"> 
-									<img ng-src="{{tracks.lfmImage}}" width=40 height=40 />
+									<img bn-lazy-src-queue="{{tracks.lfmImage}}" width=40 height=40 />
 								</div>			
 								<div class="queueBoxCenter">
 									<h1 ng-if="tracks.tlid != currentTlid">{{ tracks.track.name }}</h1>
