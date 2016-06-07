@@ -30,7 +30,8 @@ v0.4.5 (2016-06-07)
 - Tracks in album now sort by disc #, then track #.
 - fixed bug in wide mode where page elements wouldn't align correctly.
 - Workaround fix for slow loading background images.
- 
+- Added lazy loading for images in playlists and queue.
+- Play Queue now automatically scrolls to currently playing track.
  
 v0.4.4 (2016-06-06)
 ------------------
