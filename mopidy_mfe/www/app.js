@@ -126,7 +126,6 @@ angular.module('mopidyFE', [
   $scope.$on('mopidy:event:tracklistChanged', function(event, data) {
    	mopidyservice.getCurrentTrackList().then(function(trackList) {
 			updateCurrentTrack({ trackList: trackList });
-			$scope.$apply();
 		});
   });  
   //
@@ -218,18 +217,17 @@ angular.module('mopidyFE', [
       $scope.currentTrackLength = track.track.length;
       $scope.currentTrackLengthString = util.timeFromMilliSeconds(track.track.length);
 			$scope.currentAlbumUri = track.track.album.uri;
-
-      if (track.track.album.images && track.track.album.images.length > 0) {
-        $rootScope.currentTrackImageUrl = track.track.album.images[0];
-      } else {
-        lastfmservice.getAlbumImage(track.track, 'mega', 0, function(err, trackImageUrl, asdf) {
-          if (! err && trackImageUrl !== undefined && trackImageUrl !== '') {
-            $rootScope.currentTrackImageUrl = trackImageUrl;
-          } else {
-						$rootScope.currentTrackImageUrl = defaultTrackImageUrl;
-          }
-        });
-      }
+			
+			//get Images
+			$rootScope.currentTrackImageUrl = defaultTrackImageUrl;
+			
+			var j=[{	model: track.track.album, 
+								ref : {size: 'mega', id: 0, callback: function(err, albumImageUrl, id) {
+									if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+										$rootScope.currentTrackImageUrl = albumImageUrl;
+									}}}
+				}];			
+			lastfmservice.getAlbumImages(j);
      	scrollToTrack();
     }
     
@@ -370,20 +368,24 @@ angular.module('mopidyFE', [
   
   $scope.getImgs = function(){
   	if(!$scope.gotTlImgs){
+			var j = [];
 			for (var i in $rootScope.trackList){
 				if ($rootScope.trackList[i].lfmImage){ break; }
 				$rootScope.trackList[i].lfmImage = 'assets/vinyl-icon.png';
-				// Get album image
-				lastfmservice.getAlbumImage($rootScope.trackList[i].track, 'medium', i, function(err, albumImageUrl, i) {
-					if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
-						$rootScope.trackList[i].track.lfmImage = albumImageUrl;
-						$rootScope.trackList[i].lfmImage = albumImageUrl;
-					}
+				j.push({ 	model: $rootScope.trackList[i].track.album, 
+									ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
+										if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+											$rootScope.trackList[id].track.lfmImage = albumImageUrl;
+											$rootScope.trackList[id].lfmImage = albumImageUrl;
+										}}}
 				});
 			}
+			lastfmservice.getAlbumImages(j);
 			$scope.gotTlImgs = true;
 		}
 	}
+  
+  $scope.gotTlImgs = true;
   
 	$scope.$on('updateTl', function(event, data) {
 		$scope.gotTlImgs = false;

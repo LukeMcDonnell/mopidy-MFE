@@ -98,20 +98,22 @@ angular.module('mopidyFE.search', ['ngRoute'])
 							}
 						}
 					});
-					$scope.artists.push(resultArray.artists[i]);
 				}
 				
+				var j = [];
    			for (var i in resultArray.albums){
 					// Get album image
 					resultArray.albums[i].lfmImage = 'assets/vinyl-icon.png';
-	        lastfmservice.getAlbumImage(resultArray.albums[i], 'medium', i, function(err, albumImageUrl, i) {
-	          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-	            resultArray.albums[i].lfmImage = albumImageUrl;
-	          }
-	        });
-	        $scope.albums.push(resultArray.albums[i]);
+					j.push({ 	model: resultArray.albums[i], 
+										ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
+											if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+												resultArray.albums[id].lfmImage = albumImageUrl;
+											}}}
+					});
         }
-        
+        lastfmservice.getAlbumImages(j)
+        $scope.artists= resultArray.artists;
+        $scope.albums = resultArray.albums;        
         $scope.tracks = resultArray.tracks;
 	      $scope.viewResults = "ready"; 
 			    

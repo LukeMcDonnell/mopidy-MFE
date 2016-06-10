@@ -95,6 +95,9 @@ angular.module('mopidyFE.mopidy', [])
       //
       // Library/playlist/search Data request method
       //
+      getImages: function(uris) {
+        return wrapMopidyFunc("mopidy.library.getImages", this)({ uris: uris });
+      },
       getPlaylists: function() {
         return wrapMopidyFunc("mopidy.playlists.asList", this)();
       },
@@ -192,7 +195,7 @@ angular.module('mopidyFE.mopidy', [])
       	var self = this;
       	self.mopidy.playback.play({"tlid":track})
       },
-      
+                  
       addReplacePlay: function (track, surroundingTracks) {
       	var self = this;
       	

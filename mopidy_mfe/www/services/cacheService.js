@@ -27,7 +27,6 @@ angular.module('mopidyFE.cache', [])
 		ls.favs = JSON.stringify([]);
 		ls.imgIndex = JSON.stringify([]);
 		$location.path('/settings');
-
 	}
 	
 	if (!ls.recent){
@@ -54,18 +53,6 @@ angular.module('mopidyFE.cache', [])
   }
   
   function cacheClear (){
-  	//var ip = ls.ip;
-  	//var port = ls.port;
-  	
-  	//ls.clear()
-  	
-  	//ls.init = "true";
-  	//ls.ip = ip;
-  	//ls.port = port;
-  	
-  	//ls.recent = JSON.stringify([]);
-  	//ls.favs = JSON.stringify(favs);
-  	
   	var i = 0
 		while (i <= sCacheMax){
 			if (ls["sCache" + i]){
@@ -104,7 +91,7 @@ angular.module('mopidyFE.cache', [])
 			}
 			imgIndex.push([album.artist,[[album.album, data]]]);
 			if (imgIndex.length > imgMax){
-				imgIndex.splice(ImgIndex.length - 1, 1);
+				imgIndex.splice(0, 1);
 			}
 			ls.imgIndex = JSON.stringify(imgIndex); // This probably isn't a good idea...
 		},

@@ -40,16 +40,19 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	      // Extract album and artist(s) from first track.
 	      $scope.album = data[0].album;	
 	     	// get last FM Image.
-	     	lastfmservice.getAlbumImage($scope.album, 'large', 0, function(err, albumImageUrl, i) {
-          if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-            $scope.albumImage = albumImageUrl;
-            for (var i in $scope.tracks){
-			     		$scope.tracks[i].lfmImage = $scope.albumImage;
-			     		$scope.tracks[i].album.lfmImage = $scope.albumImage;
-			  		}
-          }
-          $scope.bgReady = true;
-        });
+	     	var j=[{	model: $scope.album, 
+								ref : {size: 'large', id: 0, callback: function(err, albumImageUrl, id) {
+									if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+										$scope.albumImage = albumImageUrl;
+				            for (var i in $scope.tracks){
+							     		$scope.tracks[i].lfmImage = $scope.albumImage;
+							     		$scope.tracks[i].album.lfmImage = $scope.albumImage;
+							  		}
+									}
+									$scope.bgReady = true;
+									}}
+				}];			
+				lastfmservice.getAlbumImages(j);
         // prepare tracklist
         $scope.playlistUris = []
 	     	for (var i in data){

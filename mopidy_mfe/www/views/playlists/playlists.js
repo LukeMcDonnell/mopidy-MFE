@@ -52,17 +52,18 @@ angular.module('mopidyFE.playlists', ['ngRoute'])
 			$scope.playlist = data;
 			$scope.playlistUris = [];
 			
+			var j = [];
 	  	for (var i in $scope.playlist.tracks){
-	  		$scope.playlistUris.push($scope.playlist.tracks[i].uri);
-				if (!$scope.playlist.tracks[i].lfmImage){
-					$scope.playlist.tracks[i].lfmImage = 'assets/vinyl-icon.png';
-					lastfmservice.getAlbumImage($scope.playlist.tracks[i], 'medium', i, function(err, albumImageUrl, i) {
-						if (! err && albumImageUrl !== undefined && albumImageUrl !== '') {
-							$scope.playlist.tracks[i].lfmImage = albumImageUrl;
-						}
-					});
-				}
+	  		$scope.playlistUris.push($scope.playlist.tracks[i].uri)
+				$scope.playlist.tracks[i].lfmImage = 'assets/vinyl-icon.png';
+				j.push({ 	model: $scope.playlist.tracks[i], 
+									ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
+										if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+											$scope.playlist.tracks[id].lfmImage = albumImageUrl;
+										}}}
+				});
 			}
+			lastfmservice.getAlbumImages(j)
 			$scope.pageReady = true;
 		});    
 	}
