@@ -107,14 +107,17 @@ angular.module('mopidyFE.search', ['ngRoute'])
 					j.push({ 	model: resultArray.albums[i], 
 										ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
 											if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
-												resultArray.albums[id].lfmImage = albumImageUrl;
-											}}}
+												$scope.albums[id].lfmImage = albumImageUrl;
+											}
+										}}
 					});
         }
-        lastfmservice.getAlbumImages(j)
         $scope.artists= resultArray.artists;
         $scope.albums = resultArray.albums;        
         $scope.tracks = resultArray.tracks;
+	      
+	      lastfmservice.getAlbumImages(j)
+	      
 	      $scope.viewResults = "ready"; 
 			    
 			})

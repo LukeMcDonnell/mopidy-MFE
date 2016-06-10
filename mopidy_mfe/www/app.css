@@ -6,16 +6,16 @@
 .minbox {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	overflow:hidden;
-  width: 95%;
-  margin: auto;
+	width: 95%;
+	margin: auto;
 	text-align: left;
 }
 
 .box {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-  height:56px;
-  width: 95%;
-  margin: auto;
+	height:56px;
+	width: 95%;
+	margin: auto;
 	border-bottom-style: solid;
 	border-color: #333333;
 	border-width: 1px;
@@ -40,11 +40,11 @@
 
 .boxRight {
 	height:56px;
- 	width:30px;
-  float: right;
-  line-height: 68px;
-  color: #666666;
-  text-align: center;
+	width:30px;
+	float: right;
+	line-height: 68px;
+	color: #666666;
+	text-align: center;
 }
 
 .boxCenter {
@@ -92,9 +92,9 @@
 
 .headerBox{
 	width: 95%;
-  margin-left:auto;
-  margin-right:auto;
-  height: 56px;
+	margin-left:auto;
+	margin-right:auto;
+	height: 56px;
 	border-bottom-style: solid;
 	border-color: #999999;
 	border-width: 1px;
@@ -103,9 +103,9 @@
 
 .box3{
 	width: 95%;
-  margin-left:auto;
-  margin-right:auto;
-  height: 56px;
+	margin-left:auto;
+	margin-right:auto;
+	height: 56px;
 	border-bottom-style: solid;
 	border-color: #999999;
 	border-width: 1px;
@@ -121,9 +121,9 @@
 }
 .box2{
 	width: 95%;
-  margin-left:auto;
-  margin-right:auto;
-  height: 45px;
+	margin-left:auto;
+	margin-right:auto;
+	height: 45px;
 	border-bottom-style: solid;
 	border-color: #333333;
 	border-width: 1px;
@@ -211,11 +211,11 @@
 
 .queueBoxRight{
 	height: 40px;
- 	width: 40px;
-  float: right;
-  line-height: 40px;
-  color: #666666;
-  text-align: center;
+	width: 40px;
+	float: right;
+	line-height: 40px;
+	color: #666666;
+	text-align: center;
 }
 
 .queueBoxCenter{
@@ -287,8 +287,8 @@
 }
 .contextOuter {
 	top: 50%;
-  left: 50%;
-  position: absolute;
+	left: 50%;
+	position: absolute;
 }
 .contextInner {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -318,23 +318,23 @@
 .menumask {
 	display: 		none;
 	opacity:    0.9; 
-  background: #000; 
-  width:      100%;
-  height:     100%; 
-  z-index:    11113;
-  top:        50px; 
-  left:       0; 
-  position:   fixed; 
+	background: #000; 
+	width:      100%;
+	height:     100%; 
+	z-index:    11113;
+	top:        50px; 
+	left:       0; 
+	position:   fixed; 
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
-    -webkit-transition-delay: 9999s;
+		-webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+		-webkit-transition-delay: 9999s;
 }
 input:focus {
-   outline: none;
+	 outline: none;
 }
 
 /*
@@ -400,9 +400,9 @@ input:focus {
 
 .playMenuContainer{
 	width: 95%;
-  margin-left:auto;
-  margin-right:auto;
-  height: 50px;
+	margin-left:auto;
+	margin-right:auto;
+	height: 50px;
 	border-bottom-style: solid;
 	border-color: #444444;
 	border-width: 2px;
@@ -434,7 +434,7 @@ input:focus {
 }
 
 .blurBackImg {
-  overflow: hidden;
+	overflow: hidden;
 	width: 50%;
 	height: 50%;
 
@@ -457,10 +457,10 @@ input:focus {
 	background-position: 50% 50%;
 	
 	-webkit-filter: blur(18px) brightness(0.7);
-  -webkit-perspective: 1000;
+	-webkit-perspective: 1000;
 	filter: blur(18px) brightness(0.7);
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
+	//-webkit-backface-visibility: hidden;
+	//-webkit-transform: translateZ(0);
 }
 
 
@@ -472,9 +472,9 @@ input:focus {
 */
 
 body {
-  background-color: #111111;
-  color: #FFFFFF;
-  padding: 0px;
+	background-color: #111111;
+	color: #FFFFFF;
+	padding: 0px;
 	margin: 0px;
 } 
 body div {
@@ -483,16 +483,16 @@ body div {
 }
 
 body a {
-    text-decoration: none;
+		text-decoration: none;
 }
 
 
 .main {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	overflow: hidden;
-  text-align: center;
-  height: 100%;
-  padding: 0px;
+	text-align: center;
+	height: 100%;
+	padding: 0px;
 	margin: 0 auto;
 
 }
@@ -518,7 +518,7 @@ body a {
 }
 
 .npBackImg {
-  overflow: hidden;
+	overflow: hidden;
 	width: 50%;
 	height: 50%;
 
@@ -541,16 +541,16 @@ body a {
 	background-position: 50% 50%;
 	
 	-webkit-filter: blur(25px) brightness(0.5);
-  -webkit-perspective: 1000;
+	-webkit-perspective: 1000;
 	filter: blur(25px) brightness(0.5);
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
+	//-webkit-backface-visibility: hidden;
+	//-webkit-transform: translateZ(0);
 }
 
 .nowPlaying {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-  text-align: center;
-  padding: 0px;
+	text-align: center;
+	padding: 0px;
 	margin: 0 auto;
 	overflow: hidden;
 	top: 0;
@@ -600,7 +600,7 @@ body a {
 }
 .npImage{
 	margin: 0 auto;
-  Height: 100%;
+	Height: 100%;
 	width: 95%;
 	background-position: center; 
 	background-size: contain;
@@ -608,7 +608,7 @@ body a {
 }
 
 .npImageWide{
-  height: 90%;
+	height: 90%;
 	width: 90%;
 	background-position: center; 
 	background-size: contain;
@@ -618,7 +618,7 @@ body a {
 #npBottom {
 	width: 100%;
 	height: 160px;
-  text-align: center;
+	text-align: center;
 }
 
 .npVolControlContainer{
@@ -687,9 +687,9 @@ body a {
 .npProgressWrap {
 	height: 2px;
 	width: 100%;
-  background: #111;
-  margin: 0px auto;
-  margin-top: 9px;
+	background: #111;
+	margin: 0px auto;
+	margin-top: 9px;
 }
 .npProgressBar {
 	background: #ffffff;
@@ -794,19 +794,19 @@ body a {
 	background: rgb(22, 22, 22);
 	z-index: -1;
 	position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 50px;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 50px;
 }
 
 .header {
 	position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 50px;
-  z-index: 11118;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 50px;
+	z-index: 11118;
 }
 
 .header h1 {
@@ -855,13 +855,13 @@ body a {
 
 .footer {
 	background: #222222;
-  color: #ffffff;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50px; 
-  z-index: 11119; 
+	color: #ffffff;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px; 
+	z-index: 11119; 
 }
 .footer h1 {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -883,29 +883,29 @@ body a {
 }
 
 .footer_right {
-  position: absolute;
-  color: #FFFFFF;
-  right: 13px;
-  bottom: 13px;
-  width: 70px;
-  //padding-right: 5px;
-  text-align: right;
-  text-decoration: none;
+	position: absolute;
+	color: #FFFFFF;
+	right: 13px;
+	bottom: 13px;
+	width: 70px;
+	//padding-right: 5px;
+	text-align: right;
+	text-decoration: none;
 }
 
 .footer_right a{
-  color: #FFFFFF;
-  font-size:30px;
-  font-weight: 100;
-  line-height: 0px;
+	color: #FFFFFF;
+	font-size:30px;
+	font-weight: 100;
+	line-height: 0px;
 }
 
 .footer_center {
-  position: absolute;
-  width: 100%;
-  top:0px;
-  padding-top: 2px;
-  text-align: center;
+	position: absolute;
+	width: 100%;
+	top:0px;
+	padding-top: 2px;
+	text-align: center;
 }
 
 .footerBackground{
@@ -921,7 +921,7 @@ body a {
 }
 
 .footerBackImg {
-  overflow: hidden;
+	overflow: hidden;
 	width: 50%;
 	height: 50%;
 
@@ -944,23 +944,23 @@ body a {
 	background-position: 50% 50%;
 		
 	-webkit-filter: blur(15px) brightness(0.7);
-  -webkit-perspective: 1000;	
+	-webkit-perspective: 1000;	
 	filter: blur(15px) brightness(0.7);
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
+	//-webkit-backface-visibility: hidden;
+	//-webkit-transform: translateZ(0);
 }
 
 .footerProgress {
 	position: fixed;
 	bottom: 50px;
-  width: 100%;
-  height: 2px;
+	width: 100%;
+	height: 2px;
 }
 .footerProgressWrap {
-  background: #111;
-  margin: -2px auto;
-  overflow: hidden;
-  position: relative;
+	background: #111;
+	margin: -2px auto;
+	overflow: hidden;
+	position: relative;
 }
 .footerProgressBar {
 	background: #999999;

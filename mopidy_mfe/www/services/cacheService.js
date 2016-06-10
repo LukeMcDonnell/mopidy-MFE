@@ -70,6 +70,7 @@ angular.module('mopidyFE.cache', [])
 		sCacheIndex = JSON.parse(ls.sCacheIndex);
 		bCacheIndex = JSON.parse(ls.bCacheIndex);
 		iCacheIndex = JSON.parse(ls.iCacheIndex);
+		imgIndex = JSON.parse(ls.imgIndex);
   }  
 	
 	return {
