@@ -56,8 +56,8 @@
 .cbp-spmenu,
 .cbp-spmenu-push {
 	-webkit-transition: all 0.3s ease;
-	-webkit-filter: translateZ(0);
-	-webkit-backface-visibility: hidden;
+	//-webkit-filter: translateZ(0);
+	//-webkit-backface-visibility: hidden;
 	-moz-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }

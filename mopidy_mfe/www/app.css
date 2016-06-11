@@ -324,8 +324,12 @@
 	z-index:    11113;
 	top:        50px; 
 	left:       0; 
-	position:   fixed; 
+	position:   fixed;
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -519,32 +523,32 @@ body a {
 
 .npBackImg {
 	overflow: hidden;
-	width: 50%;
-	height: 50%;
-
+	width: 25%;
+	height: 25%;
+	
 	-webkit-transform-origin: top left;
-	-webkit-transform: scale(2) !important;
+	-webkit-transform: scale(4) !important;
 	-webkit-perspective: 1000;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
+	//-webkit-backface-visibility: hidden;
+	//-webkit-transform: translateZ(0);
 
 	transform-origin: top left;
-	transform: scale(2);
+	transform: scale(4);
+	
 }
 
 .npBackImg2 {
-	position: fixed;
 	width: 100%;
 	height: 100%;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	
-	-webkit-filter: blur(25px) brightness(0.5);
-	-webkit-perspective: 1000;
-	filter: blur(25px) brightness(0.5);
-	//-webkit-backface-visibility: hidden;
-	//-webkit-transform: translateZ(0);
+	-webkit-filter: blur(5px) brightness(0.8);
+	//-webkit-perspective: 1000;
+	filter: blur(5px) brightness(0.8);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 
 .nowPlaying {
@@ -946,8 +950,8 @@ body a {
 	-webkit-filter: blur(15px) brightness(0.7);
 	-webkit-perspective: 1000;	
 	filter: blur(15px) brightness(0.7);
-	//-webkit-backface-visibility: hidden;
-	//-webkit-transform: translateZ(0);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 
 .footerProgress {
