@@ -41,18 +41,17 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 		}
 		
 		// lastFM Data
-		lastfmservice.getArtistInfo(artistName, 0, function(err, artistInfo) {
-			if (! err) {
-				var img = _.find(artistInfo.artist.image, { size: 'large' });
-				if (img['#text'] != undefined && img['#text'] != '') {
-					$scope.artistImage = img['#text'];
-					$scope.artist.lfmImage = img['#text'];
-				}	 
-				$scope.artistSummary = artistInfo.artist.bio.summary;
-			}
-			$scope.bgReady = true;
-			$scope.$apply()
-		});
+		
+		var j=[{	model: $scope.artist, 
+							ref : {size: 'large', id: 0, callback: function(err, albumImageUrl, id) {
+								if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+									$scope.artistImage = albumImageUrl;
+									$scope.artist.lfmImage = albumImageUrl;
+								}
+								$scope.bgReady = true;
+								}}
+		}];			
+		lastfmservice.getAlbumImages(j);
 		
 		// Mopidy Data
 		mopidyservice.getItem(uri).then(function(data) {

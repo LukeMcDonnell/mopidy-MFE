@@ -87,20 +87,19 @@ angular.module('mopidyFE.search', ['ngRoute'])
 			    }
 			  });
 				
+				var j = [];
 				for (var i in resultArray.artists){
 					// Get artist image
 					resultArray.artists[i].lfmImage = 'assets/vinyl-icon.png';
-					lastfmservice.getArtistInfo(resultArray.artists[i].name, i, function(err, artistInfo) {
-					 	if (! err) {
-							var img = _.find(artistInfo.artist.image, { size: 'medium' });
-							if (img !== undefined) {
-								resultArray.artists[artistInfo.i].lfmImage = img['#text'];
-							}
-						}
+					j.push({ 	model: resultArray.artists[i], 
+										ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
+											if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
+												$scope.artists[id].lfmImage = albumImageUrl;
+											}
+										}}
 					});
 				}
 				
-				var j = [];
    			for (var i in resultArray.albums){
 					// Get album image
 					resultArray.albums[i].lfmImage = 'assets/vinyl-icon.png';

@@ -25,7 +25,7 @@ angular.module('mopidyFE.cache', [])
 		// recent & favs
 		ls.recent = JSON.stringify([]);
 		ls.favs = JSON.stringify([]);
-		ls.imgIndex = JSON.stringify([]);
+		ls.imgIndex = JSON.stringify({});
 		$location.path('/settings');
 	}
 	
@@ -45,6 +45,7 @@ angular.module('mopidyFE.cache', [])
 	var bCacheIndex = JSON.parse(ls.bCacheIndex);
 	var iCacheIndex = JSON.parse(ls.iCacheIndex);
 	var imgIndex = JSON.parse(ls.imgIndex);
+	console.log(imgIndex);
 	
 	function returnCache (data){
   	var deferred = $q.defer();
@@ -61,7 +62,7 @@ angular.module('mopidyFE.cache', [])
 			i++;
 		}
   	
-  	ls.imgIndex = JSON.stringify([]);
+  	ls.imgIndex = JSON.stringify({});
   	// cache indexes
 		ls.sCacheIndex=JSON.stringify([]);
 		ls.bCacheIndex=JSON.stringify([]);
@@ -70,7 +71,7 @@ angular.module('mopidyFE.cache', [])
 		sCacheIndex = JSON.parse(ls.sCacheIndex);
 		bCacheIndex = JSON.parse(ls.bCacheIndex);
 		iCacheIndex = JSON.parse(ls.iCacheIndex);
-		imgIndex = JSON.parse(ls.imgIndex);
+		imgIndex 		= JSON.parse(ls.imgIndex);
   }  
 	
 	return {
@@ -78,40 +79,22 @@ angular.module('mopidyFE.cache', [])
 		// IMAGE CACHE
 		//
 		addImage: function(album, data){
-			for (var i in imgIndex){
-				if (imgIndex[i][0] === album.artist){
-					for (var n in imgIndex[i][1]){
-						if (imgIndex[i][1][n][0] === album.album){
-							return;
-						}
-					}
-					imgIndex[i][1].push([album.album, data]);
-					ls.imgIndex = JSON.stringify(imgIndex)
-					return;
-				}
-			}
-			imgIndex.push([album.artist,[[album.album, data]]]);
-			if (imgIndex.length > imgMax){
-				imgIndex.splice(0, 1);
-			}
-			ls.imgIndex = JSON.stringify(imgIndex); // This probably isn't a good idea...
+			if(typeof imgIndex[album.artist] == "undefined") imgIndex[album.artist] = {}
+			if(typeof imgIndex[album.artist][album.album] != "undefined") return;
+			imgIndex[album.artist][album.album] = data
+			
+			//ls.imgIndex = JSON.stringify(imgIndex); // This probably isn't a good idea...
 		},
 		
 		getImage: function(album){
-			for (var i in imgIndex){
-				if (imgIndex[i][0] === album.artist){
-					for (var n in imgIndex[i][1]){
-						if (imgIndex[i][1][n][0] === album.album){
-							var j = imgIndex.splice(i,1)[0]; 
-							imgIndex.push(j);
-							return j[1][n][1];
-						}
-					}
+			if(typeof imgIndex[album.artist] != "undefined"){
+				if(typeof imgIndex[album.artist][album.album] != "undefined"){
+					return imgIndex[album.artist][album.album];
 				}
-			}		
+			}
 		},
 		
-		flushImage: function(){
+		flushImageCache: function(){
 			ls.imgIndex = JSON.stringify(imgIndex);
 		},
 		

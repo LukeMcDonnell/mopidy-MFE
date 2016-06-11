@@ -11,14 +11,17 @@ angular.module('mopidyFE.lastfm', [])
     cache     : fmcache
   });
 	
-	function getAlbumDetails(data){
+	function getDetails(data){
 		if (data.__model__ === "Track" || (data.__model__ === "Ref" && data.type === "track")){
 			return {artist: data.artists[0].name, album: (data.album !== null ? data.album.name : ''), uri: data.album.uri};
 		} else if (data.__model__ === "Album" || (data.__model__ === "Ref" && data.type === "album")){
 			return {artist: data.artists[0].name, album: data.name, uri: data.uri};
+		} else if (data.__model__ === "Artist" || (data.__model__ === "Ref" && data.type === "artist")){
+			return {artist: data.name, album: '#image', uri: data.uri};
 		}
+		console.log(data);
 	}
-	var queue = {img: [], lfm: []};
+	var queue = {img: [], lfm: [], lfmArtist: []};
 	var lastCheck = 0
 	var imageTimer = null;
 	
@@ -33,6 +36,24 @@ angular.module('mopidyFE.lastfm', [])
           if (img !== undefined) {
             item.ref[n].callback(null, img, item.ref[n].id);
             $rootScope.$apply();
+          }
+        }
+      }
+    });
+  }
+  
+  function getLfmArtistImg (item) {
+    lastfm.artist.getInfo({artist: item.details.artist}, {
+      success: function(data){
+      	console.log(data);
+      	var p = data.artist.image;
+      	prep = {medium: p[1]['#text'], large: p[2]['#text'], mega: p[4]['#text']};
+      	cacheservice.addImage(item.details, prep);
+      	for (var n in item.ref){
+          var img = prep[item.ref[n].size];
+          if (img !== undefined) {
+            item.ref[n].callback(null, img, item.ref[n].id);
+            //$scope.$apply();
           }
         }
       }
@@ -61,8 +82,8 @@ angular.module('mopidyFE.lastfm', [])
 	function checkForImages(){
 		console.log("Checking for images...");
 		// MOPIDY GET_IMAGES()
-		if (queue.img.length > 0){
-  		var thisPass = []
+		var thisPass = []
+		if (queue.img.length){
   		var c = 0;
   		for (i in queue.img){
   			if(!queue.img[i].checked){
@@ -76,7 +97,7 @@ angular.module('mopidyFE.lastfm', [])
   		getMopidyImgs(thisPass);
   	}	
   	// LAST FM
-  	if (queue.lfm.length > 0) {
+  	if (queue.lfm.length) {
   		for (var i=0; i <= 20; i++){
 	  		item = queue.lfm.shift();
 	  		getLfmImg(item);
@@ -85,10 +106,20 @@ angular.module('mopidyFE.lastfm', [])
   			}
 	    }
 	  }
+	  if (queue.lfmArtist.length) {
+  		for (var i=0; i <= 20; i++){
+	  		item = queue.lfmArtist.shift();
+	  		getLfmArtistImg(item);
+	      if(!queue.lfmArtist.length){
+  				break;
+  			}
+	    }
+	  }
   	// NOTHING LEFT
-  	if((!queue.img.length || !thisPass.length) && !queue.lfm.length) {
+  	if((!queue.img.length || !thisPass.length) && !queue.lfm.length && !queue.lfmArtist.length) {
   		clearInterval(imageTimer);
   		imageTimer = null;
+  		cacheservice.flushImageCache();
   	} else {
   		if (!imageTimer){
 	  		imageTimer = setInterval(function() {
@@ -98,10 +129,14 @@ angular.module('mopidyFE.lastfm', [])
 		}
 	}
 
-	function getBestQueue(backend){
+	function getBestQueue(data){
+		backend = data.uri.split(':')[0]
 		if (backend === "spotify"){
 			return 'img';
 		} else if (backend === "local"){
+			if(data.album === "#image"){
+				return 'lfmArtist'
+			}
 			return 'lfm';
 		} else {
 			return 'img';
@@ -112,7 +147,7 @@ angular.module('mopidyFE.lastfm', [])
   	
   	getAlbumImages: function(data){
   		for (var i in data){
-  			var n = getAlbumDetails(data[i].model);
+  			var n = getDetails(data[i].model);
   			// try cache before adding to queue
   			var cacheData = cacheservice.getImage(n)
 		  	if (cacheData){
@@ -120,7 +155,7 @@ angular.module('mopidyFE.lastfm', [])
 	        data[i].ref.callback(null, img, data[i].ref.id);
 		  	}	else {
 		  		// determine best queue
-		  		var q = getBestQueue(n.uri.split(':')[0]);
+		  		var q = getBestQueue(n);
 		  		// add to queue
 	  			if((j = _.findIndex(queue[q], { 'uri': n.uri })) != -1){
 	  				queue[q][j].ref.push(data[i].ref);
@@ -132,49 +167,7 @@ angular.module('mopidyFE.lastfm', [])
   		if(!imageTimer){
 		  	checkForImages();
 		  }
-		},
-  	
-  	
-    getAlbumImage: function(model, size, i, callback) {
-    	/*
-    	var deets = getAlbumDetails(model);
-    	// try cache
-    	var data = cacheservice.getImage(deets)
-    	if (data){
-    		var img = _.find(data, { size: size });
-    		if (img !== undefined) {
-        	callback(null, img['#text'], i);
-        	return;
-       	}
-      }
-      
-			lastfm.album.getInfo(deets, {
-        success: function(data){
-        	cacheservice.addImage(deets, data.album.image);
-          var img = _.find(data.album.image, { size: size });
-          if (img !== undefined) {
-            callback(null, img['#text'], i);
-            $rootScope.$apply();
-          }
-        }, error: function(code, message){
-            console.log('Error #'+code+': '+message);
-            callback({ code: code, message: message}, null);
-        }
-      });
-      */
-    },
-    
-    getArtistInfo: function(artistName, i, callback) {
-      lastfm.artist.getInfo({artist: artistName}, {
-        success: function(data){
-        	data['i'] = i;
-          callback(null, data, i);
-          $rootScope.$apply();
-        }, error: function(code, message){
-            console.log('Error #'+code+': '+message);
-            callback({ code: code, message: message}, null);
-        }
-      });
-    }
+		}
+		    
   };
 });
