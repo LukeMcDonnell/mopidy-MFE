@@ -48,7 +48,7 @@ angular.module('mopidyFE.lastfm', [])
       	console.log(data);
       	var p = data.artist.image;
       	prep = {medium: p[1]['#text'], large: p[2]['#text'], mega: p[4]['#text']};
-      	cacheservice.addImage(item.details, prep);
+      	//cacheservice.addImage(item.details, prep);
       	for (var n in item.ref){
           var img = prep[item.ref[n].size];
           if (img !== undefined) {

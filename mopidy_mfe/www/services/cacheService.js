@@ -1,78 +1,61 @@
 angular.module('mopidyFE.cache', [])
 .factory('cacheservice', function($q, $location) {
-  var sCacheMax = 10; // max number or entries for each cache
+	var cacheVersion = "0.4.5";
+	
+	var sCacheMax = 10; // max number or entries for each cache
 	var iCacheMax = 20; 
 	var bCacheMax = 20; 
 	var recentMax = 20;
 	var favsMax = 600;
 	var imgMax = 600;
 	
-  ls=window.localStorage
+	ls=window.localStorage
 	//ls.clear(); //for testing
-  
-  if (ls.init != "true"){
-  	ls.init="true";
-  	// connection settings
+	
+	if (ls.init != "true" || ls.cacheVersion != cacheVersion){
+		ls.cacheVersion = cacheVersion;
+		ls.init="true";
+		// connection settings
 		ls.ip="localhost";
 		ls.port="6680";
 		//cache settings
-		//ls.useSearchCache="true";
-		//ls.useBrowseCache="true";
+		
 		// cache indexes
-		ls.sCacheIndex=JSON.stringify([]);
-		ls.bCacheIndex=JSON.stringify([]);
-		ls.iCacheIndex=JSON.stringify([]);
+		ls.sCache=JSON.stringify([]);
+		ls.bCache=JSON.stringify([]);
+		ls.iCache=JSON.stringify([]);
 		// recent & favs
 		ls.recent = JSON.stringify([]);
 		ls.favs = JSON.stringify([]);
 		ls.imgIndex = JSON.stringify({});
 		$location.path('/settings');
 	}
-	
-	if (!ls.recent){
-		ls.recent = JSON.stringify([]);
-	}
-	if (!ls.favs){
-		ls.favs = JSON.stringify([]);
-	}
-	if (!ls.imgIndex){
-		ls.imgIndex = JSON.stringify([]);
-	}
 
-	var favs = JSON.parse(ls.favs);
-	var recent = JSON.parse(ls.recent);	
-	var sCacheIndex = JSON.parse(ls.sCacheIndex);
-	var bCacheIndex = JSON.parse(ls.bCacheIndex);
-	var iCacheIndex = JSON.parse(ls.iCacheIndex);
-	var imgIndex = JSON.parse(ls.imgIndex);
-	console.log(imgIndex);
+	var favs 					= JSON.parse(ls.favs);
+	var recent 				= JSON.parse(ls.recent);	
+	var sCache			 	= JSON.parse(ls.sCache);
+	var bCache 				= JSON.parse(ls.bCache);
+	var iCache 				= JSON.parse(ls.iCache);
+	var imgIndex 			= JSON.parse(ls.imgIndex);
+	
+	function cacheClear (){
+		ls.imgIndex = JSON.stringify({});
+		ls.sCache=JSON.stringify([]);
+		ls.bCache=JSON.stringify([]);
+		ls.iCache=JSON.stringify([]);
+		
+		sCache			 = JSON.parse(ls.sCache);
+		bCache 			= JSON.parse(ls.bCache);
+		iCache 			= JSON.parse(ls.iCache);
+		imgIndex 		= JSON.parse(ls.imgIndex);
+	}  
+	
 	
 	function returnCache (data){
-  	var deferred = $q.defer();
-  	deferred.resolve(data);
-  	return deferred.promise;
-  }
-  
-  function cacheClear (){
-  	var i = 0
-		while (i <= sCacheMax){
-			if (ls["sCache" + i]){
-				ls["sCache" + i].delete;
-			}
-			i++;
-		}
-  	
-  	ls.imgIndex = JSON.stringify({});
-  	// cache indexes
-		ls.sCacheIndex=JSON.stringify([]);
-		ls.bCacheIndex=JSON.stringify([]);
-		ls.iCacheIndex=JSON.stringify([]);
-		
-		sCacheIndex = JSON.parse(ls.sCacheIndex);
-		bCacheIndex = JSON.parse(ls.bCacheIndex);
-		iCacheIndex = JSON.parse(ls.iCacheIndex);
-		imgIndex 		= JSON.parse(ls.imgIndex);
-  }  
+		var deferred = $q.defer();
+		deferred.resolve(data);
+		return deferred.promise;
+	}
 	
 	return {
 		//
@@ -82,8 +65,6 @@ angular.module('mopidyFE.cache', [])
 			if(typeof imgIndex[album.artist] == "undefined") imgIndex[album.artist] = {}
 			if(typeof imgIndex[album.artist][album.album] != "undefined") return;
 			imgIndex[album.artist][album.album] = data
-			
-			//ls.imgIndex = JSON.stringify(imgIndex); // This probably isn't a good idea...
 		},
 		
 		getImage: function(album){
@@ -96,6 +77,91 @@ angular.module('mopidyFE.cache', [])
 		
 		flushImageCache: function(){
 			ls.imgIndex = JSON.stringify(imgIndex);
+		},
+		
+		//
+		// ITEMS (album/artists)
+		//
+		getItemCache: function(uri){
+			var n = _.findIndex(iCache, { 'u': uri });
+			if (n != -1){
+				return ({found:true, data: returnCache(iCache[n].d)})
+			}
+			return ({found:false, data: null})
+		},
+		
+		cacheItem: function(uri,data){
+			var n = _.findIndex(iCache, { 'u': uri });
+			if (n == -1){
+				iCache.push({u: uri, d: data, ts: new Date().getTime()})
+			}else {
+				iCache[n].ts = new Date().getTime();
+			}
+			if(iCache.length >= iCacheMax){
+				iCache.shift();
+			}
+			ls.iCache = JSON.stringify(iCache);
+		},
+		
+		//
+		// BROSWE (album/artists)
+		//
+		getBrowseCache: function(uri){
+			var n = _.findIndex(bCache, { 'u': uri });
+			if (n != -1){
+				return ({found:true, data: returnCache(bCache[n].d)})
+			}
+			return ({found:false, data: null})
+		},
+		
+		cacheBrowse: function(uri,data){
+			var n = _.findIndex(bCache, { 'u': uri });
+			if (n == -1){
+				bCache.push({u: uri, d: data, ts: new Date().getTime()})
+			} else {
+				bCache[n].ts = new Date().getTime();
+			}
+			if(bCache.length >= sCacheMax){
+				bCache.shift();
+			}
+			ls.bCache = JSON.stringify(bCache);
+		},
+		
+		//
+		// SEARCH
+		//
+		getSearchCache: function(uri){
+			var n = _.findIndex(sCache, { 'u': uri });
+			if (n != -1){
+				return ({found:true, data: returnCache(sCache[n].d)})
+			}
+			return ({found:false, data: null})
+		},
+		
+		cacheSearch: function(uri,data){
+			var n = _.findIndex(sCache, { 'u': uri });
+			if (n == -1){
+				sCache.push({u: uri, d: data, ts: new Date().getTime()})
+			} else {
+				sCache[n].ts = new Date().getTime();
+			}
+			if(sCache.length >= sCacheMax){
+				sCache.shift();
+			}
+			ls.sCache = JSON.stringify(sCache);
+		},
+		
+		clearSearchCache: function(){
+			sCache = []
+			ls.sCache = JSON.stringify(sCache);
+		},
+		
+		cacheIndex: function(){
+			var result = []
+			for (var i in sCache){
+				result.push({query: sCache[i].u, timestamp: sCache[i].ts});
+			}
+			return result;
 		},
 		
 		// 
@@ -122,14 +188,14 @@ angular.module('mopidyFE.cache', [])
 				if(l >= recentMax){
 					var minDate = new Date().getTime()
 					var d = 0;
-	  			for (var j in recent){
-	  				if (recent[j].timestamp < minDate){
-	  					minDate = recent[j].timestamp;
-	  					d = j;
-	  				}
-	  			}
-	  			recent.splice(d,1);
-	  		}
+					for (var j in recent){
+						if (recent[j].timestamp < minDate){
+							minDate = recent[j].timestamp;
+							d = j;
+						}
+					}
+					recent.splice(d,1);
+				}
 			}
 			// write to ls
 			ls.recent = JSON.stringify(recent);
@@ -164,14 +230,14 @@ angular.module('mopidyFE.cache', [])
 				if(l >= favsMax){
 					var minDate = new Date().getTime()
 					var d = 0;
-	  			for (var j in favs){
-	  				if (favs[j].timestamp < minDate){
-	  					minDate = favs[j].timestamp;
-	  					d = j;
-	  				}
-	  			}
-	  			favs.splice(d,1);
-	  		}
+					for (var j in favs){
+						if (favs[j].timestamp < minDate){
+							minDate = favs[j].timestamp;
+							d = j;
+						}
+					}
+					favs.splice(d,1);
+				}
 			}
 			// write to ls
 			ls.favs = JSON.stringify(favs);
@@ -205,133 +271,7 @@ angular.module('mopidyFE.cache', [])
 		},
 		clearCache: function(){
 			cacheClear();
-		},
-		//
-		// SEARCH
-		//
-		clearSearchCache: function(){
-			var i = 0
-			while (i <= sCacheMax){
-				if (ls["sCache" + i]){
-					ls["sCache" + i].delete;
-				}
-				i++;
-			}
-			sCacheIndex = []
-			ls.sCacheIndex = JSON.stringify(sCacheIndex);
-		},
+		}
 		
-		cacheIndex: function(){
-  		return sCacheIndex;
-  	},
-    getSearchCache: function(query){
-    	for (i in sCacheIndex){
-    		if (sCacheIndex[i].query === query){
-    			console.log("RETURNING CACHE")
-    			var result = returnCache(JSON.parse(ls["sCache" + i]))
-    			return ({found:true, data: result})
-    		}
-    	}
-    	return ({found:false, data: null})
-  	},
-  	cacheSearch: function(query,data){
-  		for (var j in sCacheIndex){
-  			if(sCacheIndex[j].query === query){
-  				sCacheIndex[j].timestamp = new Date().getTime()
-  				ls.sCacheIndex = JSON.stringify(sCacheIndex);
-  				return;
-  			}
-  		}  		
-  		if(sCacheIndex.length >= sCacheMax){
-  			var n = 1; var i = null;
-  			var minDate = new Date().getTime()
-  			for (var j in sCacheIndex){
-  				if (sCacheIndex[j].timestamp < minDate){
-  					minDate = sCacheIndex[j].timestamp;
-  					i = j;
-  				}
-  			}
-  		} else {
-  			var i = sCacheIndex.length; var n = 0;
-  		}
-  		sCacheIndex.splice(i,n,{query: query, timestamp: new Date().getTime()});
-  		ls["sCache" + i] = JSON.stringify(data);
-  		ls.sCacheIndex = JSON.stringify(sCacheIndex);
-  	},
-  	//
-		// items (album/artists)
-		//
-    getItemCache: function(query){
-    	for (i in iCacheIndex){
-    		if (iCacheIndex[i].query === query){
-    			console.log("RETURNING CACHE")
-    			var result = returnCache(JSON.parse(ls["iCache" + i]))
-    			return ({found:true, data: result})
-    		}
-    	}
-    	return ({found:false, data: null})
-  	},
-  	cacheItem: function(query,data){
-  		for (var j in iCacheIndex){
-  			if(iCacheIndex[j].query === query){
-  				iCacheIndex[j].timestamp = new Date().getTime()
-  				ls.iCacheIndex = JSON.stringify(iCacheIndex);
-  				return;
-  			}
-  		}  		
-  		if(iCacheIndex.length >= iCacheMax){
-  			var n = 1; var i = null;
-  			var minDate = new Date().getTime()
-  			for (var j in iCacheIndex){
-  				if (iCacheIndex[j].timestamp < minDate){
-  					minDate = iCacheIndex[j].timestamp;
-  					i = j;
-  				}
-  			}
-  		} else {
-  			var i = iCacheIndex.length; var n = 0;
-  		}
-  		iCacheIndex.splice(i,n,{query: query, timestamp: new Date().getTime()});
-  		ls["iCache" + i] = JSON.stringify(data);
-  		ls.iCacheIndex = JSON.stringify(iCacheIndex);
-  	},
-  	//
-		// Browse
-		//
-    getBrowseCache: function(query){
-    	for (i in bCacheIndex){
-    		if (bCacheIndex[i].query === query){
-    			console.log("RETURNING CACHE")
-    			var result = returnCache(JSON.parse(ls["bCache" + i]))
-    			return ({found:true, data: result})
-    		}
-    	}
-    	return ({found:false, data: null})
-  	},
-  	cacheBrowse: function(query,data){
-  		for (var j in bCacheIndex){
-  			if(bCacheIndex[j].query === query){
-  				bCacheIndex[j].timestamp = new Date().getTime()
-  				ls.bCacheIndex = JSON.stringify(bCacheIndex);
-  				return;
-  			}
-  		}  		
-  		if(bCacheIndex.length >= bCacheMax){
-  			var n = 1; var i = null;
-  			var minDate = new Date().getTime()
-  			for (var j in bCacheIndex){
-  				if (bCacheIndex[j].timestamp < minDate){
-  					minDate = bCacheIndex[j].timestamp;
-  					i = j;
-  				}
-  			}
-  		} else {
-  			var i = bCacheIndex.length; var n = 0;
-  		}
-  		bCacheIndex.splice(i,n,{query: query, timestamp: new Date().getTime()});
-  		ls["bCache" + i] = JSON.stringify(data);
-  		ls.bCacheIndex = JSON.stringify(bCacheIndex);
-  	}
-    
-  };
+	};
 });

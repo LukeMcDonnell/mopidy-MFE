@@ -139,13 +139,6 @@
 		
 		<div ng-repeat="history in searchHistory">	
 			<div class="box">
-				<!--
-				<a href="" ng-click="removeHistory(history);">
-					<div class="boxRight">
-						<i class="fa fa-times fa-2x"></i>
-					</div>
-				</a>
-				--> 
 				<a href="#/search/{{ history.query }}">				
 					<div class="boxCenter"><div style="display: table; height: 56px;"><div style="display: table-cell; vertical-align: middle;">
 						<h1>{{ history.query }}</h1>
