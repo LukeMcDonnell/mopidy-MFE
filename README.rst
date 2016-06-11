@@ -30,8 +30,10 @@ v0.4.5 (2016-06-07)
 - Tracks in album now sort by disc #, then track #.
 - fixed bug in wide mode where page elements wouldn't align correctly.
 - Workaround fix for slow loading background images.
+- Album and artist images now loaded using mopidy's get_image function, as well as last fm.
 - Added lazy loading for images in playlists and queue.
 - Play Queue now automatically scrolls to currently playing track.
+- Improved cache performance.
  
 v0.4.4 (2016-06-06)
 ------------------
