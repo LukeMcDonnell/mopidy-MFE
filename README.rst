@@ -25,7 +25,12 @@ Project resources
 
 Changelog
 =========
-v0.4.5 (2016-06-07)
+v0.4.6 (2016-06-12)
+------------------
+- Fixed bug causing now playing to become unresponsive.
+- Improved performance of slide-in menus.
+
+v0.4.5 (2016-06-12)
 ------------------
 - Tracks in album now sort by disc #, then track #.
 - fixed bug in wide mode where page elements wouldn't align correctly.
