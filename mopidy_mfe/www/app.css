@@ -30,9 +30,9 @@
 	text-align: left;
 }
 .boxLeftIcon {
-	height:50px;
-	width:56px;
-	float:left;
+	height:100%;
+	padding-right: 10px;
+	float: left;
 	text-align: center;
 	line-height: 65px;
 	color: #888888;
@@ -130,6 +130,16 @@
 	text-align:left;
 	padding-left: 6px;
 }
+.box2LeftIcon {
+	height:100%;
+	padding-right: 5px;
+	width: 25px;
+	float: left;
+	text-align: center;
+	line-height: 45px;
+	color: #888888;
+}
+
 .box2 h1{
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 	font-size: 17px;
@@ -274,6 +284,8 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
+	right: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 11115;
@@ -284,6 +296,9 @@
 	height: 100%;
 	background-color: #000000;
 	opacity: 0.5;
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 .contextOuter {
 	top: 50%;
@@ -298,8 +313,8 @@
 	position: relative;
 	width: 300px;
 	margin-left: -150px;
-	height: 400px;
-	margin-top: -200px;
+	height: 450px;
+	margin-top: -225px;
 	background: #111111;
 	border-style: solid;
 	border-width: 1px;
@@ -425,8 +440,6 @@ input:focus {
 .blurBackground{
 	top: 0;
 	left: 0;
-	margin-right: auto;
-	margin-left: auto;
 	position: fixed;
 	overflow: hidden;
 	width: 100%;
@@ -438,15 +451,15 @@ input:focus {
 
 .blurBackImg {
 	overflow: hidden;
-	width: 10%;
-	height: 10%;
+	width: 34%;
+	height: 34%;
 
 	-webkit-transform-origin: top left;
-	-webkit-transform: scale(10) !important;
+	-webkit-transform: scale(3) !important;
 	-webkit-perspective: 1000;
 
 	transform-origin: top left;
-	transform: scale(10);
+	transform: scale(3);
 }
 
 .blurBackImg2 {
@@ -457,8 +470,8 @@ input:focus {
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	
-	-webkit-filter: blur(2px);
-	filter: blur(2px);
+	-webkit-filter: blur(5px) brightness(0.6);
+	filter: blur(5px) brightness(0.6);
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
 }
@@ -505,10 +518,7 @@ body a {
 
 .npBackground{
 	top: 0;
-	right: 0;
 	left: 0;
-	margin-right: auto;
-	margin-left: auto;
 	position: fixed;
 	overflow: hidden;
 	width: 100%;
@@ -519,15 +529,15 @@ body a {
 
 .npBackImg {
 	overflow: hidden;
-	width: 10%;
-	height: 10%;
+	width: 34%;
+	height: 34%;
 	
 	-webkit-transform-origin: top left;
-	-webkit-transform: scale(10) !important;
+	-webkit-transform: scale(3) !important;
 	-webkit-perspective: 1000;
-
+	
 	transform-origin: top left;
-	transform: scale(10);
+	transform: scale(3);
 	
 }
 
@@ -538,8 +548,8 @@ body a {
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	
-	-webkit-filter: blur(5px);
-	filter: blur(5px);
+	-webkit-filter: blur(10px) brightness(0.6);;
+	filter: blur(10px) brightness(0.6);
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
 }

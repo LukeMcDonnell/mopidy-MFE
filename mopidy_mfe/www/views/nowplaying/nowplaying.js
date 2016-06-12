@@ -26,10 +26,11 @@ angular.module('mopidyFE.nowplaying', [
  	$rootScope.showFooter = false;
  	$rootScope.showHeaderBG = false;
  	$scope.showContext = false;
- 	var npElement = document.getElementById( 'npElement' );
  	//
 	// Orientation changes:
 	//
+	var npElement = document.getElementById( 'npElement' );
+	
 	function resize(){
 		if (window.innerWidth > (window.innerHeight-50)){
 			$scope.orientation = 'horizontal';
@@ -38,14 +39,20 @@ angular.module('mopidyFE.nowplaying', [
 		}
 		npElement.style.height = (window.innerHeight) + 'px';
 		
+		if($rootScope.widescreen){
+			$("#npBackground").css({'width': 'calc(100% - 300px)'});
+		} else {
+			$("#npBackground").css({'width': '100%'});
+		}
+		
+		
 		$timeout(function () {
     	$scope.$broadcast('rzSliderForceRender');
     }, 100);
 	}
-	$(window).resize(function(){
-   	resize();
-   	$scope.$apply();
-	});
+	$scope.$on('screenResize', function(event, data) {
+		resize();
+	})
 	resize();	
 	
 });
