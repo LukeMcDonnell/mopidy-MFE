@@ -861,6 +861,8 @@ body a {
 	bottom: 0;
 	height: 50px; 
 	z-index: 11119; 
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 }
 .footer h1 {
 	font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
@@ -921,17 +923,15 @@ body a {
 
 .footerBackImg {
 	overflow: hidden;
-	width: 50%;
-	height: 50%;
+	width: 10%;
+	height: 10%;
 
 	-webkit-transform-origin: top left;
-	-webkit-transform: scale(2) !important;
+	-webkit-transform: scale(10) !important;
 	-webkit-perspective: 1000;
-	-webkit-backface-visibility: hidden;
-	-webkit-transform: translateZ(0);
 
 	transform-origin: top left;
-	transform: scale(2);
+	transform: scale(10);
 }
 
 .footerBackImg2 {
@@ -942,9 +942,8 @@ body a {
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 		
-	-webkit-filter: blur(15px) brightness(0.7);
-	-webkit-perspective: 1000;	
-	filter: blur(15px) brightness(0.7);
+	-webkit-filter: blur(5px);
+	filter: blur(5px);
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0);
 }
