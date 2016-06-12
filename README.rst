@@ -25,7 +25,7 @@ Project resources
 
 Changelog
 =========
-v0.4.6 (2016-06-12)
+v0.4.7 (2016-06-12)
 ------------------
 - Fixed Bug in caching service that would throw an error under certain conditions.
 - Fixed css error causing slow loading of backgrounds.
