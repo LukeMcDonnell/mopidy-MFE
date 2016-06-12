@@ -91,15 +91,17 @@ angular.module('mopidyFE.cache', [])
 		},
 		
 		cacheItem: function(uri,data){
+			iCache = JSON.parse(ls.iCache);
 			var n = _.findIndex(iCache, { 'u': uri });
 			if (n == -1){
 				iCache.push({u: uri, d: data, ts: new Date().getTime()})
 			}else {
 				iCache[n].ts = new Date().getTime();
 			}
-			if(iCache.length >= iCacheMax){
+			if(iCache.length > iCacheMax){
 				iCache.shift();
 			}
+			
 			ls.iCache = JSON.stringify(iCache);
 		},
 		
@@ -115,6 +117,7 @@ angular.module('mopidyFE.cache', [])
 		},
 		
 		cacheBrowse: function(uri,data){
+			bCache = JSON.parse(ls.bCache);
 			var n = _.findIndex(bCache, { 'u': uri });
 			if (n == -1){
 				bCache.push({u: uri, d: data, ts: new Date().getTime()})
@@ -139,6 +142,7 @@ angular.module('mopidyFE.cache', [])
 		},
 		
 		cacheSearch: function(uri,data){
+			bCache = JSON.parse(ls.bCache);
 			var n = _.findIndex(sCache, { 'u': uri });
 			if (n == -1){
 				sCache.push({u: uri, d: data, ts: new Date().getTime()})
