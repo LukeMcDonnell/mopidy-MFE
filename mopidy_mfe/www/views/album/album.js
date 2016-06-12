@@ -33,8 +33,10 @@ angular.module('mopidyFE.album', ['ngRoute'])
 	    if (data.length > 0){
 		    cacheservice.cacheItem(uri, data);
 				//sort data
-				data = data.sort(function(a, b){return a.track_no-b.track_no});
-				data = data.sort(function(a, b){return a.disc_no-b.disc_no});
+				data = _.chain(data)
+					.sortBy('track_no')
+					.sortBy('disc_no')
+					.value()
 				
 				$scope.tracks = data
 	      // Extract album and artist(s) from first track.
