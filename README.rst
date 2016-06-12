@@ -27,6 +27,12 @@ Changelog
 =========
 v0.4.6 (2016-06-12)
 ------------------
+- Fixed Bug in caching service that would throw an error under certain conditions.
+- Fixed css error causing slow loading of backgrounds.
+- Fixed bug in sorting of album tracks.
+
+v0.4.6 (2016-06-12)
+------------------
 - Fixed bug causing now playing to become unresponsive.
 - Improved performance of slide-in menus.
 
