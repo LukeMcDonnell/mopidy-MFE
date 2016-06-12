@@ -45,7 +45,7 @@ angular.module('mopidyFE.lastfm', [])
   function getLfmArtistImg (item) {
     lastfm.artist.getInfo({artist: item.details.artist}, {
       success: function(data){
-      	console.log(data);
+      	//console.log(data);
       	var p = data.artist.image;
       	prep = {medium: p[1]['#text'], large: p[2]['#text'], mega: p[4]['#text']};
       	//cacheservice.addImage(item.details, prep);
@@ -80,7 +80,7 @@ angular.module('mopidyFE.lastfm', [])
 	}	
 	
 	function checkForImages(){
-		console.log("Checking for images...");
+		//console.log("Checking for images...");
 		// MOPIDY GET_IMAGES()
 		var thisPass = []
 		if (queue.img.length){

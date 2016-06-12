@@ -70,6 +70,7 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 			}
 			 
 			$scope.albums = allAlbums;
+			
 			var j = [];
 			for (var i in $scope.albums) {
 				// Attempt to fill in missing artist info.				
@@ -82,7 +83,9 @@ angular.module('mopidyFE.artist', ['ngRoute'])
 									ref : {size: 'medium', id: i, callback: function(err, albumImageUrl, id) {
 										if (!err && albumImageUrl !== undefined && albumImageUrl !== '') {
 											$scope.albums[id].album.lfmImage = albumImageUrl;
-										}}}
+										}
+										$scope.bgReady = true;	
+									}}
 				});
 				
 				
