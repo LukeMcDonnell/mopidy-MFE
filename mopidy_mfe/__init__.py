@@ -4,7 +4,7 @@ import os
 
 from mopidy import config, ext
 
-__version__ = '0.4.8'
+__version__ = '0.4.9'
 
 class MFEExtension(ext.Extension):
     dist_name = 'Mopidy-MFE'
