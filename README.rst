@@ -25,6 +25,12 @@ Project resources
 
 Changelog
 =========
+v0.4.9 (2016-06-12)
+------------------
+- Fixed track sorting bug when adding albums from context menu.
+- Added context menu icons.
+
+
 v0.4.8 (2016-06-12)
 ------------------
 - Fixed Bug in caching service that would throw an error under certain conditions.
